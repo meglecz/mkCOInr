@@ -175,8 +175,8 @@ $t = time;
 
 
 #### Read taxonomy file
-print "\n####\nRead ncbi taxonomy files\n";
-print LOG "\n####\nRead ncbi taxonomy files\n";
+print "\n####\nRead taxonomy\n";
+print LOG "\n####\nRead taxonomy\n";
 
 my %tax; #tax{taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
 read_taxonomy_to_tax_hash(\%tax, $taxonomy);
