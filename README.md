@@ -1,7 +1,7 @@
 # mkCOInr
 
 ## Summary
-MkCOInr is a series of Perl scripts that aims to create **COInr, a large, comprehensive, COI database form NCBI-nucleotide and BOLD**. 
+mkCOInr is a series of Perl scripts that aims to create **COInr, a large, comprehensive, COI database form NCBI-nucleotide and BOLD**. 
 
 COInr is freely available and can be easily downloaded at [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6555985.svg)](https://doi.org/10.5281/zenodo.6555985)
 
