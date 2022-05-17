@@ -116,7 +116,7 @@ mkCOInr
 
 ### Customize database 
 
-The creation of the COInr database is explained in the **Create COInr from BOLD and NCBI section**[link]. You can download this database from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6555985.svg)](https://doi.org/10.5281/zenodo.6555985) and customize it to your needs.
+The creation of the COInr database is explained in the [**Create COInr from BOLD and NCBI section**](### Create COInr from BOLD and NCBI). You can download this database from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6555985.svg)](https://doi.org/10.5281/zenodo.6555985) and customize it to your needs.
 
 Download, untar COInr and move the files to the mkCOInr/COInr directory
 
