@@ -218,7 +218,7 @@ This database can be further customized, or you can simply format it to be ready
 
 Sequences can be selected for a list of taxa and/or for a minimum taxonomic level (species/genus/family/order/class/phylum/kingdom/superkingdom/root)
 
-The input file (-taxon_list) [link] contains a list of taxa and eventually their taxIDs.
+The input file (-taxon_list) [link] contains a list of taxa and eventually their taxIDs. This file must have a title line.
 
 ~~~
 perl select_taxa.pl -taxon_list ../final/taxon_list.txt -tsv ../final/COInr_custom.tsv -taxonomy ../final/taxonomy_updated.tsv  -min_taxlevel species  -outdir ../final/selected/ -out COInr_custom_selected.tsv
