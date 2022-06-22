@@ -1,0 +1,51 @@
+.. _installation_installation:
+
+Installation
+=================================================
+
+Special attention was taken to minimize dependencies. 
+
+Third-party programs
+-------------------------------------------------
+
+The following tools should be installed. (Scripts using the program are in parantheses)
+
+    - `nsdpy <https://github.com/RaphaelHebert/nsdpy>`_ used for downloading sequences from NCBI (:ref:`Hebert and Meglécz, 2022<Hebert_2022_reflist>`, )
+   
+    - `BLAST <https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download>`_ (:ref:`Altschul et al., 1997<Altschul_1997_reflist>`, :ref:`format_bold.pl <format_bold_reference>`, for the check_orientation option, :ref:`format_db.pl <format_db_reference>` for the blast option option)
+   
+    - `vsearch <https://github.com/torognes/vsearch>`_ (:ref:`Rognes et al., 2016<Rognes_2016_reflist>`, :ref:`dereplicate.pl <dereplicate_reference>`, :ref:`pool_and_dereplicate.pl <pool_and_dereplicate_reference>`, :ref:`select_region.pl <select_region_reference>`)
+   
+    - `cutadapt <https://cutadapt.readthedocs.io>`_ (:ref:`Martin, 2011<Martin_2011_reflist>`, :ref:`select_region.pl <select_region_reference>` for the e_pcr option)
+   
+
+All third party programs can be easily installed to a conda environment, but it is not essential.
+
+.. _mkCOInr scripts_installation:
+
+mkCOInr scripts
+-------------------------------------------------
+
+The mkCOInr scripts are written in Perl, no installation is necessary to run them apart from the Perl interpreter already installed in all unix systems. Just download the scripts directory and you are ready.
+
+.. _run_mkCOInr_installation:
+
+run mkCOInr scripts
+-------------------------------------------------
+
+The scripts were written and tested on Linux. MacOS users will probably be able to run them. I suggest `WSL <https://docs.microsoft.com/en-us/windows/wsl/>`_  for Windows users.
+
+**To run any of the scripts, open a terminal in the 'scripts' folder and type**
+
+.. code-block:: bash
+
+	cd ~/mkCOInr/scripts
+	perl name_of_the_script.pl -argument_name argument_value
+
+
+This list of arguments and options can be obtained by typing
+
+.. code-block:: bash
+
+	perl name_of_the_script.pl -help
+
