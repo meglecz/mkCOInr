@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overview of mkCOInr &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="mkCOInr - Make and customize COInr, a comprehensive COI database form NCBI-nucleotide and BOLD" href="../index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="overview-of-mkcoinr">
+<h1>Overview of mkCOInr<a class="headerlink" href="#overview-of-mkcoinr" title="Permalink to this headline">¶</a></h1>
+<p>mkCOInr is a series of Perl scripts that aims to create <strong>COInr, a large, comprehensive, COI database from NCBI-nucleotide and BOLD</strong>.</p>
+<p>COInr is freely available and can be easily downloaded from <a class="reference external" href="https://zenodo.org/badge/DOI/10.5281/zenodo.6555985.svg)](https://doi.org/10.5281/zenodo.6555985">Zenodo</a></p>
+<p>It is planned to produce a new version annually.</p>
+<p>Further scripts allow users to customize the database.</p>
+<dl class="simple">
+<dt>Major features of the creation ofCOInr:</dt><dd><ul class="simple">
+<li><p>Mass download of sequences and their taxonomic lineages from NCBI-nucleotide and BOLD databases</p></li>
+<li><p>TaxIDs are used to avoid problems with homonyms and synonyms</p></li>
+<li><p>Creation of a coherent taxID system. The hierarchical structure of the NCBI taxIDs is completed if necessary with new, negative taxIDs.</p></li>
+<li><p>When adding sequences with unknown taxIDs, taxon names are matched to already existing taxonomic lineages in the database to identify a correct existing taxID, or to assign a new one.</p></li>
+<li><p>Taxonomically aware demultiplexing</p></li>
+<li><p>Creation of a ready-to-use database in BLAST, RDP_classifier QIIME or a FULL tsv format</p></li>
+</ul>
+</dd>
+<dt><strong>COInr</strong></dt><dd><ul class="simple">
+<li><p>Is not specific to a particular region of the COI gene (sequences can be partial).</p></li>
+<li><p>All cellular organisms are included, even Bacteria.</p></li>
+<li><p>Sequences with incomplete lineages (e.g. assigned to a family without further precision) are present in the database</p></li>
+<li><p>Taxa are taken into account only with correct latin name formats (e.g. instead of ‘Proterorhinus sp. BOLD:EUFWF4948-19’, the sequence is assigned to <em>Proterorhinus</em> genus without a species name)</p></li>
+</ul>
+</dd>
+</dl>
+<p>The database can be used directly for similarity-based taxonomic assignations of metabarcoding data with any COI marker (primer pairs) of any geographical regions or target group.</p>
+<p>Alternatively, the <strong>database can be used as a starting point to create smaller, more specific custom databases</strong>.</p>
+<p>Sequences can be selected for :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A particular gene region (amplicon of a given primer pair) using <a class="reference internal" href="reference.html#select-region-reference"><span class="std std-ref">select_region</span></a></p></li>
+<li><p>List of taxa (sequences of a taxon list can be eiter selected or eliminated) using <a class="reference internal" href="reference.html#select-taxa-reference"><span class="std std-ref">select_taxa</span></a></p></li>
+<li><p>User-defined minimal taxonomic resolution using <a class="reference internal" href="reference.html#select-taxa-reference"><span class="std std-ref">select_taxa</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>Additionally, it is also possible to add custom sequences.</p>
+<p>This can save a considerable amount of time and effort, since one of the most important challenges of creating a custom database is the mass downloading of the sequences and their pooling into a coherent taxonomic system.</p>
+<div class="figure align-default" id="id1">
+<span id="fig1-flowchart"></span><a class="reference internal image-reference" href="../_images/COInr_flowchart_readme.png"><img alt="Figure 1" src="../_images/COInr_flowchart_readme.png" style="width: 665.0px; height: 530.0px;" /></a>
+<p class="caption"><span class="caption-text"><strong>Figure 1.</strong> The full pipeline to create COInr and options to make a custom database.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p><strong>Further precisions</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The taxonomic origin of the sequences is not checked, but taken as a face value from the source database.</p></li>
+<li><p>At the scale of the complete database I did not find a satisfactory method to blacklist sequences that are probably incorrectly assigned. However, if a small custom database is produced, the use of a phylogenetic method like <a class="reference external" href="https://github.com/amkozlov/sativa">SATIVA</a> becomes feasible and recommended to eliminate sequences of dubious origin.</p></li>
+</ul>
+</div></blockquote>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">mkCOInr - Make and customize COInr, a comprehensive COI database form NCBI-nucleotide and BOLD</a></li>
+      <li>Next: <a href="installation.html" title="next chapter">Installation</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

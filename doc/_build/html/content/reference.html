@@ -1,0 +1,859 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Description &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Input/Output" href="io.html" />
+    <link rel="prev" title="Tutorial" href="tutorial.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="description">
+<h1>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="add-taxids-pl">
+<span id="add-taxids-reference"></span><h2>add_taxids.pl<a class="headerlink" href="#add-taxids-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="aim">
+<h3>Aim<a class="headerlink" href="#aim" title="Permalink to this headline">¶</a></h3>
+<p>For each lineage</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Find the smallest taxon that matches an already existing <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a>  in <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+<li><p>Assign arbitrary, negative taxIDs to taxa under this taxon</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="input-files">
+<h3>Input files<a class="headerlink" href="#input-files" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>lineages (<a class="reference internal" href="io.html#lineage-tsv-without-taxid-io"><span class="std std-ref">lineage tsv without taxID</span></a>; output of <a class="reference internal" href="#format-custom-reference"><span class="std std-ref">format_custom.pl</span></a> or <a class="reference internal" href="#format-bold-reference"><span class="std std-ref">format_bold.pl</span></a>)</p></li>
+<li><p>sequences (<a class="reference internal" href="io.html#sequence-tsv-without-taxid-io"><span class="std std-ref">sequence tsv without taxID</span></a>)</p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="parameters-options">
+<h3>Parameters/options<a class="headerlink" href="#parameters-options" title="Permalink to this headline">¶</a></h3>
+<p>NONE</p>
+</div>
+<div class="section" id="algorithm">
+<h3>Algorithm<a class="headerlink" href="#algorithm" title="Permalink to this headline">¶</a></h3>
+<p>For each lineage finds the lowest taxon that matches an already existing <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a> :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Finds the smallest taxon that matches an already existing taxID (taking into account all taxIDs in the input taxonomy file)</p></li>
+<li><p>Accepts taxID if at least 0.6 of the taxa in the upward input lineages matches the lineage of the taxID (for species level do not count the genus, since it matches necessarily the species name) OR Both the input taxon and taxID have a phylum rank</p></li>
+<li><p>If the match between the input lineage and the taxID lineage is &lt;=0.25, go to the next taxlevel</p></li>
+<li><p>If the match between the input lineage and the taxID lineage is between 0.25 and 0.6, print lineage to ambiguous file, and it should be checked manually</p></li>
+</ul>
+</div></blockquote>
+<p>The search for an existing taxID, takes into account</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Existing NCBI or previous arbitrary (negative) taxIDs</p></li>
+<li><p>All synonym taxon names in the taxonomy file</p></li>
+<li><p>If there are more than one taxIDs for the taxon name, take the one with the highest proportion of taxa matching the upwards lineage and then the one that has the same taxonomic rank</p></li>
+</ul>
+</div></blockquote>
+<p>If there is no taxID for the lowest taxonomic levels in the lineage, assign arbitrary negative taxIDs to them.
+New taxIDs are linked as a child to an existing taxID, and the taxonomy file is updated with them.</p>
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequences_with_taxIDs.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#lineage-tsv-with-taxid-add-taxids-io"><span class="std std-ref">lineages_with_taxIDs.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#ambiguous-lineages-io"><span class="std std-ref">ambiguous_lineages.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#sequence-tsv-without-taxid-io"><span class="std std-ref">ambiguous_sequences.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy_updated.tsv</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="dereplicate-pl">
+<span id="dereplicate-reference"></span><h2>dereplicate.pl<a class="headerlink" href="#dereplicate-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Aim<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Taxonomically aware dereplication.</p>
+</div>
+<div class="section" id="id2">
+<h3>Input files<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">tsv sequence tsv with taxID</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p>out (name of the output dereplicated sequence tsv file)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h3>Parameters/options<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>vsearch_path (path to vsearch executables if not in the PATH)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h3>Algorithm<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Compare sequences of the same taxID.
+Delete sequences that are substring of another sequence (100% identity on the overlapping region, and one sequence covers the other completely).
+If more than 10.000 sequences for the same taxID, first, cluster the sequences with 100% of identity using the cluster_fast algorithm of vsearch, than use the substring search for each cluster.</p>
+</div>
+<div class="section" id="id5">
+<h3>Output<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">tsv sequence tsv with taxID</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="download-bold-pl">
+<span id="download-bold-reference"></span><h2>download_bold.pl<a class="headerlink" href="#download-bold-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>Aim<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Download BOLD data in tsv format for a list of taxa.</p>
+</div>
+<div class="section" id="id7">
+<h3>Input files<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#taxon-list-io"><span class="std std-ref">taxon_list</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h3>Parameters/options<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>try_download (integer; Try to download files <em>try_download</em> times if some of the downloaded files are incomplete; Default: 3)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h3>Algorithm<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>the scripts downloads all sequences and lineages for all taxa on the taxon_list from BOLD.</p>
+<p>The taxon_list file was constructed manually from taxa on <a class="reference external" href="https://www.boldsystems.org/index.php/TaxBrowser_Home">https://www.boldsystems.org/index.php/TaxBrowser_Home</a>. Each taxa on the list has less than 500M specimen records on BOLD.
+The taxon_list constructed on 2022-02-24 is available with on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.</p>
+<p>Download is done using BOLD’s API. First a small stat file is downloaded to access the number of records available for the taxa, then the tsv file is downloaded with sequences and metainfo.
+The stript checks if the number of downloaded records corresponds to the expected one (based on stat file).
+If error, it removes the file and retry download try_download times.</p>
+<p>If the file exists already, the download is skiped. In this way, if the program stops (for example hitting wall time on a server), it can be simply restarted and the taxa with successful downloads will not be rerun.</p>
+<p>NOTE: The download for a long list of taxa can take several days since it is not parallelized.
+You can cut up the input list and run each of them on a separate computer and move the output files to the same folder afterwards.</p>
+</div>
+<div class="section" id="id10">
+<h3>Output<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>json file for each taxon with the total number of records</p></li>
+<li><p>tsv file for each taxon with the following columns:</p></li>
+</ul>
+<p>processid   sampleid        recordID        catalognum      fieldnum        institution_storing     collection_code bin_uri phylum_taxID    phylum_name     class_taxID     class_name      order_taxID     order_name      family_taxID    family_name     subfamily_taxID subfamily_name  genus_taxID     genus_name      species_taxID   species_name    subspecies_taxID        subspecies_name identification_provided_by      identification_method   identification_reference        tax_note        voucher_status  tissue_type     collection_event_id     collectors      collectiondate_start    collectiondate_end      collectiontime  collection_notesite_code        sampling_protocol       lifestage       sex     reproduction    habitat associated_specimens    associated_taxa extrainfo       notes   lat     lon     coord_source    coord_accuracy  elev    depth   elev_accuracy   depth_accuracy  country province_state  region  sector  exactsite       image_ids       image_urls      media_descriptors       captions        copyright_holders       copyright_years copyright_licenses      copyright_institutions  photographers   sequenceID      markercode      genbank_accession       nucleotides     trace_ids       trace_names     trace_links     run_dates       sequencing_centers      directions      seq_primers     marker_codes</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="download-taxonomy-pl">
+<span id="download-taxonomy-reference"></span><h2>download_taxonomy.pl<a class="headerlink" href="#download-taxonomy-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>Aim<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Download the NCBI taxonomy dmp files (<a class="reference external" href="https://ftp.ncbi.nih.gov/pub/taxonomy/new_taxdump/">https://ftp.ncbi.nih.gov/pub/taxonomy/new_taxdump/</a>) and prepare <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a> file.</p>
+</div>
+<div class="section" id="input">
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h3>Parameters/options<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>skip_download (0/1; if 1, skips download, only prepares taxonomy file; Default: 0)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id13">
+<h3>Algorithm<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>Downloads ncbi taxonomy dump files from <a class="reference external" href="https://ftp.ncbi.nih.gov/pub/taxonomy/new_taxdump/">https://ftp.ncbi.nih.gov/pub/taxonomy/new_taxdump/</a> to the ncbi_tax subdirectory and decompress them.
+Prepares a <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a> file with all taxIDs in it.</p>
+</div>
+<div class="section" id="id14">
+<h3>Output<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>ncbi_tax subdirectory with dmp files</p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="format-bold-pl">
+<span id="format-bold-reference"></span><h2>format_bold.pl<a class="headerlink" href="#format-bold-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h3>Aim<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Prepare a single sequence file and a lineage file from all tsv files downloaded from BOLD.
+Clean and orient sequences.</p>
+</div>
+<div class="section" id="id16">
+<h3>Input files<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>download_dir (name of the folder containing the downloaded BOLD tsv files)</p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id17">
+<h3>Parameters/options<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>marker_list (List of markers to be selected; Default:  ‘COI-5P COI-3P’)</p></li>
+<li><p>check_name (0/1; If 1 keeps only taxa with valid Latin name format: Default: 1)</p></li>
+<li><p>max_n (positive integer; eliminates sequences with max_n or more consecutive Ns; Default:5)</p></li>
+<li><p>min_length (positive integer; minimum length of the cleaned sequence; Default:100)</p></li>
+<li><p>max_length (positive integer; maximum length of the cleaned sequence; Default:2000)</p></li>
+<li><p>check_orientation (0/1; if 1, checks the orientation of the sequences; Default: 0)</p></li>
+<li><p>blast_path (Optional; Path to the BLAST executables if they is not in your PATH)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id18">
+<h3>Algorithm<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<p>Clean downloaded files and pool information to lineage and sequence files</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Eliminate partial lines (mostly errors in the database)</p></li>
+<li><p>Select sequences for a given marker list</p></li>
+<li><dl class="simple">
+<dt>Clean sequences</dt><dd><ul>
+<li><p>Correct sequence IDs</p></li>
+<li><p>Gaps deleted</p></li>
+<li><p>Non-TCGA changed to N</p></li>
+<li><p>External Ns deleted</p></li>
+<li><p>Sequences with more than max_n consecutive Ns are deleted</p></li>
+<li><p>Keep sequences with length in a min_length and max_length range</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Clean lineages</dt><dd><ul>
+<li><p>If check_name, keep only names matching a correct Latin name format (only letters, spaces and -, correct capitalization)</p></li>
+<li><p>Pool identical lineages into one line with the list of valid sequence IDs in the last field</p></li>
+<li><p>Eliminate lines with environmental and metagenomic samples</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Orient sequence (optional)</dt><dd><ul>
+<li><p>Count the TAA, TAG STOP codons in each reading frame</p></li>
+<li><p>Choose the orientation where there is no STOP codon</p></li>
+<li><p>If STOP codon in all frames OR stand + and - among the frames without STOP codon, class it as ambiguous</p></li>
+<li><p>Make a small “reference” db form randomly sampled oriented sequences</p></li>
+<li><p>Blast ambiguous sequences to check orientation</p></li>
+<li><p>Write sequences without hit to the bold_ambiguous_orientation.fas</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id19">
+<h3>Output<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-without-taxid-io"><span class="std std-ref">bold_sequences.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#lineage-tsv-without-taxid-io"><span class="std std-ref">bold_lineages.tsv</span></a></p></li>
+<li><p>bold_partial_lines.tsv (lines in the input tsv files that did not have sequences)</p></li>
+<li><p>bold_ambiguous_orientation.fas (sequences that could not be oriented in check_orientation option)</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="format-custom-pl">
+<span id="format-custom-reference"></span><h2>format_custom.pl<a class="headerlink" href="#format-custom-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h3>Aim<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>Make a lineage file for each input taxon name.
+Prepare input for add_taxid.pl</p>
+<p>The output lineage file should be checked manually</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>To see if the suggested lineages are plausible</p></li>
+<li><p>To select the correct lineage if there is more than one (1 in homonymy column) for the same taxon name</p></li>
+</ul>
+</div></blockquote>
+<p>Before the next step (add_taxids.pl)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Correct/delete/complete lines if lineage in not correct. Try to use taxon names compatible with NCBI taxonomy (<a class="reference external" href="https://www.ncbi.nlm.nih.gov/taxonomy/">https://www.ncbi.nlm.nih.gov/taxonomy/</a> )</p></li>
+<li><p>Delete the homonymy column</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id21">
+<h3>Input<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#custom-sequences-tsv-io"><span class="std std-ref">custom sequneces</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id22">
+<h3>Parameters/options<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>max_n (positive integer; eliminate sequences with max_n or more consecutive Ns; Default: 5)</p></li>
+<li><p>min_length (positive integer; minimum length of the cleaned sequence; Default: 100)</p></li>
+<li><p>max_length (positive integer; maximum length of the cleaned sequence; Default: 2000 )</p></li>
+<li><p>check_seqid_format (0/1; if 1 check if seqID resemble to bold and ncbi formats, print out warnings, if yes; Default: 1)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id23">
+<h3>Algorithm<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>Match names to all taxon names in <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a> (including synonyms)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Write a lineage to all taxon names where name matches to an existing name in taxonomy.tsv</p></li>
+<li><p>If homonymy, create a lineage for each homonym, and write 1 to the homonymy column</p></li>
+<li><p>If taxon name corresponds to a Latin name format (Genus species) and species name is not known, get the lineage for the genus.</p></li>
+</ul>
+</div></blockquote>
+<p>If the check_seqid_format option is activated</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>If some of the sequence IDs are not unique, list the duplicates IDs and exit</p></li>
+<li><p>If sequence ID format is similar to accessions used in BOLD and NCBI/EMBL/DDBJ, list IDs but continue</p></li>
+<li><p>A fairly safe format is xxx_xxx####, where x is a letter, # is a digit</p></li>
+</ul>
+</div></blockquote>
+<p>Clean sequences</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>gaps deleted</p></li>
+<li><p>non-TCGA changed to N</p></li>
+<li><p>external Ns deleted</p></li>
+<li><p>sequences with more than max_n consecutive Ns are deleted</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id24">
+<h3>Output<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#custom-lineages-tsv-io"><span class="std std-ref">custom_lineages.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#sequence-tsv-without-taxid-io"><span class="std std-ref">custom_sequences.tsv</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="format-db-pl">
+<span id="format-db-reference"></span><h2>format_db.pl<a class="headerlink" href="#format-db-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id25">
+<h3>Aim<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<p>Make a database in blast, rdp, qiime or full tsv format from the <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv</span></a> and <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a> files</p>
+</div>
+<div class="section" id="id26">
+<h3>Input files<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+<li><p>outfmt (rdp/blast/qiime/full; choose the format of the database)</p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p>out (string for naming the output files)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id27">
+<h3>Parameters/options<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>blast_path (Optional; path to the blast executables if it is not in your PATH)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id28">
+<h3>Algorithm<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<p>BLAST db</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Prepare a fasta file with sequneces and the taxIDs (seqID, taxID)</p></li>
+<li><p>Run the <em>makeblastdb</em> commande of blast to make indexed files ready to be used as a blast database</p></li>
+</ul>
+</div></blockquote>
+<p>RDP, QIIME and FULL</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Prepare a ranked lineage for each taxID</p></li>
+<li><p>Taxon names are concatenated with taxID to avoid homonymy</p></li>
+<li><p>Missing taxonomic levels are completed by using the name of a higher-level taxon concatenated with the taxonomic ranks</p></li>
+<li><p>Prepare a trainseq fasta and a taxon file for <a class="reference internal" href="io.html#rdp-io"><span class="std std-ref">rdp</span></a> and <a class="reference internal" href="io.html#qiime-io"><span class="std std-ref">qiime</span></a></p></li>
+<li><p>Prepare a single tsv file for <a class="reference internal" href="io.html#full-tsv-io"><span class="std std-ref">full</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>The  trainseq fasta and the taxon files can be used by the <em>train</em> command of rdp_classifier or <em>feature-classifier</em> of QIIME to train the dataset before classification</p>
+<p>The full tsv format is an easy to parse tsv file with <a class="reference internal" href="glossary.html#ranked-lineage-glossary"><span class="std std-ref">ranked lineage</span></a> and <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a> for each sequence.</p>
+</div>
+<div class="section" id="id29">
+<h3>Output<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<p>BLAST option</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#blast-database-files-io"><span class="std std-ref">Indexed files</span></a> ready to be used as a BLAST database</p></li>
+</ul>
+</div></blockquote>
+<p>RDP option</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#rdp-trainseq-fasta-io"><span class="std std-ref">RDP trainseq fasta</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#rdp-taxon-file-io"><span class="std std-ref">RDP taxon file</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>QIIME option</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#qiime-trainseq-fasta-io"><span class="std std-ref">QIIME trainseq fasta</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#qiime-taxon-file-io"><span class="std std-ref">QIIME taxon file</span></a></p></li>
+</ul>
+</div></blockquote>
+<p>FULL option</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#full-tsv-io"><span class="std std-ref">tsv file</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="format-ncbi-pl">
+<span id="format-ncbi-reference"></span><h2>format_ncbi.pl<a class="headerlink" href="#format-ncbi-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id30">
+<h3>Aim<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<p>Format the CDS and taxID files to a sequence  <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv file with taxIDs</span></a>.
+Select and clean sequences.</p>
+</div>
+<div class="section" id="id31">
+<h3>Input files<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>cds (CDS fasta file; output of nsdpy)</p></li>
+<li><p>taxids (tsv file with the seqID and taxID columns; output of nsdpy)</p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id32">
+<h3>Parameters/options<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>check_name (0/1; If one keep only taxa with valid Latin name fomat: Default: 1)</p></li>
+<li><p>max_n (positive integer; eliminate sequences with max_n or more consecutive Ns; Default: 5)</p></li>
+<li><p>min_length (positive integer; minimum length of the cleaned sequence; Default: 100)</p></li>
+<li><p>max_length (positive integer; maximum length of the cleaned sequence; Default: 2000)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id33">
+<h3>Algorithm<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>Select sequences</dt><dd><ul>
+<li><p>Check if gene names and protein names correspond to COI</p></li>
+<li><p>Eliminate genes if they have introns</p></li>
+<li><p>Can have more than one COI gene in the same mitochondrion</p></li>
+<li><p>Accept only if valid taxID, replace old non-valid taxIDs by up-to-date taxIDs</p></li>
+<li><p>Eliminate sequences from environmental and metagenomic samples</p></li>
+<li><p>If check_name is activated, take the taxID of the smallest taxon with a valid Latin name, otherwise keep the original taxID.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Clean sequences</dt><dd><ul>
+<li><p>Upper case</p></li>
+<li><p>Replace non-ATCG by N</p></li>
+<li><p>Delete gaps and external Ns</p></li>
+<li><p>Delete sequence if more than max_n consecutive Ns</p></li>
+<li><p>Keep sequences if length is between min_length and max_length</p></li>
+<li><p>Sequences are already in a correct orientation in the input file, since that are coming from CDS files</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id34">
+<h3>Output<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">ncbi_sequences.tsv</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="pool-and-dereplicate-pl">
+<span id="pool-and-dereplicate-reference"></span><h2>pool_and_dereplicate.pl<a class="headerlink" href="#pool-and-dereplicate-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id35">
+<h3>Aim<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<p>Pool 2 dereplicated sequence tsv files and do a taxonomically-aware dereplication for taxIDs present in both input files</p>
+</div>
+<div class="section" id="id36">
+<h3>Input files<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">tsv1</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">tsv2</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p>out (name of the output dereplicated sequence tsv file)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id37">
+<h3>Parameters/options<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>vsearch_path (path to vsearch executables if not in the PATH)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id38">
+<h3>Algorithm<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<p>Pool sequences from two input tsv files.
+The dereplication is done only for taxID shared by the two input files, since they have been dereplicated individually.
+The algorithm of dereplication is identical to the one used in <a class="reference internal" href="#dereplicate-reference"><span class="std std-ref">dereplicate.pl</span></a></p>
+</div>
+<div class="section" id="id39">
+<h3>Output<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv with taxIDs</span></a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="select-region-pl">
+<span id="select-region-reference"></span><h2>select_region.pl<a class="headerlink" href="#select-region-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id40">
+<h3>Aim<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<p>Select a target region from input sequences.
+As an input, either a primer pair should be given to identify the target region in some sequences by e-pcr, or a fasta file containing taxonomically diverse sequences limited to the target region.
+The sequences are then aligned to the target sequences and trimmed according to the alignment</p>
+</div>
+<div class="section" id="id41">
+<h3>Input files<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv with taxIDs</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p>target_region_fas (A small phylogenetically diverse fasta file with sequences already trimmed to the target region; Optional; Can be produced by e-pcr included in the script.)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id42">
+<h3>Parameters/options<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
+<p><em>E-pcr related parameters</em></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>e_pcr  (0/1; if 1, identify the target region of the sequences by e-pcr in the first step)</p></li>
+<li><p>fw (optional; if e_pcr is done, the sequence of the forward primer that amplifies the target region)</p></li>
+<li><p>rv (optional; if e_pcr is done, the sequence of the reverse primer that amplifies the target region)</p></li>
+<li><p>trim_error (real [0-1], the proportion of mismatches allowed between the primer and the sequence during the e_pcr; Default : 0.3)</p></li>
+<li><p>min_overlap (the minimum overlap between primer and the sequence during e-pcr; Defalut 10)</p></li>
+<li><p>min_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 100)</p></li>
+<li><p>max_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 2000)</p></li>
+<li><p>cutadapt_path (Optional; Path to cutadapt if it is not in your PATH)</p></li>
+</ul>
+</div></blockquote>
+<p><em>usearch_global related parameters</em> for trimming sequneces according to the alignments</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tcov_hsp_perc (minimum coverage of the target sequence in <em>usearch_global</em> hits; Default: 0.5)</p></li>
+<li><p>perc_identity (minimum percentage of identity between the sequence and the target in <em>usearch_global</em> hits; Default: 0.7)</p></li>
+<li><p>vsearch_path (Optional; path to the vsearch if it is not in your PATH)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id43">
+<h3>Algorithm<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<p>A fasta file is prepared from the input tsv sequence file.</p>
+<p>Sequences are aligned to a small pool of target sequences already limited to the target region (target_region_fas).
+The alignment is done by the <em>usearch_global</em> command of vsearch which makes global alignments (unlike BLAST).</p>
+<p>The best hit is used for each sequence to orient and trim them to the target region.
+Only hits with a minimum target coverage (tcov_hsp_perc) and percentage of identity (perc_identity) are used.</p>
+<p>The target_region_fas file can be either previously prepared by the users and given as an input,
+or be produced by e-pcr using the e-pcr related parameters.</p>
+<p>To reduce runtime, sequences in the target_region_fas are clustered by -cluster_fast algorithm of vsearch
+and the centroids are used as a target file for the <em>usearch_global</em></p>
+</div>
+<div class="section" id="id44">
+<h3>Output<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>cutadapt_trimmed.fas (if e_pcr; fasta file with sequences recognized and trimmed by E-pcr; equivalent of target_region_fas )</p></li>
+<li><p>target_centroids.fas (fasta file of centroids of the clustering of target_region_fas or cutadapt_trimmed.fas)</p></li>
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">trimmed.tsv</span></a> (sequence tsv files with taxIDs trimmed to the target region)</p></li>
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">untrimmed.tsv</span></a> (sequence tsv files with taxIDs where the target region is not found)</p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="select-taxa-pl">
+<span id="select-taxa-reference"></span><h2>select_taxa.pl<a class="headerlink" href="#select-taxa-pl" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id45">
+<h3>Aim<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<p>Select or eliminate  sequences that belong to taxa on a taxon list.
+Select sequences with a minimum taxonomic resolution (e.g. assigned at least to genus).</p>
+</div>
+<div class="section" id="id46">
+<h3>Input files<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv with taxIDs</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxon-list-io"><span class="std std-ref">taxon_list</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#outdir-io"><span class="std std-ref">outdir</span></a></p></li>
+<li><p>out (name of the output dereplicated sequence tsv file)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id47">
+<h3>Parameters/options<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p>negative_list (1/0; if 1, keeps all taxa except the ones on the taxon list; Default: 0)</p></li>
+<li><p>min_taxlevel (species/genus/family/order/class/phylum/kingdom/root; Default: root)</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id48">
+<h3>Algorithm<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<p>Select sequences that belong to the taxa on a taxon list if <em>negative_list==0</em> (default). Select sequences that DO not belong to the taxa on in a taxon list, if <em>negative_list==1</em>.</p>
+<p>Keep only sequences that are assigned to at least to <em>min_taxlevel</em> rank.</p>
+<p>If taxIDs are not given in the taxon_list file the script uses all taxIDs that matches the taxon name.</p>
+<p>A lineage file is written for each taxon in taxon_list and the corresponding taxIDs.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>It should be checked manually if lineages are coherent with the target taxa</p></li>
+<li><p>Homonymy column indicates if there are more than one taxID for a taxon</p></li>
+<li><p>If there are incoherent lineages, make a new taxon_list file based on the lineage file including taxon names and taxIDs and rerun the script with the new taxon_list.</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id49">
+<h3>Output<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv with taxIDs</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#lineage-tsv-with-taxid-select-taxa-io"><span class="std std-ref">lineage file with taxIDs</span></a></p></li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#add-taxids-pl">add_taxids.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aim">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-files">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-options">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#algorithm">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dereplicate-pl">dereplicate.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#download-bold-pl">download_bold.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#download-taxonomy-pl">download_taxonomy.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-bold-pl">format_bold.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-custom-pl">format_custom.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-db-pl">format_db.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#format-ncbi-pl">format_ncbi.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pool-and-dereplicate-pl">pool_and_dereplicate.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id35">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id38">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#select-region-pl">select_region.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#select-taxa-pl">select_taxa.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id46">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id47">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id48">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="tutorial.html" title="previous chapter">Tutorial</a></li>
+      <li>Next: <a href="io.html" title="next chapter">Input/Output</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/reference.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

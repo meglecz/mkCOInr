@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input/Output &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Glossary" href="glossary.html" />
+    <link rel="prev" title="Description" href="reference.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="input-output">
+<h1>Input/Output<a class="headerlink" href="#input-output" title="Permalink to this headline">¶</a></h1>
+<p>This list of arguments and options can be obtained by typing</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl name_of_the_script.pl -help
+</pre></div>
+</div>
+<div class="section" id="taxonomy-related-files-or-directories">
+<h2>Taxonomy related files or directories<a class="headerlink" href="#taxonomy-related-files-or-directories" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ncbitax-dir">
+<span id="ncbitax-dir-io"></span><h3>ncbitax_dir<a class="headerlink" href="#ncbitax-dir" title="Permalink to this headline">¶</a></h3>
+<p>Directory containing the NCBI taxonomy dmp files (downloaded by <a class="reference internal" href="reference.html#download-taxonomy-reference"><span class="std std-ref">download_taxonomy.pl</span></a>)</p>
+</div>
+<div class="section" id="taxonomy">
+<span id="taxonomy-io"></span><h3>taxonomy<a class="headerlink" href="#taxonomy" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>tax_id: can be correct NCBI taxID, or arbitrary negative numbers for taxa not in NCBI</p></li>
+<li><p>parent_tax_id: taxiID of the closest parent of tax_id</p></li>
+<li><p>rank: taxonomic rank (e.g. species, genus, subgenus, no_rank)</p></li>
+<li><p>name_txt: Scientifc name of the taxon</p></li>
+<li><p>old_tax_id: taxIDs that have been merged to the tax_id by NCBI; if more than one for a given tax_id, make one line for each old_tax_id</p></li>
+<li><p><a class="reference internal" href="glossary.html#taxlevel-index-glossary"><span class="std std-ref">taxlevel</span></a></p></li>
+<li><p>synonyms: list of synonyms</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tax_id  parent_tax_id   rank    name_txt        old_tax_id      taxlevel        synonyms
+<span class="m">1</span>       <span class="m">1</span>       no rank root            <span class="m">0</span>
+<span class="m">2</span>       <span class="m">131567</span>  superkingdom    Bacteria                <span class="m">1</span>       Prokaryotae<span class="p">;</span>Prokaryota<span class="p">;</span>Procaryotae
+<span class="m">6</span>       <span class="m">335928</span>  genus   Azorhizobium            <span class="m">7</span>
+<span class="m">7</span>       <span class="m">6</span>       species Azorhizobium caulinodans        <span class="m">395</span>     <span class="m">8</span>       Azotirhizobium caulinodans
+-34968  <span class="m">2778801</span> subfamily       Callithamnioideae               <span class="m">6</span>.5
+-35035  -35034  species Fractonotus caelatus            <span class="m">8</span>
+-35036  -35030  family  Ramazzottidae           <span class="m">6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="taxon-list">
+<span id="taxon-list-io"></span><h3>taxon_list<a class="headerlink" href="#taxon-list" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with a list of taxa in the first column. Optionally, taxIDs in the second column.</p>
+<p>Any other columns can follow, they will not be taken into account.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taxon_name      taxID
+Plecoptera      <span class="m">50622</span>
+Lepidoptera
+Diptera
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lineage-files">
+<h2>Lineage files<a class="headerlink" href="#lineage-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lineage-tsv-without-taxid">
+<span id="lineage-tsv-without-taxid-io"></span><h3>lineage tsv without taxID<a class="headerlink" href="#lineage-tsv-without-taxid" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>phylum</p></li>
+<li><p>class</p></li>
+<li><p>order</p></li>
+<li><p>family</p></li>
+<li><p>subfamily</p></li>
+<li><p>genus</p></li>
+<li><p>species</p></li>
+<li><p>seqIDs</p></li>
+</ul>
+</div></blockquote>
+<p>All identical lineages are pooled into a single line, seqIDs are in the last column separated by semicolons</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phylum  class   order   family  subfamily       genus   species seqIDs
+Acanthocephala                                                  <span class="m">12418139</span>
+Acanthocephala  Archiacanthocephala     Gigantorhynchida        Gigantorhynchidae               Mediorhynchus           <span class="m">5445424</span><span class="p">;</span><span class="m">3143887</span>
+Acanthocephala  Archiacanthocephala     Gigantorhynchida        Gigantorhynchidae               Mediorhynchus   Mediorhynchus gallinarum        <span class="m">15188348</span><span class="p">;</span><span class="m">15188349</span><span class="p">;</span><span class="m">5445423</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="lineage-tsv-with-taxid-output-of-select-taxa-pl">
+<span id="lineage-tsv-with-taxid-select-taxa-io"></span><h3>lineage tsv with taxID (output of <a class="reference internal" href="reference.html#select-taxa-reference"><span class="std std-ref">select_taxa.pl</span></a>)<a class="headerlink" href="#lineage-tsv-with-taxid-output-of-select-taxa-pl" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>taxon</p></li>
+<li><p>taxID</p></li>
+<li><p>homonymy</p></li>
+<li><p>number of sequences</p></li>
+<li><p>superkingdom</p></li>
+<li><p>kingdom</p></li>
+<li><p>phylum</p></li>
+<li><p>class</p></li>
+<li><p>order</p></li>
+<li><p>family</p></li>
+<li><p>subfamily</p></li>
+<li><p>genus</p></li>
+<li><p>species</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>taxon   taxID   homonymy        number of sequences     superkingdom    kingdom phylum  class   order   family  genus   species
+Abylidae        <span class="m">316207</span>  <span class="m">0</span>       <span class="m">33</span>      Eukaryota       Metazoa Cnidaria        Hydrozoa        Siphonophorae   Abylidae
+</pre></div>
+</div>
+</div>
+<div class="section" id="lineage-tsv-with-taxid-output-of-add-taxids-pl">
+<span id="lineage-tsv-with-taxid-add-taxids-io"></span><h3>lineage tsv with taxID (output of <a class="reference internal" href="reference.html#add-taxids-reference"><span class="std std-ref">add_taxids.pl</span></a>)<a class="headerlink" href="#lineage-tsv-with-taxid-output-of-add-taxids-pl" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>lowest_taxname</p></li>
+<li><p>lowest_rank</p></li>
+<li><p>lowest_TaxID</p></li>
+<li><p>phylum</p></li>
+<li><p>class</p></li>
+<li><p>order</p></li>
+<li><p>family</p></li>
+<li><p>subfamily</p></li>
+<li><p>genus</p></li>
+<li><p>species</p></li>
+<li><p>seqIDs</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lowest_taxname  lowest_rank     lowest_TaxID    phylum  class   order   family  subfamily       genus   species seqIDs
+Acanthocephala  phylum  <span class="m">10232</span>   Acanthocephala                                                  <span class="m">12418139</span>
+Mediorhynchus   genus   <span class="m">60535</span>   Acanthocephala  Archiacanthocephala     Gigantorhynchida        Gigantorhynchidae               Mediorhynchus           <span class="m">3143887</span><span class="p">;</span><span class="m">5445424</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-lineages-tsv">
+<span id="custom-lineages-tsv-io"></span><h3>custom lineages tsv<a class="headerlink" href="#custom-lineages-tsv" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>phylum</p></li>
+<li><p>class</p></li>
+<li><p>order</p></li>
+<li><p>family</p></li>
+<li><p>subfamily</p></li>
+<li><p>genus</p></li>
+<li><p>species</p></li>
+<li><p>homonymy</p></li>
+<li><p>seqIDs</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>phylum  class   order   family  subfamily       genus   species homonymy        seqIDs
+Cnidaria        Hydrozoa        Leptothecata    Aglaopheniidae          Aglaophenia             <span class="m">0</span>       OEB_MLR10
+Bryozoa Gymnolaemata    Cheilostomatida Margarettidae           Margaretta      Margaretta cereoides    <span class="m">1</span>       OEB_EH13<span class="p">;</span>OEB_EH17<span class="p">;</span>OEB_EH19
+Streptophyta    Magnoliopsida   Gentianales     Apocynaceae             Margaretta      Margaretta cereoides    <span class="m">1</span>       OEB_EH13<span class="p">;</span>OEB_EH17<span class="p">;</span>OEB_EH19
+</pre></div>
+</div>
+</div>
+<div class="section" id="ambiguous-lineages">
+<span id="ambiguous-lineages-io"></span><h3>ambiguous lineages<a class="headerlink" href="#ambiguous-lineages" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>match_lineage_proportion</p></li>
+<li><p>ncbi_taxname</p></li>
+<li><p>ncbi_taxlevel</p></li>
+<li><p>ncbi_TaxID</p></li>
+<li><p>phylum</p></li>
+<li><p>class     order</p></li>
+<li><p>family</p></li>
+<li><p>subfamily</p></li>
+<li><p>genus</p></li>
+<li><p>species</p></li>
+<li><p>ncbi_superkingdom</p></li>
+<li><p>ncbi_kingdom</p></li>
+<li><p>ncbi_phylum</p></li>
+<li><p>ncbi_class</p></li>
+<li><p>ncbi_order</p></li>
+<li><p>ncbi_family</p></li>
+<li><p>ncbi_genus</p></li>
+<li><p>ncbi_species</p></li>
+<li><p>ncbi_taxname</p></li>
+<li><p>seqIDs</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>match_lineage_proportion        ncbi_taxname    ncbi_taxlevel   ncbi_TaxID      phylum  class   order   family  subfamily       genus   species ncbi_superkingdom       ncbi_kingdom    ncbi_phylum     ncbi_class      ncbi_order      ncbi_family     ncbi_genus      ncbi_species    ncbi_taxname    seqIDs
+<span class="m">0</span>.4     Bolbophorus     genus   <span class="m">186184</span>  Platyhelminthes Trematoda       Diplostomida    Diplostomidae   Bolbophorinae   Bolbophorus             Eukaryota       Metazoa Platyhelminthes Trematoda       Strigeidida     Bolbophoridae   Bolbophorus             Bolbophorus     <span class="m">12416284</span><span class="p">;</span><span class="m">9942141</span><span class="p">;</span><span class="m">15268484</span><span class="p">;</span><span class="m">12416286</span><span class="p">;</span><span class="m">12416287</span><span class="p">;</span><span class="m">12416283</span><span class="p">;</span><span class="m">12417832</span><span class="p">;</span><span class="m">3490428</span><span class="p">;</span><span class="m">12417833</span><span class="p">;</span><span class="m">5993483</span><span class="p">;</span><span class="m">12416282</span><span class="p">;</span><span class="m">12416285</span><span class="p">;</span><span class="m">12416280</span><span class="p">;</span><span class="m">12416281</span>
+<span class="m">0</span>.33    Sylon hippolytes        species <span class="m">399056</span>  Arthropoda      Hexanauplia             Clistosaccidae          Sylon   Sylon hippolytes        Eukaryota       Metazoa Arthropoda      Thecostraca             Sylonidae       Sylon   Sylon hippolytes        Sylon hippolytes        <span class="m">2631808</span><span class="p">;</span><span class="m">2631807</span><span class="p">;</span><span class="m">2631809</span><span class="p">;</span><span class="m">2631789</span><span class="p">;</span><span class="m">2631806</span><span class="p">;</span><span class="m">2631805</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sequence-tsv-files">
+<h2>Sequence tsv files<a class="headerlink" href="#sequence-tsv-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sequence-tsv-without-taxid">
+<span id="sequence-tsv-without-taxid-io"></span><h3>sequence tsv without taxID<a class="headerlink" href="#sequence-tsv-without-taxid" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>seqID</p></li>
+<li><p>sequence</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>seqID   sequence
+<span class="m">12418139</span>        AGATATTGGTATATTATATATTTTGTTTGCGTTATGAAGAGGC...
+<span class="m">3143887</span> GTGATATATATAATGTCATCGGTATGAAGTGGTATTATAGGGGTGAT...
+</pre></div>
+</div>
+</div>
+<div class="section" id="sequence-tsv-with-taxid">
+<span id="sequence-tsv-with-taxid-io"></span><h3>sequence tsv with taxID<a class="headerlink" href="#sequence-tsv-with-taxid" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>seqID</p></li>
+<li><p>taxID</p></li>
+<li><p>sequence</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>seqID   taxID   sequence
+<span class="m">11611742</span>        <span class="m">10236</span>   GGGATAATATATATTTTGCTTGCATTGTGGAGGG...
+<span class="m">10907577</span>        -9466   TAAGATTTTGAATATTACCTCCATCAATTACATT...
+GU179406_1      <span class="m">2921812</span> GGACTCCTTGGTACTTCTATAAGATTGCTTCTGT...
+</pre></div>
+</div>
+</div>
+<div class="section" id="custom-sequences-tsv">
+<span id="custom-sequences-tsv-io"></span><h3>custom sequences tsv<a class="headerlink" href="#custom-sequences-tsv" title="Permalink to this headline">¶</a></h3>
+<p>tsv file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>seqID</p></li>
+<li><p>taxon name (any taxonomic level)</p></li>
+<li><p>sequence</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>seqID   taxID   sequence
+xxx_10236 Porifera      GGGATAATATATATTTTGCTTGCATTGTGGAGGG...
+xxx_10907577    Margaretta      TAAGATTTTGAATATTACCTCCATCAATTACATT...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="database-formats">
+<h2>Database formats<a class="headerlink" href="#database-formats" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="blast-database-files">
+<span id="blast-database-files-io"></span><h3>BLAST database files<a class="headerlink" href="#blast-database-files" title="Permalink to this headline">¶</a></h3>
+<p>Binary files ready to use by BLAST.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>blastdb_name.nhr</p></li>
+<li><p>blastdb_name.nin</p></li>
+<li><p>blastdb_name.nog</p></li>
+<li><p>blastdb_name.nsd</p></li>
+<li><p>blastdb_name.nsi</p></li>
+<li><p>blastdb_name.nsq</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="full-tsv">
+<span id="full-tsv-io"></span><h3>full tsv<a class="headerlink" href="#full-tsv" title="Permalink to this headline">¶</a></h3>
+<p>The sequence tsv and the taxonomy files can be formatted by <a class="reference internal" href="reference.html#format-db-reference"><span class="std std-ref">format_db.pl</span></a> to a full tsv file containing the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>seqID</p></li>
+<li><p>taxon</p></li>
+<li><p>taxID</p></li>
+<li><p>taxlevel</p></li>
+<li><p>superkingdom</p></li>
+<li><p>superkingdom_taxID</p></li>
+<li><p>kingdom</p></li>
+<li><p>kingdom_taxID</p></li>
+<li><p>phylum</p></li>
+<li><p>phylum_taxID</p></li>
+<li><p>class</p></li>
+<li><p>class_taxID       order</p></li>
+<li><p>order_taxID</p></li>
+<li><p>family</p></li>
+<li><p>family_taxID</p></li>
+<li><p>genus</p></li>
+<li><p>genus_taxID</p></li>
+<li><p>species</p></li>
+<li><p>species_taxID</p></li>
+<li><p>sequence</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>seqID   taxon   taxID   taxlevel        superkingdom    superkingdom_taxID      kingdom kingdom_taxID   phylum  phylum_taxID    class   class_taxID     order   order_taxID     family  family_taxID    genus   genus_taxID     species species_taxID   sequence
+<span class="m">5423724</span> Aspidoscopulia australia        <span class="m">1001026</span> <span class="m">8</span>       Eukaryota       <span class="m">2759</span>    Metazoa <span class="m">33208</span>   Porifera        <span class="m">6040</span>    Hexactinellida  <span class="m">60882</span>   Hexactinosida   <span class="m">98040</span>   Farreidae       <span class="m">98041</span>   Aspidoscopulia  <span class="m">999811</span>  Aspidoscopulia_australia1001026 GGATCTCTATTAGAAGACGACCACACCTATAACGTTGTAGTTACAGCTCACGC...
+</pre></div>
+</div>
+</div>
+<div class="section" id="qiime">
+<span id="qiime-io"></span><h3>QIIME<a class="headerlink" href="#qiime" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="qiime-trainseq-fasta">
+<span id="qiime-trainseq-fasta-io"></span><h4>QIIME trainseq fasta<a class="headerlink" href="#qiime-trainseq-fasta" title="Permalink to this headline">¶</a></h4>
+<p>Fasta file with only seqIDs in the definition line</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;OEB_CA11
+AGTGGTCTCAGTGCTTTAATTCGCATTGAGTTAAGTCAGCCAGGTGGTTTAATGGGCAATG...
+&gt;OEB_EH10
+AGTGGGTAGAGGGTTAAGAGCTTTGATCCGGGTCGAACTAAGTCAACCTGGAGGTTTACTA...
+</pre></div>
+</div>
+</div>
+<div class="section" id="qiime-taxon-file">
+<span id="qiime-taxon-file-io"></span><h4>QIIME taxon file<a class="headerlink" href="#qiime-taxon-file" title="Permalink to this headline">¶</a></h4>
+<p>file with the following columns:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>seqID</p></li>
+<li><p>lineage</p></li>
+</ul>
+</div></blockquote>
+<p>The taxonomic levels of the lineage are separated by ;</p>
+<p>Negative taxIDs are allowed.
+Empty taxlevels are filled out using the name of higher-level taxa.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>OEB_CA11        k__Metazoa_33208<span class="p">;</span> p__Bryozoa_10205<span class="p">;</span> c__Gymnolaemata_10206<span class="p">;</span> o__Cheilostomatida_10207<span class="p">;</span> f__Adeonidae_558780<span class="p">;</span> g__Reptadeonella_2576536<span class="p">;</span> s__Reptadeonella_violacea_-35055
+OEB_EH46        k__Metazoa_33208<span class="p">;</span> p__Bryozoa_10205<span class="p">;</span> c__<span class="p">;</span> o__<span class="p">;</span> f__<span class="p">;</span> g__<span class="p">;</span> s__
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rdp">
+<span id="rdp-io"></span><h3>RDP<a class="headerlink" href="#rdp" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="rdp-trainseq-fasta">
+<span id="rdp-trainseq-fasta-io"></span><h4>RDP trainseq fasta<a class="headerlink" href="#rdp-trainseq-fasta" title="Permalink to this headline">¶</a></h4>
+<p>Fasta file with the definition as follows</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;seqID cellularOrganisms<span class="p">;</span>superkingdom_taxID<span class="p">;</span>kingdom_taxID<span class="p">;</span>phylum_taxID<span class="p">;</span>class_taxID<span class="p">;</span>order_taxID<span class="p">;</span>family_taxID<span class="p">;</span>genus_taxID<span class="p">;</span>species_taxID
+</pre></div>
+</div>
+<p>Negative taxIDs are allowed (e.g. <a href="#id1"><span class="problematic" id="id2">Orbinia_johnsoni_</span></a>-91).
+Empty taxlevels are filled out using the name of higher-level taxa (e.g. Polychaeta_6341_order).</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&gt;MG655623_1 cellularOrganisms<span class="p">;</span>Eukaryota_2759<span class="p">;</span>Metazoa_33208<span class="p">;</span>Ctenophora_10197<span class="p">;</span>Nuda_1919246<span class="p">;</span>Beroida_37538<span class="p">;</span>Beroidae_37539<span class="p">;</span>Beroe_10199<span class="p">;</span>Beroe_forskalii_140453
+ATTTTAGATAAATGATTAGGTTCTGTTTATCATTACAATATTGCTTCTTTATATTTTTTTTTTTCTATTTCTTTAGGGTTTTGTGCCTTTTTTTATTCTTTTATTATAAGATTGTCTTTAGTTTGGCCTTTTGCATTTCTATCTTCAGGTTCTATCTATTTGCATTACGTTACTT
+&gt;7437763 cellularOrganisms<span class="p">;</span>Eukaryota_2759<span class="p">;</span>Metazoa_33208<span class="p">;</span>Annelida_6340<span class="p">;</span>Polychaeta_6341<span class="p">;</span>Polychaeta_6341_order<span class="p">;</span>Orbiniidae_46603<span class="p">;</span>Orbinia_195262<span class="p">;</span>Orbinia_johnsoni_-91
+CGAACAGAACTAGGCCAACCCGGCTCTCTTCTTGGAAGAGACCAACTATACAATACAATTGTTACCGCTCACGCAGTATTAATAATTTTCTTTCTTGTAATGCCCGTCCTAATTGGAGGATTTGGCAACTGACTTGTCCCTTTAAT
+</pre></div>
+</div>
+</div>
+<div class="section" id="rdp-taxon-file">
+<span id="rdp-taxon-file-io"></span><h4>RDP taxon file<a class="headerlink" href="#rdp-taxon-file" title="Permalink to this headline">¶</a></h4>
+<p>file with the following columns separated by stars:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>taxID</p></li>
+<li><p>taxon_name_taxID</p></li>
+<li><p>parent taxID</p></li>
+<li><p>taxonomic rank index (‘root’,1, ‘superkingdom’,2, ‘kingdom’,3, ‘phylum’,4, ‘class’,5, ‘order’,6, ‘family’,7, ‘genus’,8, ‘species’)</p></li>
+<li><p>taxonomic rank</p></li>
+</ul>
+</div></blockquote>
+<p>Negative taxIDs are allowed.
+Empty taxlevels are filled out using the name of higher-level taxa.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>-1*Acanthogyrus_cheni_-1*2493664*8*species
+-10*Amynthas_sexpectatus_-10*195544*8*species
+-100*Meiodrilus_adhaerens_-100*2723626*8*species
+-1000*Runcinia_erythrina_-1000*486328*8*species
+-10000*Psaltoda_claripennis_-10000*1225615*8*species
+-10001*Psaltoda_flavescens_-10001*1225615*8*species
+...
+-35075*Polychaeta_6341_order*6341*5*order
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="other">
+<h2>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="outdir">
+<span id="outdir-io"></span><h3>outdir<a class="headerlink" href="#outdir" title="Permalink to this headline">¶</a></h3>
+<p>Name of the directory to write output files</p>
+</div>
+<div class="section" id="out">
+<span id="out-io"></span><h3>out<a class="headerlink" href="#out" title="Permalink to this headline">¶</a></h3>
+<p>String for naming output files</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Description</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Input/Output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#taxonomy-related-files-or-directories">Taxonomy related files or directories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ncbitax-dir">ncbitax_dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taxonomy">taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#taxon-list">taxon_list</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lineage-files">Lineage files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lineage-tsv-without-taxid">lineage tsv without taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lineage-tsv-with-taxid-output-of-select-taxa-pl">lineage tsv with taxID (output of <span class="xref std std-ref">select_taxa.pl</span>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lineage-tsv-with-taxid-output-of-add-taxids-pl">lineage tsv with taxID (output of <span class="xref std std-ref">add_taxids.pl</span>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-lineages-tsv">custom lineages tsv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ambiguous-lineages">ambiguous lineages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sequence-tsv-files">Sequence tsv files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sequence-tsv-without-taxid">sequence tsv without taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sequence-tsv-with-taxid">sequence tsv with taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-sequences-tsv">custom sequences tsv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database-formats">Database formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#blast-database-files">BLAST database files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#full-tsv">full tsv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qiime">QIIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rdp">RDP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other">Other</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#outdir">outdir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#out">out</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="reference.html" title="previous chapter">Description</a></li>
+      <li>Next: <a href="glossary.html" title="next chapter">Glossary</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/io.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

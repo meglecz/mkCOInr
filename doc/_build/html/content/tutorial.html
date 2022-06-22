@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Description" href="reference.html" />
+    <link rel="prev" title="Run mkCOInr" href="run.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="tutorial">
+<span id="tutorial-tutorial"></span><h1>Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h1>
+<p>For the sake of the tutorial, I have created the following file system, and the file names in the examples will contain relative paths.
+The scripts directory contains all mkCOInr scripts</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkCOInr
+├── custom
+│   └── COI_custom.tsv
+└── scripts
+        ├── add_taxids.pl
+        ├── dereplicate.pl
+        ├── download_bold.pl
+        ├── download_taxonomy.pl
+        ├── format_bold.pl
+        ├── format_custom.pl
+        ├── format_db.pl
+        ├── format_ncbi.pl
+        ├── mkdb.pm
+        ├── pool_and_dereplicate.pl
+        ├── select_region.pl
+        └── select_taxa.pl
+</pre></div>
+</div>
+<div class="section" id="customize-database">
+<span id="customize-tutorial"></span><h2>Customize database<a class="headerlink" href="#customize-database" title="Permalink to this headline">¶</a></h2>
+<p>The creation of the COInr database is explained in the <a class="reference internal" href="#create-coinr-tutorial"><span class="std std-ref">Create COInr from BOLD and NCBI section</span></a>. You can download this database from <a class="reference external" href="https://doi.org/10.5281/zenodo.6555985">Zenodo</a> and customize it to your needs.</p>
+<p>Download, untar COInr and move the files to the mkCOInr/COInr directory</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>tar-zxvf COInr_2022_05_06.tar.gz
+mkdir -p mkCOInr/COInr
+mv COInr.tsv mkCOInr/COInr
+mv taxonomy.tsv mkCOInr/COInr
+</pre></div>
+</div>
+<p>This gives the following file structure</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkCOInr
+├── COInr
+│   ├── COInr.tsv
+│   └── taxonomy.tsv
+├── custom
+│   └── COI_custom.tsv
+└── scripts
+        ├── add_taxids.pl
+        ├── dereplicate.pl
+...
+</pre></div>
+</div>
+<p>The  <span class="xref std std-ref">I/O formats section</span> gives you details about all file formats and examples are provided as well.</p>
+<div class="section" id="add-custom-sequences-to-a-database">
+<span id="add-custom-sequences-tutorial"></span><h3>Add custom sequences to a database<a class="headerlink" href="#add-custom-sequences-to-a-database" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="format-custom-files">
+<span id="format-custom-tutorial"></span><h4>Format custom files<a class="headerlink" href="#format-custom-files" title="Permalink to this headline">¶</a></h4>
+<p>The <a class="reference internal" href="io.html#custom-sequences-tsv-io"><span class="std std-ref">input tsv file</span></a> (-custom) contains <a class="reference internal" href="glossary.html#seqid-glossary"><span class="std std-ref">seqIDs</span></a>, taxon name (can be at any taxonomic level) and sequences.
+This script will suggest one or more lineages for each taxon name based on the existing lineages in <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a>. It will also consider synonyms.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_custom.pl -custom ../custom/COI_custom.tsv -taxonomy ../COInr/taxonomy.tsv -outdir ../custom/format
+</pre></div>
+</div>
+<p>The output lineage file (custom/format/custom_lineages.tsv) should be checked manually to see if the lineages are coherent.
+If homonymy, choose the correct lineage, then delete homonymy column. This revised file will be the input to the add_taxids.pl script.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#format-custom-reference"><span class="std std-ref">format_custom.pl</span></a> script.</p>
+</div>
+<div class="section" id="add-taxids-to-custom-sequences">
+<span id="add-taxids-custom-tutorial"></span><h4>Add taxIDs to custom sequences<a class="headerlink" href="#add-taxids-to-custom-sequences" title="Permalink to this headline">¶</a></h4>
+<dl class="simple">
+<dt>For each lineage in the input file</dt><dd><ul class="simple">
+<li><p>Find an existing taxID at the lowest possible taxonomic level. <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxIDs</span></a> can be either from NCBI, or negative taxID already present in <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a>.</p></li>
+<li><p>Add new arbitrary (negative) taxIDs to taxa, that are not yet in taxonomy file</p></li>
+<li><p>Link each new taxID to existing one as a child and include info to the updated taxonomy file</p></li>
+</ul>
+</dd>
+</dl>
+<p>Make a <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">tsv file with sequences and taxIDs</span></a></p>
+<p>Update the <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a> file</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl add_taxids.pl -lineages ../custom/format/custom_lineages_verified.tsv -sequences ../custom/format/custom_sequences.tsv -taxonomy ../COInr/taxonomy.tsv -outdir ../custom/add_taxids
+</pre></div>
+</div>
+<p>See details in description section: <a class="reference internal" href="reference.html#add-taxids-reference"><span class="std std-ref">add_taxids.pl</span></a> script.</p>
+</div>
+<div class="section" id="dereplicate-custom-sequences">
+<span id="dereplicate-custom-tutorial"></span><h4>Dereplicate custom sequences<a class="headerlink" href="#dereplicate-custom-sequences" title="Permalink to this headline">¶</a></h4>
+<p>Eliminate sequences that are substring of another sequence of the same <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a>.
+Use <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequences_with_taxIDs.tsv</span></a> file (output of the previous script) as the input.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl dereplicate.pl -tsv ../custom/add_taxids/sequences_with_taxIDs.tsv -outdir ../custom/dereplicate -out custom_dereplicated_sequences.tsv
+</pre></div>
+</div>
+<p>The output file is in the same format as the input tsv file.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#dereplicate-reference"><span class="std std-ref">dereplicate.pl</span></a> script.</p>
+</div>
+<div class="section" id="pool-and-dereplicate-datasets">
+<span id="pool-and-dereplicate-custom-tutorial"></span><h4>Pool and dereplicate datasets<a class="headerlink" href="#pool-and-dereplicate-datasets" title="Permalink to this headline">¶</a></h4>
+<p>Use 2 dereplicated <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv files</span></a></p>
+<ul class="simple">
+<li><p>COInr.tsv  (pool of BOLD and NCBI, downloaded from Zenodo)</p></li>
+<li><p>custom_dereplicated_sequences.tsv (output of the previous script)</p></li>
+</ul>
+<p>Pool the files and dereplicate sequences of the taxIDs that are present in both files</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl pool_and_dereplicate.pl -tsv1 ../COInr/COInr.tsv -tsv2 ../custom/dereplicate/custom_dereplicated_sequences.tsv -outdir ../final -out COInr_custom.tsv
+</pre></div>
+</div>
+<p>The output is the same format as the input tsv file.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#pool-and-dereplicate-reference"><span class="std std-ref">pool_and_dereplicate.pl</span></a> script.</p>
+<p>Your custom database is composed of two files:</p>
+<ul class="simple">
+<li><p>the dereplicated sequence file (COInr_custom.tsv)</p></li>
+<li><p>the last version of the taxonomy file (custom/add_taxids/taxonomy_updated.tsv)</p></li>
+</ul>
+<p>For simplicity, move the updated taxonomy file to the folder where the sequence file is found.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv ../custom/add_taxids/taxonomy_updated.tsv ../final/taxonomy_updated.tsv
+</pre></div>
+</div>
+<p>This database can be further customized, or you can simply format it to be ready for your taxonomic assignment program by the <a class="reference internal" href="reference.html#format-db-reference"><span class="std std-ref">format_db.pl</span></a> script.</p>
+</div>
+</div>
+<div class="section" id="select-sequences-from-existing-database">
+<span id="select-sequences-custom-tutorial"></span><h3>Select sequences from existing database<a class="headerlink" href="#select-sequences-from-existing-database" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="select-sequences-for-a-list-of-taxa-with-a-minimum-taxonomic-rank">
+<h4>Select sequences for a list of taxa with a minimum taxonomic rank<a class="headerlink" href="#select-sequences-for-a-list-of-taxa-with-a-minimum-taxonomic-rank" title="Permalink to this headline">¶</a></h4>
+<p>Sequences can be selected for a list of taxa and/or for a minimum taxonomic level (species/genus/family/order/class/phylum/kingdom/superkingdom/root)</p>
+<p>The input file (<a class="reference internal" href="io.html#taxon-list-io"><span class="std std-ref">-taxon_list</span></a>) contains a list of taxa and eventually their taxIDs.
+The first line is a heading and will be ignored by the script.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl select_taxa.pl -taxon_list ../final/taxon_list.txt -tsv ../final/COInr_custom.tsv -taxonomy ../final/taxonomy_updated.tsv  -min_taxlevel species  -outdir ../final/selected/ -out COInr_custom_selected.tsv
+</pre></div>
+</div>
+<p>The main output is a <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv file</span></a> in the same format as the input.
+A <span class="xref std std-ref">lineage file</span> is also written for all taxa in the taxon_list to check if they are coherent with the target taxon names.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#select-taxa-reference"><span class="std std-ref">select_taxa.pl</span></a> script.</p>
+</div>
+<div class="section" id="excluding-sequences-of-a-taxon-list">
+<h4>Excluding  sequences of a taxon list<a class="headerlink" href="#excluding-sequences-of-a-taxon-list" title="Permalink to this headline">¶</a></h4>
+<p>With the same script it is also possible to eliminate sequences of taxa instead of selecting them. Set the <em>negative_list</em> option to 1 to do that.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl select_taxa.pl -taxon_list ../final/taxon_list.txt -tsv ../final/COInr_custom.tsv -taxonomy ../final/taxonomy_updated.tsv  -min_taxlevel species  -outdir ../final/selected/ -out COInr_custom_reduced.tsv -negative_list <span class="m">1</span>
+</pre></div>
+</div>
+<p>See details in description section: <a class="reference internal" href="reference.html#select-taxa-reference"><span class="std std-ref">select_taxa.pl</span></a> script.</p>
+</div>
+<div class="section" id="select-region">
+<span id="select-region-custom-tutorial"></span><h4>Select region<a class="headerlink" href="#select-region" title="Permalink to this headline">¶</a></h4>
+<p>Sequences can be trimmed to a specific region of the COI gene. To define the region, you can either give a fasta file with sequences covering the region of interest, or you can detect them automatically by e-pcr, as it is in this example.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl select_region.pl -tsv ../final/COInr_custom.tsv -outdir ../final/amplicon/ -e_pcr <span class="m">1</span> -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error <span class="m">0</span>.3 -min_amplicon_length <span class="m">280</span> -max_amplicon_length <span class="m">345</span> -min_overlap <span class="m">10</span> -tcov_hsp_perc <span class="m">0</span>.5 -perc_identity <span class="m">0</span>.7
+</pre></div>
+</div>
+<p>See details in description section: <a class="reference internal" href="reference.html#select-region-reference"><span class="std std-ref">select_region.pl</span></a> script.</p>
+</div>
+</div>
+<div class="section" id="format-database">
+<span id="format-db-custom-tutorial"></span><h3>Format database<a class="headerlink" href="#format-database" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>Format the database to one of the following formats</dt><dd><ul class="simple">
+<li><p>blast</p></li>
+<li><p>rdp</p></li>
+<li><p>qiime</p></li>
+<li><p>full</p></li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_db.pl -tsv ../final/COInr_custom.tsv -taxonomy ../final/taxonomy_updated.tsv -outfmt qiime -outdir ../final/qiime -out COInr_custom_qiime
+</pre></div>
+</div>
+<p>You should use the rdp_calssifier or qiime’s feature-classifier to train the database using the output files of this script if you have used the rdp or qiime options.</p>
+<p>The full option, gives a <a class="reference internal" href="io.html#full-tsv-io"><span class="std std-ref">tsv file</span></a> with seqIDs, ranked lineages, taxIDs for each sequnece, and this is a very easy-to-parse, complete file.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_db.pl -tsv ../final/COInr_custom.tsv -taxonomy ../final/taxonomy_updated.tsv -outfmt full -outdir ../final/full -out COInr_custom
+</pre></div>
+</div>
+<p>For making a BLAST database, the taxonomy file is not necessary and the indexed files in the output folder are ready to use.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_db.pl -tsv ../final/COInr_custom.tsv -outfmt blast -outdir ../final/blast -out COInr_custom
+</pre></div>
+</div>
+<p>See details in description section: <a class="reference internal" href="reference.html#format-db-reference"><span class="std std-ref">format_db.pl</span></a> script.</p>
+</div>
+</div>
+<div class="section" id="create-coinr-from-bold-and-ncbi">
+<span id="create-coinr-tutorial"></span><h2>Create COInr from BOLD and NCBI<a class="headerlink" href="#create-coinr-from-bold-and-ncbi" title="Permalink to this headline">¶</a></h2>
+<p>The following steps describe how COInr database (available at <a class="reference external" href="https://doi.org/10.5281/zenodo.6555985">Zenodo</a> was produced.</p>
+<div class="section" id="download-ncbi-taxonomy">
+<span id="download-ncbi-taxonomy-tutorial"></span><h3>Download NCBI taxonomy<a class="headerlink" href="#download-ncbi-taxonomy" title="Permalink to this headline">¶</a></h3>
+<p>Download NCBI taxonomy dmp file and create <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl download_taxonomy.pl -outdir ../taxonomy
+</pre></div>
+</div>
+<p>See details in description section: <a class="reference internal" href="reference.html#download-taxonomy-reference"><span class="std std-ref">download_taxonomy.pl</span></a> script.</p>
+</div>
+<div class="section" id="ncbi-sequences">
+<span id="ncbi-sequences-tutorial"></span><h3>NCBI sequences<a class="headerlink" href="#ncbi-sequences" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-ncbi-sequences">
+<h4>Download NCBI sequences<a class="headerlink" href="#download-ncbi-sequences" title="Permalink to this headline">¶</a></h4>
+<p>The following command will download Coding DNA Sequence (CDS) fasta files of all sequences with COI, CO1, COXI or COX1 in the title lines and complete mitochondrial genomes.
+It takes several hours (days) to run this command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nsdpy -r <span class="s2">&quot;COI OR COX1 OR CO1 OR COXI OR (complete[Title] AND genome[Title] AND Mitochondrion[Filter])&quot;</span> -T -v --cds
+</pre></div>
+</div>
+<p>The results are found in the NSDPY_results/yyyy-mm-dd_hh-mm-ss folder.</p>
+<p>sequences.fasta contains all CDS sequences. Sequences are correctly oriented but should still be filtered to keep only COI sequences.
+TaxIDs.txt contains the sequenceIDs and the TaxIDs.</p>
+<p>Move the results of nsdpy to the ../ncbi/nsdpy directory and clean up the directory.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir -p ../ncbi
+mv NSDPY_results/yyyy-mm-dd_hh-mm-ss ../ncbi/download
+mv report.tsv ../ncbi/download
+rmdir NSDPY_results
+</pre></div>
+</div>
+</div>
+<div class="section" id="format-ncbi-sequences">
+<h4>Format NCBI sequences<a class="headerlink" href="#format-ncbi-sequences" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select COI sequences and clean them.</p></li>
+<li><p>Eliminate identical sequences of the same taxID.</p></li>
+<li><p>Clean tax names and taxids.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_ncbi.pl -cds ../ncbi/download/sequences.fasta -taxids ../ncbi/download/TaxIDs.txt -taxonomy ../taxonomy/taxonomy.tsv -outdir ../ncbi/format
+</pre></div>
+</div>
+<p>The major output is a <a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequence tsv file with taxIDs</span></a>.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#format-ncbi-reference"><span class="std std-ref">format_ncbi.pl</span></a> script.</p>
+</div>
+<div class="section" id="dereplicate-ncbi-sequences">
+<h4>Dereplicate NCBI sequences<a class="headerlink" href="#dereplicate-ncbi-sequences" title="Permalink to this headline">¶</a></h4>
+<p>Eliminate sequences that are substring of another sequence of the same <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl dereplicate.pl -tsv ../ncbi/format/ncbi_sequences.tsv -outdir ../ncbi/dereplicate -out ncbi_dereplicated_sequences.tsv
+</pre></div>
+</div>
+<p>The output is the same format as the input tsv file.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#dereplicate-reference"><span class="std std-ref">dereplicate.pl</span></a> script.</p>
+</div>
+</div>
+<div class="section" id="bold-sequences">
+<span id="bold-sequences-tutorial"></span><h3>BOLD sequences<a class="headerlink" href="#bold-sequences" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="download-bold-sequences">
+<h4>Download BOLD sequences<a class="headerlink" href="#download-bold-sequences" title="Permalink to this headline">¶</a></h4>
+<p>The following command will download all sequences and lineages for all taxa on the taxon_list from BOLD.</p>
+<p>The bold_taxon_list_2022-02-24.txt taxon list file is constructed manually from taxa on
+<a class="reference external" href="https://www.boldsystems.org/index.php/TaxBrowser_Home">NCBI Taxonomy</a>.</p>
+<p>The taxon_list constructed on 2022-02-24 is available with the scripts
+(data/bold_taxon_list_2022-02-24.txt in <a class="reference external" href="https://github.com/meglecz/mkCOInr">github.com/meglecz/mkCOInr</a>).
+This might need to be updated later.
+Each taxa on the list has less than 500M specimen records on BOLD.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl download_bold.pl -taxon_list ../bold/bold_taxon_list_2022-02-24.txt -outdir ../bold/download -try_download <span class="m">3</span>
+</pre></div>
+</div>
+<p>There will be a tsv file for each taxon, where the download was successful.
+The tsv file contains the taxonomic lineage, marker code, sequences and many other information.</p>
+<p>NOTE: The download of a long list of taxa takes several days since it is not parallelized.
+You can cut up the input list and run each of them on separate computers and move the output files to the same folder afterwards.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#download-bold-reference"><span class="std std-ref">download_bold.pl</span></a> script.</p>
+</div>
+<div class="section" id="format-bold-sequences">
+<h4>Format BOLD sequences<a class="headerlink" href="#format-bold-sequences" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li><p>Select COI sequences and clean them.</p></li>
+<li><p>Eliminate identical sequences of the same lineage.</p></li>
+<li><p>Clean lineages and make a list with corresponding sequenceIDs.</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl format_bold.pl -download_dir ../bold/download/files -outdir ../bold/format
+</pre></div>
+</div>
+<p>The major output is the following:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-without-taxid-io"><span class="std std-ref">bold_sequences.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#lineage-tsv-without-taxid-io"><span class="std std-ref">bold_lineages.tsv</span></a> (all identical lineages are pooled into a same line)</p></li>
+</ul>
+<p>See details in description section: <a class="reference internal" href="reference.html#format-bold-reference"><span class="std std-ref">format_bold.pl</span></a> script.</p>
+</div>
+<div class="section" id="add-taxids-to-bold-sequences">
+<h4>Add taxIDs to BOLD sequences<a class="headerlink" href="#add-taxids-to-bold-sequences" title="Permalink to this headline">¶</a></h4>
+<p>For each lineage this script will:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Find an existing <a class="reference internal" href="glossary.html#taxid-glossary"><span class="std std-ref">taxID</span></a> at the lowest level possible. TaxIDs can be either from NCBI, or negative taxID already present in <a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy.tsv</span></a>.</p></li>
+<li><p>Add new arbitrary (negative) taxIDs to taxa, that are not yet in taxonomy.tsv</p></li>
+<li><p>Link each new taxID to existing one as a child and include info to the updated taxonomy file</p></li>
+<li><p>Update the input taxonomy file</p></li>
+</ul>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl add_taxids.pl -lineages ../bold/format/bold_lineages.tsv -sequences ../bold/format/bold_sequences.tsv -taxonomy ../taxonomy/taxonomy.tsv -outdir ../bold/add_taxids
+</pre></div>
+</div>
+<p>The main output files are the following:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="io.html#sequence-tsv-with-taxid-io"><span class="std std-ref">sequences_with_taxIDs.tsv</span></a></p></li>
+<li><p><a class="reference internal" href="io.html#taxonomy-io"><span class="std std-ref">taxonomy_updated.tsv</span></a></p></li>
+</ul>
+<p>See details in description section: <a class="reference internal" href="reference.html#add-taxids-reference"><span class="std std-ref">add_taxids.pl</span></a> script.</p>
+</div>
+<div class="section" id="dereplicate-bold-sequences">
+<h4>Dereplicate BOLD sequences<a class="headerlink" href="#dereplicate-bold-sequences" title="Permalink to this headline">¶</a></h4>
+<p>Eliminate sequences that are substring of another sequence of the same taxID.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl dereplicate.pl -tsv ../bold/add_taxids/sequences_with_taxIDs.tsv -outdir ../bold/dereplicate -out bold_dereplicated_sequences.tsv
+</pre></div>
+</div>
+<p>The output is the same format as the input tsv file.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#dereplicate-reference"><span class="std std-ref">dereplicate.pl</span></a> script.</p>
+</div>
+</div>
+<div class="section" id="pool-and-dereplicate-tutorial">
+<span id="id2"></span><h3>Pool and dereplicate datasets<a class="headerlink" href="#pool-and-dereplicate-tutorial" title="Permalink to this headline">¶</a></h3>
+<p>Use the dereplicated sequence files from BOLD and NCBI.
+Pool the files and dereplicate sequences of a taxID that are present in both files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>perl pool_and_dereplicate.pl -tsv1 ../bold/dereplicate/bold_dereplicated_sequences.tsv -tsv2 ../ncbi/dereplicate/ncbi_dereplicated_sequences.tsv -outdir ../COInr -out COInr.tsv
+</pre></div>
+</div>
+<p>The output is the same format as the input tsv file.</p>
+<p>See details in description section: <a class="reference internal" href="reference.html#pool-and-dereplicate-reference"><span class="std std-ref">pool_and_dereplicate.pl</span></a> script.</p>
+<p><strong>Move the taxonomy file to the same directory</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv ../bold/add_taxids/taxonomy_updated.tsv ../COInr/taxonomy.tsv
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run mkCOInr</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#customize-database">Customize database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#add-custom-sequences-to-a-database">Add custom sequences to a database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#select-sequences-from-existing-database">Select sequences from existing database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#format-database">Format database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#create-coinr-from-bold-and-ncbi">Create COInr from BOLD and NCBI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#download-ncbi-taxonomy">Download NCBI taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ncbi-sequences">NCBI sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bold-sequences">BOLD sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pool-and-dereplicate-tutorial">Pool and dereplicate datasets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="run.html" title="previous chapter">Run mkCOInr</a></li>
+      <li>Next: <a href="reference.html" title="next chapter">Description</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/tutorial.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

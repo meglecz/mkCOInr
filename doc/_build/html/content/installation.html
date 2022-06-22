@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Run mkCOInr" href="run.html" />
+    <link rel="prev" title="Overview of mkCOInr" href="overview.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<span id="installation-installation"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Special attention was taken to minimize dependencies.</p>
+<div class="section" id="third-party-programs">
+<h2>Third-party programs<a class="headerlink" href="#third-party-programs" title="Permalink to this headline">¶</a></h2>
+<p>The following tools should be installed. (Scripts using the program are in parantheses)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://github.com/RaphaelHebert/nsdpy">nsdpy</a> used for downloading sequences from NCBI (<a class="reference internal" href="reflist.html#hebert-2022-reflist"><span class="std std-ref">Hebert and Meglécz, 2022</span></a>)</p></li>
+<li><p><a class="reference external" href="https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&amp;DOC_TYPE=Download">BLAST</a> (<a class="reference internal" href="reflist.html#altschul-1997-reflist"><span class="std std-ref">Altschul et al., 1997</span></a>; <a class="reference internal" href="reference.html#format-bold-reference"><span class="std std-ref">format_bold.pl</span></a>, for the check_orientation option, <a class="reference internal" href="reference.html#format-db-reference"><span class="std std-ref">format_db.pl</span></a> for the blast option option)</p></li>
+<li><p><a class="reference external" href="https://github.com/torognes/vsearch">vsearch</a> (<a class="reference internal" href="reflist.html#rognes-2016-reflist"><span class="std std-ref">Rognes et al., 2016</span></a>; <a class="reference internal" href="reference.html#dereplicate-reference"><span class="std std-ref">dereplicate.pl</span></a>, <a class="reference internal" href="reference.html#pool-and-dereplicate-reference"><span class="std std-ref">pool_and_dereplicate.pl</span></a>, <a class="reference internal" href="reference.html#select-region-reference"><span class="std std-ref">select_region.pl</span></a>)</p></li>
+<li><p><a class="reference external" href="https://cutadapt.readthedocs.io">cutadapt</a> (<a class="reference internal" href="reflist.html#martin-2011-reflist"><span class="std std-ref">Martin, 2011</span></a>; <a class="reference internal" href="reference.html#select-region-reference"><span class="std std-ref">select_region.pl</span></a> for the e_pcr option)</p></li>
+</ul>
+</div></blockquote>
+<p>All third party programs can be easily installed to a conda environment, but it is not essential.</p>
+</div>
+<div class="section" id="mkcoinr-scripts">
+<span id="mkcoinr-scripts-installation"></span><h2>mkCOInr scripts<a class="headerlink" href="#mkcoinr-scripts" title="Permalink to this headline">¶</a></h2>
+<p>The mkCOInr scripts are written in Perl, no installation is necessary to run them apart from the Perl interpreter already installed in all unix systems. Just download the scripts directory and you are ready.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#third-party-programs">Third-party programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mkcoinr-scripts">mkCOInr scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="overview.html" title="previous chapter">Overview of mkCOInr</a></li>
+      <li>Next: <a href="run.html" title="next chapter">Run mkCOInr</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/content/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

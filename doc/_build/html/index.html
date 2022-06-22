@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mkCOInr - Make and customize COInr, a comprehensive COI database form NCBI-nucleotide and BOLD &#8212; mkCOInr  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Overview of mkCOInr" href="content/overview.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="mkcoinr-make-and-customize-coinr-a-comprehensive-coi-database-form-ncbi-nucleotide-and-bold">
+<h1>mkCOInr - Make and customize COInr, a comprehensive COI database form NCBI-nucleotide and BOLD<a class="headerlink" href="#mkcoinr-make-and-customize-coinr-a-comprehensive-coi-database-form-ncbi-nucleotide-and-bold" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="http://mkCOInr.readthedocs.io/en/latest/?badge=latest"><img alt="https://readthedocs.org/projects/mkCOInr/badge/?version=latest" src="https://readthedocs.org/projects/mkCOInr/badge/?version=latest" /></a>
+<p>mkCOInr is a series of Perl scripts that aims to create <strong>COInr, a comprehensive COI database form NCBI-nucleotide and BOLD</strong> and customize it.</p>
+<p>COInr is freely available and can be downloaded from <a class="reference external" href="https://doi.org/10.5281/zenodo.6555985">Zenodo</a></p>
+<p>The database can be used for similarity-based taxonomic assignations of metabarcoding data with any COI marker (primer pairs) of any geographical regions or target group.</p>
+<p>Alternatively, the <strong>database can be used as a starting point to create smaller, more specific custom databases</strong>. Sequences can be selected for :</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>A particular gene region (amplicon of a given primer pair)</p></li>
+<li><p>List of taxa (sequences of a taxon list can be eiter selected or eliminated)</p></li>
+<li><p>User-defined minimal taxonomic resolution</p></li>
+</ul>
+</div></blockquote>
+<p>The database can be formatted to the following formats</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>BLAST</p></li>
+<li><p>RDP classifier</p></li>
+<li><p>QIIME</p></li>
+<li><p>FULL TSV</p></li>
+</ul>
+</div></blockquote>
+<div class="figure align-default" id="id1">
+<span id="fig1-flowchart"></span><a class="reference internal image-reference" href="_images/COInr_flowchart_readme.png"><img alt="Figure 1" src="_images/COInr_flowchart_readme.png" style="width: 665.0px; height: 530.0px;" /></a>
+<p class="caption"><span class="caption-text">Figure 1. The full pipeline to create COInr and options to make custom databases</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>If you use mkCOInr in scientific works, <strong>please cite the following article</strong>:</p>
+<p><strong>Meglécz, E. 2022.</strong>
+COInr and mkCOInr: Building and customizing a non-redundant barcoding reference database from BOLD and NCBI using a lightweight pipeline.
+<em>bioRxiv</em> <a class="reference external" href="https://doi.org/10.1101/2022.05.18.492423">https://doi.org/10.1101/2022.05.18.492423</a>.</p>
+<div class="section" id="table-of-contents">
+<h2>Table of Contents<a class="headerlink" href="#table-of-contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/installation.html#third-party-programs">Third-party programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/installation.html#mkcoinr-scripts">mkCOInr scripts</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content/run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/tutorial.html">Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/tutorial.html#customize-database">Customize database</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#add-custom-sequences-to-a-database">Add custom sequences to a database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#select-sequences-from-existing-database">Select sequences from existing database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#format-database">Format database</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/tutorial.html#create-coinr-from-bold-and-ncbi">Create COInr from BOLD and NCBI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#download-ncbi-taxonomy">Download NCBI taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#ncbi-sequences">NCBI sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#bold-sequences">BOLD sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/tutorial.html#pool-and-dereplicate-tutorial">Pool and dereplicate datasets</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content/reference.html">Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#add-taxids-pl">add_taxids.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#aim">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#input-files">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#parameters-options">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#algorithm">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#output">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#dereplicate-pl">dereplicate.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id1">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id2">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id3">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id4">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id5">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#download-bold-pl">download_bold.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id6">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id7">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id8">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id9">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id10">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#download-taxonomy-pl">download_taxonomy.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id11">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#input">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id12">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id13">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id14">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#format-bold-pl">format_bold.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id15">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id16">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id17">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id18">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id19">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#format-custom-pl">format_custom.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id20">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id21">Input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id22">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id23">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id24">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#format-db-pl">format_db.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id25">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id26">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id27">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id28">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id29">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#format-ncbi-pl">format_ncbi.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id30">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id31">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id32">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id33">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id34">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#pool-and-dereplicate-pl">pool_and_dereplicate.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id35">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id36">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id37">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id38">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id39">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#select-region-pl">select_region.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id40">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id41">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id42">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id43">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id44">Output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/reference.html#select-taxa-pl">select_taxa.pl</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id45">Aim</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id46">Input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id47">Parameters/options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id48">Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/reference.html#id49">Output</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content/io.html">Input/Output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/io.html#taxonomy-related-files-or-directories">Taxonomy related files or directories</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#ncbitax-dir">ncbitax_dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#taxonomy">taxonomy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#taxon-list">taxon_list</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/io.html#lineage-files">Lineage files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#lineage-tsv-without-taxid">lineage tsv without taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#lineage-tsv-with-taxid-output-of-select-taxa-pl">lineage tsv with taxID (output of <span class="xref std std-ref">select_taxa.pl</span>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#lineage-tsv-with-taxid-output-of-add-taxids-pl">lineage tsv with taxID (output of <span class="xref std std-ref">add_taxids.pl</span>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#custom-lineages-tsv">custom lineages tsv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#ambiguous-lineages">ambiguous lineages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/io.html#sequence-tsv-files">Sequence tsv files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#sequence-tsv-without-taxid">sequence tsv without taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#sequence-tsv-with-taxid">sequence tsv with taxID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#custom-sequences-tsv">custom sequences tsv</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/io.html#database-formats">Database formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#blast-database-files">BLAST database files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#full-tsv">full tsv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#qiime">QIIME</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#rdp">RDP</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="content/io.html#other">Other</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#outdir">outdir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="content/io.html#out">out</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content/glossary.html">Glossary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="content/glossary.html#ranked-lineage">ranked lineage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/glossary.html#seqid">seqID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/glossary.html#taxid">taxID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="content/glossary.html#taxlevel-index">taxlevel index</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content/reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/changelog.html">Change Log</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">mkCOInr</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/overview.html">Overview of mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/run.html">Run mkCOInr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/reference.html">Description</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/io.html">Input/Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/glossary.html">Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/reflist.html">List of References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/cite.html">Citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/changelog.html">Change Log</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="content/overview.html" title="next chapter">Overview of mkCOInr</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Emese Meglécz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
