@@ -255,7 +255,7 @@ tsv file with the following columns:
 
 .. code-block:: bash
 
-	seqID	taxID	sequence
+	seqID	taxon_name	sequence
 	xxx_10236 Porifera	GGGATAATATATATTTTGCTTGCATTGTGGAGGG...
 	xxx_10907577	Margaretta	TAAGATTTTGAATATTACCTCCATCAATTACATT...
 
