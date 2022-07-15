@@ -310,7 +310,7 @@ Input files
 
     - :ref:`sequence tsv<sequence_tsv_with_taxid_io>`
     - :ref:`taxonomy.tsv<taxonomy_io>`
-    - outfmt (rdp/blast/qiime/full; choose the format of the database)
+    - outfmt (rdp/blast/qiime/full/vtam; choose the format of the database)
     - :ref:`outdir<outdir_io>`
     - out (string for naming the output files)
 
@@ -322,10 +322,11 @@ Parameters/options
 Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLAST db
+BLAST db, VTAM
 
     - Prepare a fasta file with sequneces and the taxIDs (seqID, taxID)
     - Run the *makeblastdb* commande of blast to make indexed files ready to be used as a blast database
+    - for VTAM format, prepare taxonomy file as well as the BLAST database. They can be used directly in VTAM.
 
 RDP, QIIME and FULL
 
@@ -345,6 +346,11 @@ Output
 BLAST option
 
     - :ref:`Indexed files<blast_database_files_io>` ready to be used as a BLAST database 
+    
+VTAM option
+
+    - :ref:`Indexed files<blast_database_files_io>` ready to be used as a BLAST database 
+    - :ref:`taxonomy.tsv<taxonomy_io>` adpted to VTAM
 
 RDP option 
 
