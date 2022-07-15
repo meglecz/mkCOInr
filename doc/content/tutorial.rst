@@ -216,6 +216,7 @@ Format the database to one of the following formats
     - rdp
     - qiime
     - full
+    - vtam
 
 .. code-block:: bash
 
