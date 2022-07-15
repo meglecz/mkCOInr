@@ -17,18 +17,16 @@ use Data::Dumper;
 #	blast
 #	rdp #taxid*name*parent_taxid*taxlevel_index*taxlevel
 #		#>KJ592630 cellularOrganisms;Eukaryota;undef_Eukaryota;undef_undef_Eukaryota;Florideophyceae;Hapalidiales;Hapalidiaceae;Mesophyllum;Mesophyllum_lichenoides
-
-
-# !!!!!!!!!!!!! not yet finished
-# make taxonomy file for rdp
-# check if fasta for rdp is OK
+#	qiime
+#	vtam
+#	full
 
 ###############################
 ###############################
 my %params = (
 'tsv' => '', # seqID	taxID	sequence
 'taxonomy' => '', # tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel
-'outfmt' => '', # blast, rdp, qiime, full
+'outfmt' => '', # blast, rdp, qiime, full, vtam
 'outdir' => '',
 'out' => '',
 'blast_path' => ''
@@ -68,9 +66,9 @@ print LOG join("\n", @parameters), "\n";
 
 
 
-if($outfmt eq 'blast')
+if($outfmt eq 'blast' or $outfmt eq 'vtam')
 {
-	my $tmpdir = $outdir.'temp/';
+	my $tmpdir = $outdir.'temp_'.$t.'/';
 	unless(-e $tmpdir)
 	{
 		system 'mkdir -p '.$tmpdir;
@@ -104,6 +102,21 @@ if($outfmt eq 'blast')
 	my $makeblastdb = $blast_path.'makeblastdb -dbtype nucl -in '.$fas.' -parse_seqids -taxid_map '.$taxids.' -out '.$outdir.$out;
 	system $makeblastdb;
 	
+	my $taxonomy_out = $outdir.$out.'_taxonomy.tsv';
+	if($outfmt eq 'vtam')
+	{
+		open(IN, $taxonomy) or die "Cannot open $taxonomy\n";
+		open(OUT, '>', $taxonomy_out) or die "Cannot open $taxonomy_out\n";
+		while(my $line = <IN>)
+		{
+			my @line = split("\t", $line);
+			@line = splice(@line, 0, 6);
+			print OUT join("\t", @line), "\n";
+		}
+		close OUT;
+		close IN;
+	}
+	
 
 	print LOG "Runtime: ", time - $t, "s \n";
 	$t = time;
@@ -111,7 +124,7 @@ if($outfmt eq 'blast')
 	## clean up
 	if(-e $tmpdir)
 	{
-		system 'rm -r '.$tmpdir;
+		system 'rm -rf '.$tmpdir;
 	}
 }
 elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')

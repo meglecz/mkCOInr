@@ -30,7 +30,7 @@ my %params = (
 'outdir' =>  '',
 'out' => '',
 'negative_list' => 0, # if 1 keep all taxa except the ones on the taxon list 
-'min_taxlevel' => '', #species/genus/family/order/class/phylum/kingdom/superkingdom/root
+'min_taxlevel' => 'root', #species/genus/family/order/class/phylum/kingdom/superkingdom/root
 );
 
 modify_params_from_tags(\%params, \@ARGV);
@@ -228,6 +228,8 @@ else # select for taxlevel, but not for taxon list
 	### Select sequences annotated to the min_taxlevel
 	print "\n####\nSelect sequences annotated to the min_taxlevel\n";
 	print LOG "\n####\nSelect sequences annotated to the min_taxlevel\n";
+	open(TSV, $tsv) or die "Cannot open $tsv\n";
+	my $title = <TSV>;
 	while(my $line = <TSV>)
 	{
 		++$stat{'1.1 Number of sequences in the output tsv: '};
@@ -240,6 +242,7 @@ else # select for taxlevel, but not for taxon list
 			print OUT $line, "\n";
 		}
 	}
+	close TSV;
 	print LOG "Runtime: ", time - $t, "s \n";
 	$t = time;
 
