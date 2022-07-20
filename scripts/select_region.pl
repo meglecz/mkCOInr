@@ -38,7 +38,7 @@ my $perc_identity = $params{perc_identity}; # Min identity in vsearch --usearch_
 my $cutadapt_path = $params{cutadapt_path};
 my $vsearch_path = $params{vsearch_path};
 
-my $delete_tmp =0;
+my $delete_tmp =1;
 
 #### define filenames and variables
 $outdir = add_slash_to_dir($outdir);
@@ -46,7 +46,7 @@ my $t = time;
 my $t0 = time;
 my $date = get_date();
 my %stat;
-my $tmpdir = $outdir.'tmp/';
+my $tmpdir = $outdir.'tmp_'.$t.'/';
 unless (-e $tmpdir)
 {
 	system 'mkdir -p '.$tmpdir;
@@ -220,7 +220,8 @@ while(my $line = <IN>)
 	my @line = split("\t", $line);
 	if(exists $trimmed{$line[0]})
 	{
-		print T $line, "\n";
+		$line[2] = $trimmed{$line[0]};
+		print T join("\t", @line), "\n";
 		++$stat{'7. Total number of trimmed sequences: '};
 	}
 	elsif(exists $untrimmed{$line[0]})
@@ -243,7 +244,7 @@ $t = time;
 
 if($delete_tmp)
 {
-	system 'rm '.$tmpdir.'*';
+	system 'rm -f '.$tmpdir.'*';
 	system 'rmdir '.$tmpdir;
 }
 

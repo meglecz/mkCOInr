@@ -441,7 +441,7 @@ usage: perl format_db.pl [-options] -tsv INPUT_FILE -taxonomy TAXONOMY_TSV -outd
    -taxonomy               Input tsv with all taxids: tax_id,parent_tax_id,rank,name_txt,old_tax_id,taxlevel,synonyms
    -outdir                 Name of the otput directory
    -out                    String to name the output files
-   -outfmt                 [rdp/blast/qiime/full]; choose the format of the database
+   -outfmt                 [rdp/blast/qiime/full/vtam]; choose the format of the database
  OPTIONS
    -blast_path             Path to the blast executables; Not necessarry if it is in the PATH
 ',  "\n";
