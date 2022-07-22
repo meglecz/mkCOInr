@@ -121,7 +121,7 @@ Algorithm
 The scripts downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
 
 The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxa on the list has less than 500M specimen records in BOLD. 
-The taxon_list constructed on 2022-02-24 is available with on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.
+The taxon_list constructed on 2022-02-24 is available on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.
 
 Alternativelly, a list of taxa (including large taxa such as Arthropoda) can be given and the input taxa can be cut up automatically to subtaxa of less than *max_record_n* records each.
 This method has the advantage of avoiding the manual construction of the taxon list (as for bold_taxon_list_2022-02-24.txt). 
@@ -427,42 +427,7 @@ Output
 
  - :ref:`ncbi_sequences.tsv<sequence_tsv_with_taxid_io>`
  
-
-
-.. _pool_and_dereplicate_reference:
-
-pool_and_dereplicate.pl
--------------------------------------------------
-
-Aim
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool 2 dereplicated sequence tsv files and do a taxonomically-aware dereplication for taxIDs present in both input files
-
-Input files
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    - :ref:`tsv1<sequence_tsv_with_taxid_io>`
-    - :ref:`tsv2<sequence_tsv_with_taxid_io>`
-    - :ref:`outdir<outdir_io>`
-    - out (name of the output dereplicated sequence tsv file)
-
-Parameters/options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    - vsearch_path (path to vsearch executables if not in the PATH)
-
-Algorithm
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool sequences from two input tsv files.
-The dereplication is done only for taxID shared by the two input files, since they have been dereplicated individually.
-The algorithm of dereplication is identical to the one used in :ref:`dereplicate.pl<dereplicate_reference>` 
-
-Output
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- :ref:`sequence tsv with taxIDs<sequence_tsv_with_taxid_io>`
+ 
 
 
 
@@ -506,6 +471,43 @@ Output
     - taxID (of the subtaxa)
 
 
+ 
+
+
+.. _pool_and_dereplicate_reference:
+
+pool_and_dereplicate.pl
+-------------------------------------------------
+
+Aim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pool 2 dereplicated sequence tsv files and do a taxonomically-aware dereplication for taxIDs present in both input files
+
+Input files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - :ref:`tsv1<sequence_tsv_with_taxid_io>`
+    - :ref:`tsv2<sequence_tsv_with_taxid_io>`
+    - :ref:`outdir<outdir_io>`
+    - out (name of the output dereplicated sequence tsv file)
+
+Parameters/options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - vsearch_path (path to vsearch executables if not in the PATH)
+
+Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pool sequences from two input tsv files.
+The dereplication is done only for taxID shared by the two input files, since they have been dereplicated individually.
+The algorithm of dereplication is identical to the one used in :ref:`dereplicate.pl<dereplicate_reference>` 
+
+Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- :ref:`sequence tsv with taxIDs<sequence_tsv_with_taxid_io>`
 
 
 
