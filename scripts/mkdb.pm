@@ -734,6 +734,7 @@ sub read_taxonomy_names
 
 }
 
+
 ############################################
 
 sub reverse_complement

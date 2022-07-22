@@ -38,7 +38,7 @@ my $perc_identity = $params{perc_identity}; # Min identity in vsearch --usearch_
 my $cutadapt_path = $params{cutadapt_path};
 my $vsearch_path = $params{vsearch_path};
 
-my $delete_tmp =1;
+my $delete_tmp =0;
 
 #### define filenames and variables
 $outdir = add_slash_to_dir($outdir);

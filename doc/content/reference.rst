@@ -111,14 +111,24 @@ Parameters/options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  - try_download (integer; Try to download files *try_download* times if some of the downloaded files are incomplete; Default: 3)
+ - max_record_n (integer; If more than max_record_n records for a taxon, cut up the taxon to subtaxa; Do not cut up input taxa if max_record_n is 0; Default: 0)
+ - :ref:`taxonomy.tsv<taxonomy_io>` Only necessary id max_record_n > 0
+ 
 
 Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-the scripts downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
+The scripts downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
 
-The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxa on the list has less than 500M specimen records on BOLD. 
+The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxa on the list has less than 500M specimen records in BOLD. 
 The taxon_list constructed on 2022-02-24 is available with on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.
+
+Alternativelly, a list of taxa (including large taxa such as Arthropoda) can be given and the input taxa can be cut up automatically to subtaxa of less than *max_record_n* records each.
+This method has the advantage of avoiding the manual construction of the taxon list (as for bold_taxon_list_2022-02-24.txt). 
+However, the subtaxa produced by the script are based on the NCBI taxonomy, and in case of divergent nomenctature between BOLD and NCBI, 
+some of the subtaxa can be missed. 
+For example if the Chordata phylum is cut up to classes, it will contain the Lepidosauria class. Lepidosauria gives 0 results, 
+since in BOLD the class field contains Reptilia instead of Lepidosauria, thus missing out BOLD orders like Crocodylia, Rhynchocephalia, Squamata, Testudines.
 
 Download is done using BOLD's API. First a small stat file is downloaded to access the number of records available for the taxa, then the tsv file is downloaded with sequences and metainfo.
 The stript checks if the number of downloaded records corresponds to the expected one (based on stat file).
@@ -418,6 +428,7 @@ Output
  - :ref:`ncbi_sequences.tsv<sequence_tsv_with_taxid_io>`
  
 
+
 .. _pool_and_dereplicate_reference:
 
 pool_and_dereplicate.pl
@@ -452,6 +463,51 @@ Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - :ref:`sequence tsv with taxIDs<sequence_tsv_with_taxid_io>`
+
+
+
+.. _get_subtaxa_reference:
+
+get_subtaxa.pl
+-------------------------------------------------
+
+Aim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+List subtaxa of the input taxon at the next major taxonomic rank (e.g. list all orders of the input class)
+
+Input files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - taxon (Can be a taxon name or taxID)
+    - :ref:`taxonomy<taxonomy_io>`
+    - :ref:`outdir<outdir_io>`
+
+Parameters/options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+NONE
+
+Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If taxon is a taxon name, get all taxIDs that correspond to this name (e.g. 1266065 and 50622 for Plecoptera)
+Determine the next lowest major taxonomic rank (phylum, class, order, family, genus, species) for each taxID 
+(e.g. if taxId is an order or suborder or superfamily, the next major tax rank is family)
+List subtaxa of each taxID of this taxonomic rank.
+
+Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- tsv with the following columns
+    - taxon
+    - taxID
+    - subtaxon
+    - taxID (of the subtaxa)
+
+
+
+
 
 
 .. _select_region_reference:

@@ -1,5 +1,7 @@
 use warnings;
 use strict;
+use FindBin qw( $RealBin );
+use lib "$RealBin";
 use mkdb;
 use Data::Dumper;
 
