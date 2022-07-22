@@ -23,9 +23,9 @@ use Data::Dumper;
 ###############################
 ###############################
 my %params = (
-'taxon' =>  'Chordata', # taxon_name OR taxid
-'taxonomy' =>  '/home/meglecz/makeCOIdb/mkCOInr_2022-05-10/COInr_zenodo/taxonomy.tsv', 
-'outdir' => 'temp'
+'taxon' =>  '', # taxon_name OR taxid
+'taxonomy' =>  '', 
+'outdir' => ''
 );
 
 modify_params_from_tags(\%params, \@ARGV);
