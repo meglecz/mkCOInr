@@ -412,6 +412,42 @@ Empty taxlevels are filled out using the name of higher-level taxa.
 	-35075*Polychaeta_6341_order*6341*5*order
 
 
+.. _vtam_database_files_io:
+
+VTAM database files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+BLAST database binary files ready to use by BLAST. 
+
+    - blastdb_name.nhr
+    - blastdb_name.nin
+    - blastdb_name.nog
+    - blastdb_name.nsd
+    - blastdb_name.nsi
+    - blastdb_name.nsq
+
+Taxonomy file with the following columns:
+
+    - tax_id
+    - parent_tax_id
+    - rank
+    - name_txt
+    - old_tax_id (old_tax_id merged to tax_id)
+    - taxlevel
+    
+.. code-block:: bash
+
+	tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel
+	1	1	no rank	root		0
+	2	131567	superkingdom	Bacteria		1
+	6	335928	genus	Azorhizobium		7
+	7	6	species	Azorhizobium caulinodans	395	8
+	9	32199	species	Buchnera aphidicola	28241	8
+	10	1706371	genus	Cellvibrio		7
+	11	1707	species	Cellulomonas gilvus		8
+	13	203488	genus	Dictyoglomus		7
+	14	13	species	Dictyoglomus thermophilum		8
+
 
 Other
 -------------------------------------------------

@@ -17,7 +17,7 @@ After installing mkCOInr you have a file system like this:
 	│   │   └── taxon_list.tsv
 	│   └── one_seq_per_order_658.fas
 	├── doc
-	... (abbreviated for the tutorial)
+	... (abbreviated)
 	└── scripts
 		├── add_taxids.pl
 		├── dereplicate.pl
@@ -52,7 +52,7 @@ You will need to change the date in the filename, and get the up to date link fr
 	rm COInr_2022_05_06.tar.gz
 
 
-For the shortenig the paths in this tuto, rename COInr_2022_05_06 directory to COInr.
+For shortenig the paths in this tuto, rename COInr_2022_05_06 directory to COInr.
 
 .. code-block:: bash
 
@@ -75,11 +75,11 @@ This gives the following file structure
 	│   │   ├── taxon_list_insecta.tsv
 	│   │   └── taxon_list.tsv
 	│   └── one_seq_per_order_658.fas
-	...(abbreviated for the tutorial)
+	...(abbreviated)
 	└── scripts
 		├── add_taxids.pl
 		├── dereplicate.pl
-		...(abbreviated for the tutorial)
+		...(abbreviated)
 
 
 The  :ref:`I/O formats section <io_formats_io>` gives you **details about all file formats and examples** are provided as well. 
@@ -94,9 +94,10 @@ Add custom sequences to a database
 Format custom files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`input tsv file <custom_sequences_tsv_io>` (-custom) contains :ref:`seqIDs <seqid_glossary>`, taxon name (can be at any taxonomic level) and sequences 
-(see the example data/example/my_sequences.tsv).
-This script will suggest one or more lineages for each taxon name based on the existing lineages in :ref:`taxonomy.tsv <taxonomy_io>`. It will also consider synonyms.
+The :ref:`input tsv file <custom_sequences_tsv_io>` (-custom) contains :ref:`seqIDs <seqid_glossary>`, 
+taxon name (can be at any taxonomic level) and sequences (see the example data/example/my_sequences.tsv).
+The :ref:`format_custom.pl <format_custom_reference>` script will suggest one or more lineages for each 
+taxon name based on the existing lineages in :ref:`taxonomy.tsv <taxonomy_io>`. It will also consider synonyms.
 
 .. code-block:: bash
 
@@ -116,9 +117,11 @@ The output lineage file (custom/format/custom_lineages.tsv) looks like this:
 
 
 This output should be should be checked manually to see if the lineages are coherent.
-If homonymy, choose the correct lineage (like for Leucothoe genus in the example), then delete homonymy column. 
-If a taxon name is not present in the taxonomy file, the lineage should be completed manually (e.g. Ilia nucleus in the example file).
-Create a revised version of the lineage file (tutorial/custom/1_format/custom_lineages_verified.tsv). The revise file looks like this:
+If homonymy, choose the correct lineage (like for *Leucothoe* genus in the example), then delete homonymy column. 
+
+If a taxon name is not present in the taxonomy file, the lineage should be completed manually (e.g. *Ilia nucleus* in the example file).
+
+Create a revised version of the lineage file (tutorial/custom/1_format/custom_lineages_verified.tsv). The revised file looks like this:
 
 .. code-block:: bash
 
@@ -137,11 +140,12 @@ See details in description section: :ref:`format_custom.pl <format_custom_refere
 Add taxIDs to custom sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:ref:`add_taxids.pl <add_taxids_reference>` will
+The :ref:`add_taxids.pl <add_taxids_reference>` script will
+
 - For each lineage in the input file
     - Find an existing taxID at the lowest possible taxonomic level. :ref:`taxIDs <taxid_glossary>` can be either from NCBI, or negative taxID already present in :ref:`taxonomy.tsv <taxonomy_io>`.
-    - Add new arbitrary (negative) taxIDs to taxa, that are not yet in taxonomy file 
-    - Link each new taxID to existing one as a child and include info to the updated taxonomy file
+    - Add new arbitrary (negative) taxIDs to taxa not yet in the taxonomy file 
+    - Link each new taxID to an existing one as a child and include info to the updated taxonomy file
 - Make a :ref:`tsv file with sequences and taxIDs <sequence_tsv_with_taxid_io>`
 - Update the :ref:`taxonomy.tsv <taxonomy_io>` file
 
@@ -159,7 +163,7 @@ See details in description section: :ref:`add_taxids.pl <add_taxids_reference>` 
 Dereplicate custom sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:ref:`dereplicate.pl <dereplicate_reference>` will eliminate sequences that are substring of another sequence of the same :ref:`taxID <taxid_glossary>`. 
+The :ref:`dereplicate.pl <dereplicate_reference>` script will eliminate sequences that are substrings of another sequence of the same :ref:`taxID <taxid_glossary>`. 
 Use :ref:`sequences_with_taxIDs.tsv <sequence_tsv_with_taxid_io>` file (output of the previous script) as the input.
 
 .. code-block:: bash
@@ -179,10 +183,11 @@ Pool and dereplicate datasets
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use two dereplicated :ref:`sequence tsv files <sequence_tsv_with_taxid_io>`:
-- COInr.tsv  (pool of BOLD and NCBI, downloaded from Zenodo)
-- custom_dereplicated_sequences.tsv (output of the previous script)
+    - COInr.tsv  (pool of BOLD and NCBI, downloaded from Zenodo)
+    - custom_dereplicated_sequences.tsv (output of the previous script)
 
-:ref:`pool_and_dereplicate.pl <pool_and_dereplicate_reference>` will pool the files and dereplicate sequences of the taxIDs that are present in both files
+:ref:`pool_and_dereplicate.pl <pool_and_dereplicate_reference>` will pool the files and dereplicate sequences 
+of the taxIDs that are present in both files.
 
 .. code-block:: bash
 
@@ -198,17 +203,17 @@ Custom database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Your custom database is composed of two files:
-- the dereplicated sequence file (tutorial/custom/COInr_custom.tsv)
-- the last version of the taxonomy file (tutorial/custom/2_add_taxids/taxonomy_updated.tsv)
+    - the dereplicated sequence file (tutorial/custom/COInr_custom.tsv)
+    - the last version of the taxonomy file (tutorial/custom/2_add_taxids/taxonomy_updated.tsv)
 
-For simplicity, move the updated taxonomy file to the folder where the sequence file is found.
+For simplicity, move the updated taxonomy file to the same folder as the sequence file.
 
 .. code-block:: bash
 
 	mv tutorial/custom/2_add_taxids/taxonomy_updated.tsv tutorial/custom/taxonomy_updated.tsv
 
 
-This database can be further customized, or you can simply format it to be ready for your taxonomic assignment program by the :ref:`format_db.pl <format_db_reference>` script.
+This database can be further customized, or you can simply be formated to your taxonomic assignment program by the :ref:`format_db.pl <format_db_reference>` script.
 
 
 
@@ -224,7 +229,6 @@ Select sequences for a list of taxa with a minimum taxonomic rank
 Sequences can be selected for a list of taxa and/or for a minimum taxonomic level (species/genus/family/order/class/phylum/kingdom/superkingdom/root)
 
 The input file (:ref:`-taxon_list <taxon_list_io>`) contains a list of taxa and eventually their taxIDs (see example data/example/taxon_list.tsv). 
-The first line is a heading and will be ignored by the script.
 
 This example will select sequences from the COInr database, but you can adapt it easily to the COInr_custom.tsv if you have done the previous section :ref:`Add custom sequences to a database<add_custom_sequences_tutorial>`. 
 
@@ -232,7 +236,7 @@ This example will select sequences from the COInr database, but you can adapt it
 
 	perl scripts/select_taxa.pl -taxon_list data/example/taxon_list.tsv -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv  -min_taxlevel species  -outdir tutorial/select_taxa_0 -out COInr_selected.tsv
 
-The main output is a :ref:`sequence tsv file <sequence_tsv_with_taxid_io>` (tutorial/select_taxa_0/COInr_selected.tsv) in the same format as the input.
+The main output is a :ref:`sequence tsv file <sequence_tsv_with_taxid_io>` (tutorial/select_taxa_0/COInr_selected.tsv).
 A :ref:`lineage file <lineage_tsv_with_taxID_io>` (tutorial/select_taxa_0/taxa_with_lineages.tsv) is also written for all taxa in the taxon_list to check if they are coherent with the target taxon names. 
 
 See details in description section: :ref:`select_taxa.pl <select_taxa_reference>` script.
@@ -262,7 +266,6 @@ Select region
 Sequences can be trimmed to a specific region of the COI gene by the :ref:`select_region.pl <select_region_reference>` script. 
 To define the region, you can either give a fasta file with sequences covering the region of interest, or you can detect them automatically by e-pcr, as it is in this example.
 
-This example selects sequences form the COInr database, but you can adapt it easily to the COInr_custom.tsv. 
 The primers used in this example are amplifying a Leray fragment (ca. 313 nt of the second half of the barcode region).
 
 .. code-block:: bash
@@ -270,11 +273,11 @@ The primers used in this example are amplifying a Leray fragment (ca. 313 nt of 
 	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov_hsp_perc 0.8 -perc_identity 0.7
 
 
-Using the e_pcr option is an easy way to produce some sequences trimmed to the target region, 
+Using the *e_pcr* option is an easy way to produce some sequences trimmed to the target region, 
 and they can be used as a database to align all other sequences to them. 
 However, if the parameters of the e_pcr are relaxed, it can produce some false positives. 
 An alternative solution is to use a small, taxonomically divers fasta file, with sequences already trimmed to the target region 
-(-target_region_fas option). 
+(-*target_region_fas* option). 
 An example of such a file is given in the data directory (data/one_seq_per_order_658.fas). 
 It contains one sequence for each taxonomic order among the taxa that have a compete mitochondrial genome available in GenBank. 
 Sequences are trimmed to the approximately 658 bp (depending on the taxon) barcode fragment of the COI gene.
@@ -330,7 +333,7 @@ The full option, gives a :ref:`tsv file <full_tsv_io>` with seqIDs, ranked linea
 
 	perl scripts/format_db.pl -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv -outfmt full -outdir COInr/full -out COInr_full
 
-**vtam**
+**blast**
 
 For making a BLAST database, the taxonomy file is not necessary and the indexed files in the output folder are ready to use.
 
@@ -340,7 +343,7 @@ For making a BLAST database, the taxonomy file is not necessary and the indexed 
 
 **vtam**
 
-The vtam option produces a BLAST database and a taxonomy file adapter to `VTAM<https://github.com/aitgon/vtam>`_.
+The vtam option produces a BLAST database and a taxonomy file adapter to `VTAM <https://github.com/aitgon/vtam>`_ .
 
 .. code-block:: bash
 
@@ -356,8 +359,8 @@ Chaining steps to make a custom database
 
 In the above examples, we have started from the COInr database. However, you can chain the different comands. 
 
-Bellow, I will show you how to create a database with the folling caracteristics:
-    - Eukaryote sequences
+Bellow, I will show you how to create a database with the following characteristics:
+    - Eukaryota sequences
     - Excluding insects
     - Enriched with custom sequences
     - Sequences assigned at least to genus level
@@ -365,14 +368,12 @@ Bellow, I will show you how to create a database with the folling caracteristics
     - rdp_classifier format
 
 
-**Note**
-
-It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
+**Note**:
+    - It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
 Since, over 70% of the sequences are from Insecta in COInr, we will start start by eliminating them. 
 The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to the reduced dataset. 
 Otherwise, we should have started by adding custom sequences. This solution is also fine, but gives large intermediate files.
-
-The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. 
+    - The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. 
 So it is preferable to do this at the end of the pipeline.
 
 .. _exclude_insecta_tutorial:
@@ -424,18 +425,18 @@ Add the formatted, dereplicated custom sequences to the sequences in tutorial/ch
 
 .. _keep_genus_tutorial:
 
-Keep only sequences genus or higher resolution
+Keep only sequences with genus or higher resolution
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We have eliminated sequences with lower than genus resolution from COInr. 
 However, among the custom sequences we had a sequence with an unknown genus. 
-So let's redo the selection for the a minimum taxonomic level. 
+So let's redo the selection for a minimum taxonomic level. 
 
 Yes, you are right! We could have just avoided to add that sequence to the database in the previous step. 
 But if you have many custom sequences, you might just be lazy to check the custom sequences manually, 
 and in that case you can use mkCOInr to this for you.
 
-**Attention**: From now on, we have to use the updated taxonomy file.
+**Attention**: From now on, we have to use the updated taxonomy file (tutorial/chained/3_add_custom/taxonomy_updated.tsv).
 
 .. code-block:: bash
 
@@ -470,7 +471,7 @@ Format for RDP_classifier
 
 Create COInr from BOLD and NCBI
 -------------------------------------------------
-The following steps describe how COInr database (available at `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ was produced. 
+The following steps describe how COInr database (available at `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ ) was produced. 
 
 .. _download_ncbi_taxonomy_tutorial:
 
@@ -503,7 +504,7 @@ It takes several hours (days) to run this command.
 
 The results are found in the NSDPY_results/yyyy-mm-dd_hh-mm-ss folder.
 
-sequences.fasta contains all CDS sequences. Sequences are correctly oriented but should still be filtered to keep only COI sequences.
+the sequences.fasta contains all CDS sequences. Sequences are correctly oriented but should still be filtered to keep only COI sequences.
 TaxIDs.txt contains the sequenceIDs and the TaxIDs.
 
 Move the results of nsdpy to the COInr_new/ncbi/download directory and clean up the directory.
@@ -519,7 +520,7 @@ Move the results of nsdpy to the COInr_new/ncbi/download directory and clean up 
 Format NCBI sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-:ref:`format_ncbi.pl <format_ncbi_reference>` will
+The :ref:`format_ncbi.pl <format_ncbi_reference>` script will
     - Select COI sequences and clean them. 
     - Eliminate identical sequences of the same taxID.
     - Clean tax names and taxids.
@@ -553,11 +554,15 @@ BOLD sequences
 Download BOLD sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following command will download all sequences and lineages for all taxa on the taxon_list from BOLD.
+The :ref:`download_bold.pl <download_bold_reference>` script will download all sequences and lineages from BOLD for all taxa on the taxon_list.
 
 The data/bold_taxon_list_2022-02-24.txt taxon list file is constructed manually from taxa on 
 `NCBI Taxonomy  <https://www.boldsystems.org/index.php/TaxBrowser_Home>`_. 
 This might need to be updated later. Each taxa on the list has less than 500M specimen records on BOLD.
+
+Alternativelly, it is also possible to use a list of large taxa (e.g. Arthropoda) 
+and ask the sript to cut up large taxa to subtaxa if they have more then *max_record_n* sepcimen records. 
+However, this solution have some pitfalls (see :ref:`description of download_bold.pl <download_bold_reference>`).
 
 .. code-block:: bash
 
@@ -594,7 +599,6 @@ Add taxIDs to BOLD sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For each lineage the :ref:`add_taxids.pl <add_taxids_reference>` script will
-
     - Find an existing :ref:`taxID <taxid_glossary>` at the lowest level possible. TaxIDs can be either from NCBI, or negative taxID already present in :ref:`taxonomy.tsv <taxonomy_io>`.
     - Add new arbitrary (negative) taxIDs to taxa, that are not yet in taxonomy.tsv 
     - Link each new taxID to existing one as a child and include info to the updated taxonomy file
