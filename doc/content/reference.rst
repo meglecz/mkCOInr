@@ -605,7 +605,7 @@ Parameters/options
 Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Select sequences that belong to the taxa on a taxon list if *negative_list==0* (default). Select sequences that DO not belong to the taxa on in a taxon list, if *negative_list==1*.
+Select sequences that belong to the taxa on a taxon list if *negative_list==0* (default). Select sequences that DO NOT belong to the taxa on in a taxon list, if *negative_list==1*.
 
 Keep only sequences that are assigned to at least to *min_taxlevel* rank.
 

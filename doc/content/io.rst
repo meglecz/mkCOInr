@@ -1,3 +1,5 @@
+.. _io_formats_io:
+
 Input/Output
 ============================
 
