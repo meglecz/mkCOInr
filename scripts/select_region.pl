@@ -1,5 +1,7 @@
 use warnings;
 use strict;
+use FindBin qw( $RealBin );
+use lib "$RealBin";
 use mkdb;
 use Data::Dumper;
 
@@ -38,7 +40,7 @@ my $perc_identity = $params{perc_identity}; # Min identity in vsearch --usearch_
 my $cutadapt_path = $params{cutadapt_path};
 my $vsearch_path = $params{vsearch_path};
 
-my $delete_tmp =0;
+my $delete_tmp =1;
 
 #### define filenames and variables
 $outdir = add_slash_to_dir($outdir);
@@ -199,7 +201,7 @@ while(my $line = <IN>)
 	}
 	else
 	{
-		print LOG "$line[0] at least twice in the vsearch output file\n";
+#		print LOG "$line[0] at least twice in the vsearch output file\n";
 	}
 }
 close IN;
