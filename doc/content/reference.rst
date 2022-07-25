@@ -456,10 +456,10 @@ NONE
 Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If taxon is a taxon name, get all taxIDs that correspond to this name (e.g. 1266065 and 50622 for Plecoptera)
-Determine the next lowest major taxonomic rank (phylum, class, order, family, genus, species) for each taxID 
+- If taxon is a taxon name, get all taxIDs that correspond to this name (e.g. 1266065 and 50622 for Plecoptera)
+- Determine the next lowest major taxonomic rank (phylum, class, order, family, genus, species) for each taxID 
 (e.g. if taxId is an order or suborder or superfamily, the next major tax rank is family)
-List subtaxa of each taxID of this taxonomic rank.
+- List subtaxa of each taxID of this taxonomic rank.
 
 Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

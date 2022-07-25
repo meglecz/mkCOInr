@@ -11,6 +11,7 @@ After installing mkCOInr you have a file system like this:
 	├── data
 	│   ├── bold_taxon_list_2022-02-24.txt
 	│   ├── example
+	│   │   ├── custom_lineages_verified.tsv
 	│   │   ├── my_sequences.tsv
 	│   │   ├── taxon_list_eukaryota.tsv
 	│   │   ├── taxon_list_insecta.tsv
@@ -39,15 +40,15 @@ After installing mkCOInr you have a file system like this:
 Customize database 
 -------------------------------------------------
 
-In this section of the tutorial, I will start from the COInr database in each major step to illustrate 
+In the first part of the tutorial, I will start from the COInr database in each major step to illustrate 
     - :ref:`How to include custom sequences <add_custom_sequences_tutorial>`
-    - :ref:`How to select or eliminate sequences of a list of taxa <select_sequences_custom_tutorial>`
-    - :ref:`How to select sequences with a minimum taxonomic resolution <select_sequences_custom_tutorial>`
+    - :ref:`How to select or eliminate sequences of a list of taxa or a minimum resolution <select_sequences_custom_tutorial>`
     - :ref:`How to select a target region <select_region_custom_tutorial>`
     - :ref:`How to format a dataset to different database formats <format_db_custom_tutorial>`
     
-These step can be executed independently. 
-The last example shows how to create a pipeline by combining thses setps.
+Theses steps can be executed independently. 
+
+The last example shows how to ref:`create a pipeline <chained_custom_tutorial>` by combining different commands.
 
 The creation of the COInr database is explained in the :ref:`Create COInr from BOLD and NCBI section <create_coinr_tutorial>`. 
 You can download this database from `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ and customize it to your needs.
@@ -73,6 +74,10 @@ For shortenig the paths in this tuto, rename COInr_2022_05_06 directory to COInr
 
 	mv COInr_2022_05_06 COInr
 
+The COInr database is composed of two files
+    - :ref:`COInr.tsv <sequence_tsv_with_taxid_io>`, that contains :ref:`sequenceIDs <seqid_glossary>`, :ref:`taxIDs <taxid_glossary>` and sequences
+    - :ref:`taxonomy.tsv <taxonomy_io>` that contains all taxIDs and associated information
+
 
 This gives the following file structure
 
@@ -85,6 +90,7 @@ This gives the following file structure
 	├── data
 	│   ├── bold_taxon_list_2022-02-24.txt
 	│   ├── example
+	│   │   ├── custom_lineages_verified.tsv
 	│   │   ├── my_sequences.tsv
 	│   │   ├── taxon_list_eukaryota.tsv
 	│   │   ├── taxon_list_insecta.tsv
@@ -214,8 +220,8 @@ Custom database
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Your custom database is composed of two files:
-    - the dereplicated sequence file (tutorial/custom/COInr_custom.tsv)
-    - the last version of the taxonomy file (tutorial/custom/2_add_taxids/taxonomy_updated.tsv)
+    - the dereplicated sequence file (COInr_custom.tsv)
+    - the last version of the taxonomy file (taxonomy_updated.tsv)
 
 For simplicity, move the updated taxonomy file to the same folder as the sequence file.
 
@@ -245,8 +251,8 @@ The input file (:ref:`-taxon_list <taxon_list_io>`) contains a list of taxa and 
 
 	perl scripts/select_taxa.pl -taxon_list data/example/taxon_list.tsv -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv  -min_taxlevel species  -outdir tutorial/select_taxa_0 -out COInr_selected.tsv
 
-The main output is a :ref:`sequence tsv file <sequence_tsv_with_taxid_io>` (tutorial/select_taxa_0/COInr_selected.tsv).
-A :ref:`lineage file <lineage_tsv_with_taxID_io>` (tutorial/select_taxa_0/taxa_with_lineages.tsv) is also written for all taxa in the taxon_list to check if they are coherent with the target taxon names. 
+The main output is a :ref:`sequence tsv file <sequence_tsv_with_taxid_io>` (COInr_selected.tsv).
+A :ref:`lineage file <lineage_tsv_with_taxID_io>` (taxa_with_lineages.tsv) is also written for all taxa in the taxon_list to check if they are coherent with the target taxon names. 
 
 See details in description section: :ref:`select_taxa.pl <select_taxa_reference>` script.
 
@@ -322,10 +328,6 @@ Format the database to one of the following formats
     - full
     - blast
     - vtam
-    
-These examples select sequences form the COInr database, but you can adapt it easily to any of the tutorial/custom/COInr_custom.tsv file. 
-Make sure you use the updated taxonomy file (tutorial/custom/taxonomy_updated.tsv) in that case.
-
 
 **qiime**
 
@@ -372,7 +374,7 @@ See details in description section: :ref:`format_db.pl <format_db_reference>` sc
 
 .. _chained_custom_tutorial:
 
-Making a pipeline to make a custom database
+Chaining steps to make a custom database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In the above examples, we have started from the COInr database. However, you can chain the different comands. 
@@ -387,10 +389,9 @@ Bellow, I will show you how to create a database with the following characterist
 
 
 **Note**:
-    - It is a good idea to start with steps that are relatively quick and reduce the size of the database. Since, over 70% of the sequences are from Insecta in COInr, 
-    we will start start by eliminating them. The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to 
-    the reduced dataset. Otherwise, we should have started by adding custom sequences. 
-    This solution is also fine, but gives large intermediate files.
+    - It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
+    - Since, over 70% of the sequences are from Insecta in COInr, we will start start by eliminating them. 
+    - The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to the reduced dataset. Otherwise, we should have started by adding custom sequences. This solution is also fine, but gives large intermediate files.
     - The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. So it is preferable to do this at the end of the pipeline.
 
 .. _exclude_insecta_tutorial:
@@ -422,8 +423,7 @@ Add custom sequences
 
 	perl scripts/format_custom.pl -custom data/example/my_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/chained/3_add_custom/1_format
 
-Check and format the tutorial/chained/3_add_custom/1_format/custom_lineages.tsv and make 
-tutorial/chained/3_add_custom/1_format/custom_lineages_verified.tsv as in :ref:`Add custom sequences to a database <add_custom_sequences_tutorial>` section.
+Check and format the custom_lineages.tsv and make custom_lineages_verified.tsv as in :ref:`Add custom sequences to a database <add_custom_sequences_tutorial>` section.
 
 .. code-block:: bash
 
@@ -431,7 +431,7 @@ tutorial/chained/3_add_custom/1_format/custom_lineages_verified.tsv as in :ref:`
 	
 	perl scripts/dereplicate.pl -tsv tutorial/chained/3_add_custom/2_add_taxids/sequences_with_taxIDs.tsv -outdir tutorial/chained/3_add_custom/3_dereplicate -out custom_dereplicated_sequences.tsv
 
-Add the formatted, dereplicated custom sequences to the sequences in tutorial/chained/2_Eukaryota/COInr_noIns_Euk.tsv
+Add the formatted, dereplicated custom sequences to the sequences in COInr_noIns_Euk.tsv
 
 .. code-block:: bash
 
@@ -453,7 +453,7 @@ Yes, you are right! We could have just avoided to add that sequence to the datab
 But if you have many custom sequences, you might just be lazy to check the custom sequences manually, 
 and in that case you can use mkCOInr to this for you.
 
-**Attention**: From now on, we have to use the updated taxonomy file (tutorial/chained/3_add_custom/taxonomy_updated.tsv).
+**Attention**: From now on, we have to use the updated taxonomy file (taxonomy_updated.tsv), since some of the taxa of the custom sequences might not be in the original taxonomy.tsv file.
 
 .. code-block:: bash
 

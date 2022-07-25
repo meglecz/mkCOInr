@@ -21,10 +21,24 @@ The following tools should be installed. (Scripts using the program are in paran
 
 All third party programs can be easily installed to a conda environment, but it is not essential.
 
+Commands for a quick installation of the conda environment and dependencies
+
+.. code-block:: bash
+
+	conda create --name mkcoinr python=3.9 -y
+	conda activate mkcoinr
+
+	python3 -m pip install cutadapt
+	conda install -c bioconda blast -y
+	conda install -c bioconda vsearch -y
+	pip install nsdpy
+
 .. _mkCOInr scripts_installation:
 
 mkCOInr scripts
 -------------------------------------------------
 
-The mkCOInr scripts are written in Perl, no installation is necessary to run them apart from the Perl interpreter already installed in all unix systems. Just download the scripts directory and you are ready.
+The mkCOInr scripts are written in Perl, no installation is necessary to run them apart from the Perl interpreter already installed in all unix systems. 
+Just clone the :ref:`mkCOInr git repository <https://github.com/meglecz/mkCOInr>`_ and you are ready.
+
 

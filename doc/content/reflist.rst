@@ -5,6 +5,10 @@ List of References
 
 Altschul, S. F., Madden, T. L., Schaffer, A. A., Zhang, J. H., Zhang, Z., Miller, W., & Lipman, D. J. (1997). Gapped BLAST and PSI-BLAST: a new generation of protein database search programs. Nucleic Acids Research, 25(17), 3389–3402.
 
+.. _Gonzalez_2020_reflist:
+
+González, A., Dubut, V., Corse, E., Mekdad, R., Dechatre, T., & Meglécz, E. (2020). VTAM: A robust pipeline for validating metabarcoding data using internal controls. (p. 2020.11.06.371187) BioRxiv, https://www.biorxiv.org/content/10.1101/2020.11.06.371187v3
+
 .. _Hebert_2022_reflist:
 
 Hebert, R., & Meglécz, E. (2022). NSDPY: A python package to download DNA sequences from NCBI. SoftwareX, 18, 101038. https://doi.org/10.1016/j.softx.2022.101038
@@ -23,7 +27,7 @@ Meglécz, E. (2022a). COInr a comprehensive, non-redundant COI database from NCB
 
 .. _Meglecz_github_2022_reflist:
 
-Meglécz, E. (2022c). meglecz/mkCOInr: MkCOInr-v.0.1. Zenodo. https://doi.org/10.5281/zenodo.6566165
+Meglécz, E. (2022c). meglecz/mkCOInr: mkCOInr-v.0.1. Zenodo. https://doi.org/10.5281/zenodo.6566165
 
 .. _Rognes_2016_reflist:
 
