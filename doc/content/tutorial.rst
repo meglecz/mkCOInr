@@ -39,9 +39,24 @@ After installing mkCOInr you have a file system like this:
 Customize database 
 -------------------------------------------------
 
-The creation of the COInr database is explained in the :ref:`Create COInr from BOLD and NCBI section <create_coinr_tutorial>`. You can download this database from `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ and customize it to your needs.
+In this section of the tutorial, I will start from the COInr database in each major step to illustrate 
+    - :ref:`How to include custom sequences <add_custom_sequences_tutorial>`
+    - :ref:`How to select or eliminate sequences of a list of taxa <select_sequences_custom_tutorial>`
+    - :ref:`How to select sequences with a minimum taxonomic resolution <select_sequences_custom_tutorial>`
+    - :ref:`How to select a target region <select_region_custom_tutorial>`
+    - :ref:`How to format a dataset to different database formats <format_db_custom_tutorial>`
+    
+These step can be executed independently. 
+The last example shows how to create a pipeline by combining thses setps.
 
-Download and untar COInr.
+The creation of the COInr database is explained in the :ref:`Create COInr from BOLD and NCBI section <create_coinr_tutorial>`. 
+You can download this database from `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ and customize it to your needs.
+
+.. _download_coinr_tutorial:
+
+Download and untar COInr
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 You will need to change the date in the filename, and get the up to date link from zenodo for later releases.
 
 .. code-block:: bash
@@ -84,6 +99,7 @@ This gives the following file structure
 
 The  :ref:`I/O formats section <io_formats_io>` gives you **details about all file formats and examples** are provided as well. 
 
+
 .. _add_custom_sequences_tutorial:
 
 Add custom sequences to a database
@@ -121,7 +137,7 @@ If homonymy, choose the correct lineage (like for *Leucothoe* genus in the examp
 
 If a taxon name is not present in the taxonomy file, the lineage should be completed manually (e.g. *Ilia nucleus* in the example file).
 
-Create a revised version of the lineage file (tutorial/custom/1_format/custom_lineages_verified.tsv). The revised file looks like this:
+I created a revised version of the lineage file (data/example/custom_lineages_verified.tsv), which will be used in the next step:
 
 .. code-block:: bash
 
@@ -151,11 +167,9 @@ The :ref:`add_taxids.pl <add_taxids_reference>` script will
 
 .. code-block:: bash
 
-	perl scripts/add_taxids.pl -lineages tutorial/custom/1_format/custom_lineages_verified.tsv -sequences tutorial/custom/1_format/custom_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/custom/2_add_taxids
+	perl scripts/add_taxids.pl -lineages data/example/custom_lineages_verified.tsv -sequences tutorial/custom/1_format/custom_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/custom/2_add_taxids
 
 See details in description section: :ref:`add_taxids.pl <add_taxids_reference>` script.
-
-
 
 
 .. _dereplicate_custom_tutorial:
@@ -168,13 +182,11 @@ Use :ref:`sequences_with_taxIDs.tsv <sequence_tsv_with_taxid_io>` file (output o
 
 .. code-block:: bash
 
-	perl scripts/dereplicate.pl -tsv tutoriel/custom/2_add_taxids/sequences_with_taxIDs.tsv -outdir tutorial/custom/3_dereplicate -out custom_dereplicated_sequences.tsv
+	perl scripts/dereplicate.pl -tsv tutorial/custom/2_add_taxids/sequences_with_taxIDs.tsv -outdir tutorial/custom/3_dereplicate -out custom_dereplicated_sequences.tsv
 
 The output file is in the same format as the input tsv file.
 
 See details in description section: :ref:`dereplicate.pl <dereplicate_reference>` script.
-
-
 
 
 .. _pool_and_dereplicate_custom_tutorial:
@@ -196,7 +208,6 @@ of the taxIDs that are present in both files.
 The output is the same format as the input tsv file.
 
 See details in description section: :ref:`pool_and_dereplicate.pl <pool_and_dereplicate_reference>` script.
-
 
 
 Custom database
@@ -230,8 +241,6 @@ Sequences can be selected for a list of taxa and/or for a minimum taxonomic leve
 
 The input file (:ref:`-taxon_list <taxon_list_io>`) contains a list of taxa and eventually their taxIDs (see example data/example/taxon_list.tsv). 
 
-This example will select sequences from the COInr database, but you can adapt it easily to the COInr_custom.tsv if you have done the previous section :ref:`Add custom sequences to a database<add_custom_sequences_tutorial>`. 
-
 .. code-block:: bash
 
 	perl scripts/select_taxa.pl -taxon_list data/example/taxon_list.tsv -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv  -min_taxlevel species  -outdir tutorial/select_taxa_0 -out COInr_selected.tsv
@@ -261,10 +270,16 @@ See details in description section: :ref:`select_taxa.pl <select_taxa_reference>
 .. _select_region_custom_tutorial:
 
 Select region
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sequences can be trimmed to a specific region of the COI gene by the :ref:`select_region.pl <select_region_reference>` script. 
 To define the region, you can either give a fasta file with sequences covering the region of interest, or you can detect them automatically by e-pcr, as it is in this example.
+
+
+.. _select_region_e_pcr_custom_tutorial:
+
+Select region using e_pcr option
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The primers used in this example are amplifying a Leray fragment (ca. 313 nt of the second half of the barcode region).
 
@@ -272,6 +287,11 @@ The primers used in this example are amplifying a Leray fragment (ca. 313 nt of 
 
 	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov_hsp_perc 0.8 -perc_identity 0.7
 
+
+.. _select_region_target_region_fas_custom_tutorial:
+
+Select region using target_region_fas option
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using the *e_pcr* option is an easy way to produce some sequences trimmed to the target region, 
 and they can be used as a database to align all other sequences to them. 
@@ -288,8 +308,6 @@ Sequences are trimmed to the approximately 658 bp (depending on the taxon) barco
 
 
 See details in description section: :ref:`select_region.pl <select_region_reference>` script.
-
-
 
 
 
@@ -354,8 +372,8 @@ See details in description section: :ref:`format_db.pl <format_db_reference>` sc
 
 .. _chained_custom_tutorial:
 
-Chaining steps to make a custom database
--------------------------------------------------
+Making a pipeline to make a custom database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In the above examples, we have started from the COInr database. However, you can chain the different comands. 
 
@@ -369,17 +387,16 @@ Bellow, I will show you how to create a database with the following characterist
 
 
 **Note**:
-    - It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
-Since, over 70% of the sequences are from Insecta in COInr, we will start start by eliminating them. 
-The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to the reduced dataset. 
-Otherwise, we should have started by adding custom sequences. This solution is also fine, but gives large intermediate files.
-    - The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. 
-So it is preferable to do this at the end of the pipeline.
+    - It is a good idea to start with steps that are relatively quick and reduce the size of the database. Since, over 70% of the sequences are from Insecta in COInr, 
+    we will start start by eliminating them. The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to 
+    the reduced dataset. Otherwise, we should have started by adding custom sequences. 
+    This solution is also fine, but gives large intermediate files.
+    - The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. So it is preferable to do this at the end of the pipeline.
 
 .. _exclude_insecta_tutorial:
 
 Exclude Insecta
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -389,7 +406,7 @@ Exclude Insecta
 .. _keep_eukaryota_tutorial:
 
 Keep Eukaryota
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -399,7 +416,7 @@ Keep Eukaryota
 .. _add_custom_chained_tutorial:
 
 Add custom sequences
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -410,7 +427,7 @@ tutorial/chained/3_add_custom/1_format/custom_lineages_verified.tsv as in :ref:`
 
 .. code-block:: bash
 
-	perl scripts/add_taxids.pl -lineages tutorial/chained/3_add_custom/1_format/custom_lineages_verified.tsv -sequences tutorial/chained/3_add_custom/1_format/custom_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/chained/3_add_custom/2_add_taxids
+	perl scripts/add_taxids.pl -lineages data/example/custom_lineages_verified.tsv -sequences tutorial/chained/3_add_custom/1_format/custom_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/chained/3_add_custom/2_add_taxids
 	
 	perl scripts/dereplicate.pl -tsv tutorial/chained/3_add_custom/2_add_taxids/sequences_with_taxIDs.tsv -outdir tutorial/chained/3_add_custom/3_dereplicate -out custom_dereplicated_sequences.tsv
 
@@ -426,7 +443,7 @@ Add the formatted, dereplicated custom sequences to the sequences in tutorial/ch
 .. _keep_genus_tutorial:
 
 Keep only sequences with genus or higher resolution
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We have eliminated sequences with lower than genus resolution from COInr. 
 However, among the custom sequences we had a sequence with an unknown genus. 
@@ -446,7 +463,7 @@ and in that case you can use mkCOInr to this for you.
 .. _trim_to_leray_tutorial:
 
 Trim to Leray region
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -457,7 +474,7 @@ Trim to Leray region
 .. _format_rdp_chained_tutorial:
 
 Format for RDP_classifier
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
