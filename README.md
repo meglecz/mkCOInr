@@ -2,6 +2,10 @@
 
 **mkCOInr** is a series of Perl scripts that aims to **create and customize** **COInr**, a large, comprehensive, **COI database form NCBI-nucleotide and BOLD**.
 
+The COInr database is composed of two files
+ - COInr.tsv contains sequenceIDs, taxIDs, and sequences
+ - taxonomy.tsv contains all taxIDs and associated information
+
 **COInr** is freely available and can be easily downloaded at [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6555985.svg)](https://doi.org/10.5281/zenodo.6555985)
 
 ## Documentation
@@ -29,6 +33,8 @@ Sequences from COInr can be selected for :
 This can save a considerable amount of time and effort, since one of the most important challenges of creating a custom database is the mass downloading of the sequences and their pooling into a coherent taxonomic system.
 
 **Custom sequences** can also be included and their taxonomic lineages is correctly handled.
+
+COInr or the custom databases derived from it can be **formated to different database formats** (qiime, rdp, blast, vtam, full).
 
 
 **Fig.1** The full pipeline to create COInr and options to make a custom database
