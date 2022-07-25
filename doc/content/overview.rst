@@ -34,7 +34,7 @@ Alternatively, the **database can be used as a starting point to create smaller,
 Sequences can be selected for :
 
     - A particular gene region (amplicon of a given primer pair) using :ref:`select_region <select_region_reference>`
-    - List of taxa (sequences of a taxon list can be eiter selected or eliminated) using :ref:`select_taxa <select_taxa_reference>`
+    - List of taxa (sequences of a taxon list can be either selected or eliminated) using :ref:`select_taxa <select_taxa_reference>`
     - User-defined minimal taxonomic resolution using :ref:`select_taxa <select_taxa_reference>`
 	
 Additionally, it is also possible to **add custom sequences**.

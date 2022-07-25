@@ -8,7 +8,7 @@ Special attention was taken to minimize dependencies.
 Third-party programs
 -------------------------------------------------
 
-The following tools should be installed. (Scripts using the program are in parantheses)
+The following tools should be installed. (Scripts using the program are in parentheses)
 
     - `nsdpy <https://github.com/RaphaelHebert/nsdpy>`_ used for downloading sequences from NCBI (:ref:`Hebert and Meglécz, 2022<Hebert_2022_reflist>`)
    
@@ -19,9 +19,9 @@ The following tools should be installed. (Scripts using the program are in paran
     - `cutadapt <https://cutadapt.readthedocs.io>`_ (:ref:`Martin, 2011<Martin_2011_reflist>`; :ref:`select_region.pl <select_region_reference>` for the e_pcr option)
    
 
-All third party programs can be easily installed to a conda environment, but it is not essential to use conda.
+All third-party programs can be easily installed to a conda environment, but it is not essential to use conda.
 
-Commands for a quick installation of the conda environment and dependencies
+Commands for a quick installation of the conda environment and dependencies:
 
 .. code-block:: bash
 

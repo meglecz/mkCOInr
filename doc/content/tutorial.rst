@@ -46,7 +46,7 @@ In the first part of the tutorial, I will start from the COInr database in each 
     - :ref:`How to select a target region <select_region_custom_tutorial>`
     - :ref:`How to format a dataset to different database formats <format_db_custom_tutorial>`
     
-Theses steps can be executed independently. 
+These steps can be executed independently. 
 
 The last example shows how to :ref:`create a pipeline <chained_custom_tutorial>` by combining different commands.
 
@@ -58,7 +58,7 @@ You can download this database from `Zenodo <https://doi.org/10.5281/zenodo.6555
 Download and untar COInr
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You will need to change the date in the filename, and get the up to date link from zenodo for later releases.
+You will need to change the date in the filename, and get the up-to-date link from zenodo for later releases.
 
 .. code-block:: bash
 
@@ -68,7 +68,7 @@ You will need to change the date in the filename, and get the up to date link fr
 	rm COInr_2022_05_06.tar.gz
 
 
-For shortenig the paths in this tuto, rename COInr_2022_05_06 directory to COInr.
+For shortening the paths in this tutorial, rename COInr_2022_05_06 directory to COInr.
 
 .. code-block:: bash
 
@@ -135,7 +135,7 @@ The output lineage file (custom_lineages.tsv) looks like this:
 	Annelida	Polychaeta	Phyllodocida	Polynoidae				0	Seq65
 
 
-This output should be should be checked manually to see if the lineages are coherent.
+This output should should be checked manually to see if the lineages are coherent.
 If homonymy, choose the correct lineage (e.g. for *Leucothoe* genus), then delete homonymy column. 
 
 If a taxon name is not present in the taxonomy file, the lineage should be completed manually (e.g. *Ilia nucleus* in the example file).
@@ -375,7 +375,7 @@ See details in description section: :ref:`format_db.pl <format_db_reference>` sc
 Chaining steps to make a custom database
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the above examples, we have started from the COInr database. However, you can chain the different comands. 
+In the above examples, we have started from the COInr database. However, you can chain the different commands. 
 
 Bellow, I will show you how to create a database with the following characteristics:
     - Eukaryota sequences
@@ -388,7 +388,7 @@ Bellow, I will show you how to create a database with the following characterist
 
 **Notes**:
     - It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
-    - Since, over 70% of the sequences are from Insecta in COInr, we will start start by eliminating them. 
+    - Since, over 70% of the sequences are from Insecta in COInr, we will start by eliminating them. 
     - The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to the reduced dataset. Otherwise, we should have started by adding custom sequences. This solution is also fine, but gives large intermediate files.
     - The selection of the target region is the most computationally intensive, and the more diverse the dataset, the less precise it is. So it is preferable to do this at the end of the pipeline.
 
@@ -447,7 +447,7 @@ We have eliminated sequences with lower than genus resolution from COInr in the 
 However, among the custom sequences we had a sequence with an unknown genus. 
 So let's redo the selection for a minimum taxonomic level. 
 
-Yes, you are right! We could have just avoided to add that sequence to the database in the previous step. 
+Yes, you are right! We could have just avoided adding that sequence to the database in the previous step. 
 But if you have many custom sequences, you might just be lazy to check the custom sequences manually, 
 and in that case you can use mkCOInr to this for you.
 
@@ -573,11 +573,11 @@ The :ref:`download_bold.pl <download_bold_reference>` script will download all s
 
 The data/bold_taxon_list_2022-02-24.txt taxon list file is constructed manually from taxa on 
 `NCBI Taxonomy  <https://www.boldsystems.org/index.php/TaxBrowser_Home>`_. 
-This might need to be updated later. Each taxa on the list has less than 500M specimen records on BOLD.
+This might need to be updated later. Each taxon on the list has less than 500M specimen records on BOLD.
 
-Alternativelly, it is also possible to use a list of large taxa (e.g. Arthropoda) 
-and ask the sript to cut up large taxa to subtaxa if they have more then *max_record_n* sepcimen records. 
-However, this solution have some pitfalls (see :ref:`description of download_bold.pl <download_bold_reference>`).
+Alternatively, it is also possible to use a list of large taxa (e.g. Arthropoda) 
+and ask the sript to cut up large taxa to subtaxa if they have more then *max_record_n* specimen records. 
+However, this solution has some pitfalls (see :ref:`description of download_bold.pl <download_bold_reference>`).
 
 .. code-block:: bash
 

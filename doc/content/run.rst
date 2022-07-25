@@ -11,11 +11,11 @@ The scripts were written and tested on Linux. MacOS users will probably be able 
 
 	perl PATH_TO_SCRIPTS/name_of_the_script.pl -argument_name argument_value
 
-For example if you are in the mkCOInr directory a command will look like this
+For example, if you are in the mkCOInr directory a command will look like this
 
 .. code-block:: bash
 
-	perl perl scripts/dereplicate.pl -tsv custom/sequences_with_taxIDs.tsv -outdir custom/dereplicate -out custom_dereplicated_sequences.tsv
+	perl scripts/dereplicate.pl -tsv custom/sequences_with_taxIDs.tsv -outdir custom/dereplicate -out custom_dereplicated_sequences.tsv
 
 
 The list of arguments and options can be obtained by typing
@@ -25,7 +25,7 @@ The list of arguments and options can be obtained by typing
 	perl PATH_TO_SCRIPTS/name_of_the_script.pl -help
 
 
-For example
+For example:
 
 .. code-block:: bash
 

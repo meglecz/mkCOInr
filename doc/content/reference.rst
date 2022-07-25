@@ -35,7 +35,7 @@ For each lineage finds the lowest taxon that matches an already existing :ref:`t
     - Finds the smallest taxon that matches an already existing taxID (taking into account all taxIDs in the input taxonomy file)
     - Accepts taxID if at least 0.6 of the taxa in the upward input lineages matches the lineage of the taxID (for species level do not count the genus, since it matches necessarily the species name) OR Both the input taxon and taxID have a phylum rank
     - If the match between the input lineage and the taxID lineage is <=0.25, go to the next taxlevel
-    - If the match between the input lineage and the taxID lineage is between 0.25 and 0.6, print lineage to ambiguous file, and it should be checked manually
+    - If the match between the input lineage and the taxID lineage is between 0.25 and 0.6, print lineage to ambiguous file. It should be checked manually.
 
 The search for an existing taxID, takes into account 
 
@@ -83,7 +83,7 @@ Algorithm
 
 Compare sequences of the same taxID. 
 Delete sequences that are substring of another sequence (100% identity on the overlapping region, and one sequence covers the other completely).
-If more than 10.000 sequences for the same taxID, first, cluster the sequences with 100% of identity using the cluster_fast algorithm of vsearch, than use the substring search for each cluster.
+If more than 10.000 sequences for the same taxID, first, cluster the sequences with 100% of identity using the cluster_fast algorithm of vsearch, then use the substring search for each cluster.
 
 Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -118,23 +118,23 @@ Parameters/options
 Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The scripts downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
+The script downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
 
-The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxa on the list has less than 500M specimen records in BOLD. 
+The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxon on the list has less than 500M specimen records in BOLD. 
 The taxon_list constructed on 2022-02-24 is available on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.
 
-Alternativelly, a list of taxa (including large taxa such as Arthropoda) can be given and the input taxa can be cut up automatically to subtaxa of less than *max_record_n* records each.
+Alternatively, a list of taxa (including large taxa such as Arthropoda) can be given and the input taxa can be cut up automatically to subtaxa of less than *max_record_n* records each.
 This method has the advantage of avoiding the manual construction of the taxon list (as for bold_taxon_list_2022-02-24.txt). 
-However, the subtaxa produced by the script are based on the NCBI taxonomy, and in case of divergent nomenctature between BOLD and NCBI, 
+However, the subtaxa produced by the script are based on the NCBI taxonomy, and in case of divergent nomenclature between BOLD and NCBI, 
 some of the subtaxa can be missed. 
-For example if the Chordata phylum is cut up to classes, it will contain the Lepidosauria class. Lepidosauria gives 0 results, 
+For example, if the Chordata phylum is cut up to classes, it will contain the Lepidosauria class. Lepidosauria gives 0 results, 
 since in BOLD the class field contains Reptilia instead of Lepidosauria, thus missing out BOLD orders like Crocodylia, Rhynchocephalia, Squamata, Testudines.
 
 Download is done using BOLD's API. First a small stat file is downloaded to access the number of records available for the taxa, then the tsv file is downloaded with sequences and metainfo.
-The stript checks if the number of downloaded records corresponds to the expected one (based on stat file).
+The script checks if the number of downloaded records corresponds to the expected one (based on the stat file).
 If there is an error, it removes the file and retries the download try_download times.
 
-If the file exists already, the download is skiped. In this way, if the program stops (for example hitting wall time on a server), it can be simply restarted and the taxa with successful downloads will not be rerun.
+If the file exists already, the download is skipped. In this way, if the program stops (for example hitting wall time on a server), it can be simply restarted and the taxa with successful downloads will not be rerun.
 
 NOTE: The download for a long list of taxa can take several days since it is not parallelized. 
 You can cut up the input list and run each of them on a separate computer and move the output files to the same folder afterwards.
@@ -227,7 +227,7 @@ Clean downloaded files and pool information to lineage and sequence files
     - Orient sequence (optional)
         - Count the TAA, TAG STOP codons in each reading frame
         - Choose the orientation where there is no STOP codon
-        - If STOP codon in all frames OR stand + and - among the frames without STOP codon, class it as ambiguous
+        - If there is a STOP codon in all frames OR there are frames without STOP codon both in stand + and -, class it as ambiguous
         - Make a small "reference" db form randomly sampled oriented sequences
         - Blast ambiguous sequences to check orientation
         - Write sequences without hit to the bold_ambiguous_orientation.fas
@@ -264,7 +264,7 @@ Before the next step (add_taxids.pl)
 Input
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - :ref:`custom sequneces<custom_sequences_tsv_io>`
+    - :ref:`custom sequences<custom_sequences_tsv_io>`
     - :ref:`taxonomy.tsv<taxonomy_io>`
     - :ref:`outdir<outdir_io>`
 
@@ -334,8 +334,8 @@ Algorithm
 
 BLAST db, VTAM
 
-    - Prepare a fasta file with sequneces and the taxIDs (seqID, taxID)
-    - Run the *makeblastdb* commande of blast to make indexed files ready to be used as a blast database
+    - Prepare a fasta file with sequences and the taxIDs (seqID, taxID)
+    - Run the *makeblastdb* command of blast to make indexed files ready to be used as a blast database
     - for VTAM format, prepare taxonomy file as well as the BLAST database. They can be used directly in VTAM.
 
 RDP, QIIME and FULL
@@ -346,7 +346,7 @@ RDP, QIIME and FULL
     - Prepare a trainseq fasta and a taxon file for :ref:`rdp<rdp_io>` and :ref:`qiime<qiime_io>`
     - Prepare a single tsv file for :ref:`full<full_tsv_io>`
 
-The  trainseq fasta and the taxon files can be used by the *train* command of rdp_classifier or *feature-classifier* of QIIME to train the dataset before classification
+The trainseq fasta and the taxon files can be used by the *train* command of rdp_classifier or *feature-classifier* of QIIME to train the dataset before classification.
 
 The full tsv format is an easy to parse tsv file with :ref:`ranked lineage<ranked_lineage_glossary>` and :ref:`taxID<taxid_glossary>` for each sequence.
 
@@ -360,7 +360,7 @@ BLAST option
 VTAM option
 
     - :ref:`Indexed files<blast_database_files_io>` ready to be used as a BLAST database 
-    - :ref:`taxonomy.tsv<taxonomy_io>` adpted to VTAM
+    - :ref:`taxonomy.tsv<taxonomy_io>` adapted to VTAM
 
 RDP option 
 
@@ -385,7 +385,7 @@ format_ncbi.pl
 Aim
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Format the CDS and taxID files to a sequence  :ref:`sequence tsv file with taxIDs<sequence_tsv_with_taxid_io>`.
+Format the CDS and taxID files to a :ref:`sequence tsv file with taxIDs<sequence_tsv_with_taxid_io>`.
 Select and clean sequences.
 
 Input files
@@ -399,7 +399,7 @@ Input files
 Parameters/options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - check_name (0/1; If one keep only taxa with valid Latin name fomat: Default: 1)
+    - check_name (0/1; If one, keep only taxa with valid Latin name fomat: Default: 1)
     - max_n (positive integer; eliminate sequences with max_n or more consecutive Ns; Default: 5)
     - min_length (positive integer; minimum length of the cleaned sequence; Default: 100)
     - max_length (positive integer; maximum length of the cleaned sequence; Default: 2000)
@@ -538,13 +538,13 @@ Parameters/options
     - e_pcr  (0/1; if 1, identify the target region of the sequences by e-pcr in the first step)
     - fw (optional; if e_pcr is done, the sequence of the forward primer that amplifies the target region)
     - rv (optional; if e_pcr is done, the sequence of the reverse primer that amplifies the target region)
-    - trim_error (real [0-1], the proportion of mismatches allowed between the primer and the sequence during the e_pcr; Default : 0.3)
-    - min_overlap (the minimum overlap between primer and the sequence during e-pcr; Defalut 10)
+    - trim_error (real [0-1], the proportion of mismatches allowed between the primer and the sequence during the e_pcr; Default: 0.3)
+    - min_overlap (the minimum overlap between primer and the sequence during e-pcr; Default: 10)
     - min_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 100)
     - max_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 2000)
     - cutadapt_path (Optional; Path to cutadapt if it is not in your PATH)
 
-*usearch_global related parameters* for trimming sequneces according to the alignments
+*usearch_global related parameters* for trimming sequences according to the alignments
 
     - tcov_hsp_perc (minimum coverage of the target sequence in *usearch_global* hits; Default: 0.5)
     - perc_identity (minimum percentage of identity between the sequence and the target in *usearch_global* hits; Default: 0.7)
