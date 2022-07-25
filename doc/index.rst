@@ -13,31 +13,6 @@ mkCOInr - Make and customize COInr, a comprehensive COI database form NCBI-nucle
 
 mkCOInr is a series of Perl scripts that aims to create **COInr, a comprehensive COI database form NCBI-nucleotide and BOLD** and customize it. 
 
-COInr is freely available and can be downloaded from `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_
-
-The database can be used for similarity-based taxonomic assignations of metabarcoding data with any COI marker (primer pairs) of any geographical regions or target group.
-
-Alternatively, the **database can be used as a starting point to create smaller, more specific custom databases**. Sequences can be selected for :
-
-    - A particular gene region (amplicon of a given primer pair)
-    - List of taxa (sequences of a taxon list can be eiter selected or eliminated)
-    - User-defined minimal taxonomic resolution
-
-The database can be formatted to the following formats
-
-    - BLAST
-    - RDP classifier
-    - QIIME
-    - FULL TSV
-
-.. _fig1_flowchart:
-
-.. figure:: content/img/COInr_flowchart_readme.png
-   :scale: 50 %
-   :alt: Figure 1
-
-   Figure 1. The full pipeline to create COInr and options to make custom databases
-
 If you use mkCOInr in scientific works, **please cite the following article**:
 
 **Meglécz, E. 2022.**

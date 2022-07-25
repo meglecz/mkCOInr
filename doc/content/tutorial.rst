@@ -48,7 +48,7 @@ In the first part of the tutorial, I will start from the COInr database in each 
     
 Theses steps can be executed independently. 
 
-The last example shows how to ref:`create a pipeline <chained_custom_tutorial>` by combining different commands.
+The last example shows how to :ref:`create a pipeline <chained_custom_tutorial>` by combining different commands.
 
 The creation of the COInr database is explained in the :ref:`Create COInr from BOLD and NCBI section <create_coinr_tutorial>`. 
 You can download this database from `Zenodo <https://doi.org/10.5281/zenodo.6555985>`_ and customize it to your needs.
@@ -74,11 +74,6 @@ For shortenig the paths in this tuto, rename COInr_2022_05_06 directory to COInr
 
 	mv COInr_2022_05_06 COInr
 
-The COInr database is composed of two files
-    - :ref:`COInr.tsv <sequence_tsv_with_taxid_io>`, that contains :ref:`sequenceIDs <seqid_glossary>`, :ref:`taxIDs <taxid_glossary>` and sequences
-    - :ref:`taxonomy.tsv <taxonomy_io>` that contains all taxIDs and associated information
-
-
 This gives the following file structure
 
 .. code-block:: bash
@@ -103,7 +98,9 @@ This gives the following file structure
 		...(abbreviated)
 
 
-The  :ref:`I/O formats section <io_formats_io>` gives you **details about all file formats and examples** are provided as well. 
+The COInr database is composed of two files
+    - :ref:`COInr.tsv <sequence_tsv_with_taxid_io>` contains :ref:`sequenceIDs <seqid_glossary>`, :ref:`taxIDs <taxid_glossary>` and sequences
+    - :ref:`taxonomy.tsv <taxonomy_io>` contains all taxIDs and associated information
 
 
 .. _add_custom_sequences_tutorial:
@@ -117,7 +114,7 @@ Format custom files
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :ref:`input tsv file <custom_sequences_tsv_io>` (-custom) contains :ref:`seqIDs <seqid_glossary>`, 
-taxon name (can be at any taxonomic level) and sequences (see the example data/example/my_sequences.tsv).
+taxon names (can be at any taxonomic level) and sequences (see the example data/example/my_sequences.tsv).
 The :ref:`format_custom.pl <format_custom_reference>` script will suggest one or more lineages for each 
 taxon name based on the existing lineages in :ref:`taxonomy.tsv <taxonomy_io>`. It will also consider synonyms.
 
@@ -126,7 +123,7 @@ taxon name based on the existing lineages in :ref:`taxonomy.tsv <taxonomy_io>`. 
 	perl scripts/format_custom.pl -custom data/example/my_sequences.tsv -taxonomy COInr/taxonomy.tsv -outdir tutorial/custom/1_format
 
 
-The output lineage file (custom/format/custom_lineages.tsv) looks like this:
+The output lineage file (custom_lineages.tsv) looks like this:
 
 .. code-block:: bash
 
@@ -139,7 +136,7 @@ The output lineage file (custom/format/custom_lineages.tsv) looks like this:
 
 
 This output should be should be checked manually to see if the lineages are coherent.
-If homonymy, choose the correct lineage (like for *Leucothoe* genus in the example), then delete homonymy column. 
+If homonymy, choose the correct lineage (e.g. for *Leucothoe* genus), then delete homonymy column. 
 
 If a taxon name is not present in the taxonomy file, the lineage should be completed manually (e.g. *Ilia nucleus* in the example file).
 
@@ -279,15 +276,16 @@ Select region
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sequences can be trimmed to a specific region of the COI gene by the :ref:`select_region.pl <select_region_reference>` script. 
-To define the region, you can either give a fasta file with sequences covering the region of interest, or you can detect them automatically by e-pcr, as it is in this example.
+To define the region, you can either give a fasta file with sequences trimmed to the region of interest, 
+or you can detect it automatically by e-pcr.
 
 
 .. _select_region_e_pcr_custom_tutorial:
 
-Select region using e_pcr option
+Select region using the e_pcr option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The primers used in this example are amplifying a Leray fragment (ca. 313 nt of the second half of the barcode region).
+The primers used in this example are amplifying a Leray fragment (ca. 313 bp of the second half of the barcode region).
 
 .. code-block:: bash
 
@@ -296,7 +294,7 @@ The primers used in this example are amplifying a Leray fragment (ca. 313 nt of 
 
 .. _select_region_target_region_fas_custom_tutorial:
 
-Select region using target_region_fas option
+Select region using the target_region_fas option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using the *e_pcr* option is an easy way to produce some sequences trimmed to the target region, 
@@ -347,7 +345,7 @@ You should use the rdp_calssifier or qiime's feature-classifier to train the dat
 
 **full**
 
-The full option, gives a :ref:`tsv file <full_tsv_io>` with seqIDs, ranked lineages, taxIDs for each sequnece, and this is a very easy-to-parse, complete file.
+The full option, gives a :ref:`tsv file <full_tsv_io>` with seqIDs, ranked lineages, taxIDs for each sequence, and this is a very easy-to-parse, complete file.
 
 .. code-block:: bash
 
@@ -363,7 +361,7 @@ For making a BLAST database, the taxonomy file is not necessary and the indexed 
 
 **vtam**
 
-The vtam option produces a BLAST database and a taxonomy file adapter to `VTAM <https://github.com/aitgon/vtam>`_ .
+The vtam option produces a BLAST database and a taxonomy file adapted to `VTAM <https://github.com/aitgon/vtam>`_ .
 
 .. code-block:: bash
 
@@ -388,7 +386,7 @@ Bellow, I will show you how to create a database with the following characterist
     - rdp_classifier format
 
 
-**Note**:
+**Notes**:
     - It is a good idea to start with steps that are relatively quick and reduce the size of the database. 
     - Since, over 70% of the sequences are from Insecta in COInr, we will start start by eliminating them. 
     - The custom sequences are all Non-Insect Eukaryotes, so we can add custom sequences to the reduced dataset. Otherwise, we should have started by adding custom sequences. This solution is also fine, but gives large intermediate files.
@@ -396,7 +394,7 @@ Bellow, I will show you how to create a database with the following characterist
 
 .. _exclude_insecta_tutorial:
 
-Exclude Insecta
+Exclude Insecta and sequences with resolution lower than genus
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
@@ -445,7 +443,7 @@ Add the formatted, dereplicated custom sequences to the sequences in COInr_noIns
 Keep only sequences with genus or higher resolution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-We have eliminated sequences with lower than genus resolution from COInr. 
+We have eliminated sequences with lower than genus resolution from COInr in the first step (-min_taxlevel genus). 
 However, among the custom sequences we had a sequence with an unknown genus. 
 So let's redo the selection for a minimum taxonomic level. 
 
@@ -521,7 +519,7 @@ It takes several hours (days) to run this command.
 
 The results are found in the NSDPY_results/yyyy-mm-dd_hh-mm-ss folder.
 
-the sequences.fasta contains all CDS sequences. Sequences are correctly oriented but should still be filtered to keep only COI sequences.
+The sequences.fasta file contains all CDS sequences. Sequences are correctly oriented but should still be filtered to keep only COI sequences.
 TaxIDs.txt contains the sequenceIDs and the TaxIDs.
 
 Move the results of nsdpy to the COInr_new/ncbi/download directory and clean up the directory.

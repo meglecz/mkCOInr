@@ -15,7 +15,7 @@ For example if you are in the mkCOInr directory a command will look like this
 
 .. code-block:: bash
 
-	perl scripts/download_taxonomy.pl -outdir COInr_new/taxonomy
+	perl perl scripts/dereplicate.pl -tsv custom/sequences_with_taxIDs.tsv -outdir custom/dereplicate -out custom_dereplicated_sequences.tsv
 
 
 The list of arguments and options can be obtained by typing

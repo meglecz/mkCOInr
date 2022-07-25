@@ -132,7 +132,7 @@ since in BOLD the class field contains Reptilia instead of Lepidosauria, thus mi
 
 Download is done using BOLD's API. First a small stat file is downloaded to access the number of records available for the taxa, then the tsv file is downloaded with sequences and metainfo.
 The stript checks if the number of downloaded records corresponds to the expected one (based on stat file).
-If error, it removes the file and retry download try_download times.
+If there is an error, it removes the file and retries the download try_download times.
 
 If the file exists already, the download is skiped. In this way, if the program stops (for example hitting wall time on a server), it can be simply restarted and the taxa with successful downloads will not be rerun.
 
@@ -444,7 +444,7 @@ List subtaxa of the input taxon at the next major taxonomic rank (e.g. list all 
 Input files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - taxon (Can be a taxon name or taxID)
+    - taxon (can be a taxon name or taxID)
     - :ref:`taxonomy<taxonomy_io>`
     - :ref:`outdir<outdir_io>`
 
@@ -457,8 +457,7 @@ Algorithm
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - If taxon is a taxon name, get all taxIDs that correspond to this name (e.g. 1266065 and 50622 for Plecoptera)
-- Determine the next lowest major taxonomic rank (phylum, class, order, family, genus, species) for each taxID 
-(e.g. if taxId is an order or suborder or superfamily, the next major tax rank is family)
+- Determine the next lowest major taxonomic rank (phylum, class, order, family, genus, species) for each taxID (e.g. if taxId is an order or suborder or superfamily, the next major tax rank is family)
 - List subtaxa of each taxID of this taxonomic rank.
 
 Output

@@ -37,11 +37,11 @@ Sequences can be selected for :
     - List of taxa (sequences of a taxon list can be eiter selected or eliminated) using :ref:`select_taxa <select_taxa_reference>`
     - User-defined minimal taxonomic resolution using :ref:`select_taxa <select_taxa_reference>`
 	
-Additionally, it is also possible to add custom sequences.
+Additionally, it is also possible to **add custom sequences**.
 
 This can save a considerable amount of time and effort, since one of the most important challenges of creating a custom database is the mass downloading of the sequences and their pooling into a coherent taxonomic system.
 
-COInr or the custom databases derived from it can be formated to different database formats (qiime, rdp, blast, vtam, full) by the :ref:`format_db <format_db_reference>`
+COInr or the custom databases derived from it **can be formated to different database formats** (qiime, rdp, blast, vtam, full) by :ref:`format_db <format_db_reference>`
 
 .. _fig1_Flowchart:
 
