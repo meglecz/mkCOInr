@@ -1,0 +1,843 @@
+phylum	class	order	family	Final list	taxonomic rank	Nb record BOLD 2022-02-24
+Xenacoelomorpha				Xenacoelomorpha	phylum	18
+Acoelomorpha				Acoelomorpha	phylum	20
+Placozoa				Placozoa	phylum	20
+Gnathostomulida				Gnathostomulida	phylum	24
+Rhombozoa				Rhombozoa	phylum	48
+Chlorarachniophyta				Chlorarachniophyta	phylum	67
+Entoprocta				Entoprocta	phylum	76
+Priapulida				Priapulida	phylum	151
+Phoronida				Phoronida	phylum	172
+Myxomycota				Myxomycota	phylum	235
+Hemichordata				Hemichordata	phylum	263
+Chytridiomycota				Chytridiomycota	phylum	293
+Brachiopoda				Brachiopoda	phylum	324
+Cycliophora				Cycliophora	phylum	326
+Nematomorpha				Nematomorpha	phylum	408
+Ctenophora				Ctenophora	phylum	678
+Kinorhyncha				Kinorhyncha	phylum	720
+Ciliophora				Ciliophora	phylum	819
+Lycopodiophyta				Lycopodiophyta	phylum	1351
+Gastrotricha				Gastrotricha	phylum	1351
+Sipuncula				Sipuncula	phylum	1367
+Onychophora				Onychophora	phylum	1394
+Chaetognatha				Chaetognatha	phylum	1775
+Acanthocephala				Acanthocephala	phylum	2302
+Pyrrophycophyta				Pyrrophycophyta	phylum	2339
+Tardigrada				Tardigrada	phylum	3162
+Zygomycota				Zygomycota	phylum	3275
+Glomeromycota				Glomeromycota	phylum	3529
+Bryozoa				Bryozoa	phylum	4540
+Nemertea				Nemertea	phylum	6451
+Heterokontophyta				Heterokontophyta	phylum	7238
+Pinophyta				Pinophyta	phylum	7661
+Porifera				Porifera	phylum	9701
+Pteridophyta				Pteridophyta	phylum	11671
+Rotifera				Rotifera	phylum	13758
+Chlorophyta				Chlorophyta	phylum	18312
+Bryophyta				Bryophyta	phylum	22675
+Cnidaria				Cnidaria	phylum	32766
+Nematoda				Nematoda	phylum	36696
+Platyhelminthes				Platyhelminthes	phylum	41363
+Rhodophyta				Rhodophyta	phylum	56200
+Echinodermata				Echinodermata	phylum	59209
+Basidiomycota				Basidiomycota	phylum	71441
+Ascomycota				Ascomycota	phylum	99775
+Annelida				Annelida	phylum	112632
+Mollusca				Mollusca	phylum	259254
+Magnoliophyta				Magnoliophyta	phylum	454573
+Chordata	Appendicularia			Appendicularia	class	278
+Chordata	Thaliacea			Thaliacea	class	331
+Chordata	Sarcopterygii			Sarcopterygii	class	336
+Chordata	Myxini			Myxini	class	472
+Chordata	Leptocardii			Leptocardii	class	486
+Chordata	Holocephali			Holocephali	class	680
+Chordata	Cephalaspidomorphi			Cephalaspidomorphi	class	1103
+Chordata	Ascidiacea			Ascidiacea	class	9702
+Chordata	Reptilia			Reptilia	class	33519
+Chordata	Elasmobranchii			Elasmobranchii	class	35484
+Chordata	Amphibia			Amphibia	class	65763
+Chordata	Aves			Aves	class	82226
+Chordata	Mammalia			Mammalia	class	151545
+Chordata	Actinopterygii			Actinopterygii	class	461926
+Arthropoda	Oligostraca_class_incertae_sedis			Oligostraca_class_incertae_sedis	class	1
+Arthropoda	Cephalocarida			Cephalocarida	class	27
+Arthropoda	Remipedia			Remipedia	class	36
+Arthropoda	Pauropoda			Pauropoda	class	146
+Arthropoda	Merostomata			Merostomata	class	181
+Arthropoda	Protura			Protura	class	225
+Arthropoda	Ichthyostraca			Ichthyostraca	class	245
+Arthropoda	Symphyla			Symphyla	class	249
+Arthropoda	Diplura			Diplura	class	351
+Arthropoda	Pycnogonida			Pycnogonida	class	4806
+Arthropoda	Chilopoda			Chilopoda	class	5067
+Arthropoda	Ostracoda			Ostracoda	class	7708
+Arthropoda	Diplopoda			Diplopoda	class	10141
+Arthropoda	Thecostraca			Thecostraca	class	18940
+Arthropoda	Branchiopoda			Branchiopoda	class	21920
+Arthropoda	Hexanauplia			Hexanauplia	class	38341
+Arthropoda	Collembola			Collembola	class	206005
+Arthropoda	Malacostraca			Malacostraca	class	206974
+Arthropoda	Arachnida	Holothyrida		Holothyrida	order	4
+Arthropoda	Arachnida	Opilioacarida		Opilioacarida	order	6
+Arthropoda	Arachnida	Palpigradi		Palpigradi	order	38
+Arthropoda	Arachnida	Uropygi		Uropygi	order	180
+Arthropoda	Arachnida	Ricinulei		Ricinulei	order	187
+Arthropoda	Arachnida	Solifugae		Solifugae	order	483
+Arthropoda	Arachnida	Amblypygi		Amblypygi	order	606
+Arthropoda	Arachnida	Schizomida		Schizomida	order	1318
+Arthropoda	Arachnida	Pseudoscorpiones		Pseudoscorpiones	order	3981
+Arthropoda	Arachnida	Scorpiones		Scorpiones	order	5349
+Arthropoda	Arachnida	Opiliones		Opiliones	order	11858
+Arthropoda	Arachnida	Ixodida		Ixodida	order	18451
+Arthropoda	Arachnida	Mesostigmata		Mesostigmata	order	32372
+Arthropoda	Arachnida	Sarcoptiformes		Sarcoptiformes	order	58081
+Arthropoda	Arachnida	Trombidiformes		Trombidiformes	order	83578
+Arthropoda	Arachnida	Araneae		Araneae	order	196843
+Arthropoda	Insecta	Zoraptera		Zoraptera	order	21
+Arthropoda	Insecta	Notoptera		Notoptera	order	25
+Arthropoda	Insecta	Raphidioptera		Raphidioptera	order	662
+Arthropoda	Insecta	Embioptera		Embioptera	order	795
+Arthropoda	Insecta	Zygentoma		Zygentoma	order	1023
+Arthropoda	Insecta	Strepsiptera		Strepsiptera	order	1030
+Arthropoda	Insecta	Megaloptera		Megaloptera	order	2792
+Arthropoda	Insecta	Mecoptera		Mecoptera	order	3130
+Arthropoda	Insecta	Phasmatodea		Phasmatodea	order	3169
+Arthropoda	Insecta	Siphonaptera		Siphonaptera	order	3822
+Arthropoda	Insecta	Dermaptera		Dermaptera	order	3985
+Arthropoda	Insecta	Archaeognatha		Archaeognatha	order	5046
+Arthropoda	Insecta	Mantodea		Mantodea	order	5364
+Arthropoda	Insecta	Neuroptera		Neuroptera	order	20243
+Arthropoda	Insecta	Plecoptera		Plecoptera	order	23042
+Arthropoda	Insecta	Odonata		Odonata	order	39168
+Arthropoda	Insecta	Blattodea		Blattodea	order	40455
+Arthropoda	Insecta	Ephemeroptera		Ephemeroptera	order	43281
+Arthropoda	Insecta	Thysanoptera		Thysanoptera	order	44378
+Arthropoda	Insecta	Orthoptera		Orthoptera	order	62624
+Arthropoda	Insecta	Trichoptera		Trichoptera	order	86412
+Arthropoda	Insecta	Psocodea		Psocodea	order	102979
+Arthropoda	Insecta	Hemiptera	Cerococcidae	Cerococcidae	family	1
+Arthropoda	Insecta	Hemiptera	Conchaspididae	Conchaspididae	family	1
+Arthropoda	Insecta	Hemiptera	Joppeicidae	Joppeicidae	family	1
+Arthropoda	Insecta	Hemiptera	Lestoniidae	Lestoniidae	family	1
+Arthropoda	Insecta	Hemiptera	Marchalinidae	Marchalinidae	family	1
+Arthropoda	Insecta	Hemiptera	Paraphrynoveliidae	Paraphrynoveliidae	family	1
+Arthropoda	Insecta	Hemiptera	Plokiophilidae	Plokiophilidae	family	1
+Arthropoda	Insecta	Hemiptera	Termitaphididae	Termitaphididae	family	1
+Arthropoda	Insecta	Hemiptera	Xenococcus	Xenococcus	family	1
+Arthropoda	Insecta	Hemiptera	Hermatobatidae	Hermatobatidae	family	2
+Arthropoda	Insecta	Hemiptera	Pachynomidae	Pachynomidae	family	2
+Arthropoda	Insecta	Hemiptera	Thaumastellidae	Thaumastellidae	family	2
+Arthropoda	Insecta	Hemiptera	Caliscelis	Caliscelis	family	2
+Arthropoda	Insecta	Hemiptera	Kuwaniidae	Kuwaniidae	family	3
+Arthropoda	Insecta	Hemiptera	Phloeidae	Phloeidae	family	3
+Arthropoda	Insecta	Hemiptera	Velocipedidae	Velocipedidae	family	3
+Arthropoda	Insecta	Hemiptera	Aenictopecheidae	Aenictopecheidae	family	4
+Arthropoda	Insecta	Hemiptera	Leptopodidae	Leptopodidae	family	4
+Arthropoda	Insecta	Hemiptera	Parastrachiidae	Parastrachiidae	family	4
+Arthropoda	Insecta	Hemiptera	Hyocephalidae	Hyocephalidae	family	5
+Arthropoda	Insecta	Hemiptera	Idiostolidae	Idiostolidae	family	5
+Arthropoda	Insecta	Hemiptera	Lecanodiaspididae	Lecanodiaspididae	family	5
+Arthropoda	Insecta	Hemiptera	Megarididae	Megarididae	family	6
+Arthropoda	Insecta	Hemiptera	Myerslopiidae	Myerslopiidae	family	6
+Arthropoda	Insecta	Hemiptera	Canopidae	Canopidae	family	7
+Arthropoda	Insecta	Hemiptera	Macroveliidae	Macroveliidae	family	7
+Arthropoda	Insecta	Hemiptera	Putoidae	Putoidae	family	9
+Arthropoda	Insecta	Hemiptera	Tettigarctidae	Tettigarctidae	family	9
+Arthropoda	Insecta	Hemiptera	Cantacaderidae	Cantacaderidae	family	10
+Arthropoda	Insecta	Hemiptera	Lasiochilidae	Lasiochilidae	family	11
+Arthropoda	Insecta	Hemiptera	Aclerdidae	Aclerdidae	family	12
+Arthropoda	Insecta	Hemiptera	Helotrephidae	Helotrephidae	family	12
+Arthropoda	Insecta	Hemiptera	Ninidae	Ninidae	family	12
+Arthropoda	Insecta	Hemiptera	Polyctenidae	Polyctenidae	family	13
+Arthropoda	Insecta	Hemiptera	Cryptococcidae	Cryptococcidae	family	15
+Arthropoda	Insecta	Hemiptera	Malcidae	Malcidae	family	16
+Arthropoda	Insecta	Hemiptera	Ochteridae	Ochteridae	family	17
+Arthropoda	Insecta	Hemiptera	Coelostomidiidae	Coelostomidiidae	family	18
+Arthropoda	Insecta	Hemiptera	Dipsocoridae	Dipsocoridae	family	18
+Arthropoda	Insecta	Hemiptera	Cyrtocoridae	Cyrtocoridae	family	19
+Arthropoda	Insecta	Hemiptera	Colobathristidae	Colobathristidae	family	22
+Arthropoda	Insecta	Hemiptera	Kermesidae	Kermesidae	family	24
+Arthropoda	Insecta	Hemiptera	Ortheziidae	Ortheziidae	family	26
+Arthropoda	Insecta	Hemiptera	Phacopteronidae	Phacopteronidae	family	26
+Arthropoda	Insecta	Hemiptera	Stenocephalidae	Stenocephalidae	family	29
+Arthropoda	Insecta	Hemiptera	Peloridiidae	Peloridiidae	family	33
+Arthropoda	Insecta	Hemiptera	Carsidaridae	Carsidaridae	family	37
+Arthropoda	Insecta	Hemiptera	Aetalionidae	Aetalionidae	family	38
+Arthropoda	Insecta	Hemiptera	Asterolecaniidae	Asterolecaniidae	family	38
+Arthropoda	Insecta	Hemiptera	Lyctocoridae	Lyctocoridae	family	38
+Arthropoda	Insecta	Hemiptera	Urostylididae	Urostylididae	family	41
+Arthropoda	Insecta	Hemiptera	Dinidoridae	Dinidoridae	family	51
+Arthropoda	Insecta	Hemiptera	Homotomidae	Homotomidae	family	54
+Arthropoda	Insecta	Hemiptera	Heterogastridae	Heterogastridae	family	55
+Arthropoda	Insecta	Hemiptera	Artheneidae	Artheneidae	family	56
+Arthropoda	Insecta	Hemiptera	Calophyidae	Calophyidae	family	74
+Arthropoda	Insecta	Hemiptera	Lophopidae	Lophopidae	family	85
+Arthropoda	Insecta	Hemiptera	Hebridae	Hebridae	family	86
+Arthropoda	Insecta	Hemiptera	Piesmatidae	Piesmatidae	family	90
+Arthropoda	Insecta	Hemiptera	Rhizoecidae	Rhizoecidae	family	94
+Arthropoda	Insecta	Hemiptera	Epipygidae	Epipygidae	family	102
+Arthropoda	Insecta	Hemiptera	Aphelocheiridae	Aphelocheiridae	family	112
+Arthropoda	Insecta	Hemiptera	Microphysidae	Microphysidae	family	115
+Arthropoda	Insecta	Hemiptera	Potamocoridae	Potamocoridae	family	123
+Arthropoda	Insecta	Hemiptera	Eurybrachidae	Eurybrachidae	family	130
+Arthropoda	Insecta	Hemiptera	Hydrometridae	Hydrometridae	family	136
+Arthropoda	Insecta	Hemiptera	Pachygronthidae	Pachygronthidae	family	142
+Arthropoda	Insecta	Hemiptera	Margarodidae	Margarodidae	family	162
+Arthropoda	Insecta	Hemiptera	Tessaratomidae	Tessaratomidae	family	163
+Arthropoda	Insecta	Hemiptera	Thaumastocoridae	Thaumastocoridae	family	171
+Arthropoda	Insecta	Hemiptera	Largidae	Largidae	family	177
+Arthropoda	Insecta	Hemiptera	Caliscelidae	Caliscelidae	family	182
+Arthropoda	Insecta	Hemiptera	Mesoveliidae	Mesoveliidae	family	192
+Arthropoda	Insecta	Hemiptera	Thyreocoridae	Thyreocoridae	family	192
+Arthropoda	Insecta	Hemiptera	Naucoridae	Naucoridae	family	195
+Arthropoda	Insecta	Hemiptera	Machaerotidae	Machaerotidae	family	198
+Arthropoda	Insecta	Hemiptera	Tettigometridae	Tettigometridae	family	200
+Arthropoda	Insecta	Hemiptera	Gelastocoridae	Gelastocoridae	family	206
+Arthropoda	Insecta	Hemiptera	Dactylopiidae	Dactylopiidae	family	215
+Arthropoda	Insecta	Hemiptera	Kerriidae	Kerriidae	family	215
+Arthropoda	Insecta	Hemiptera	Stictococcidae	Stictococcidae	family	228
+Arthropoda	Insecta	Hemiptera	Cymidae	Cymidae	family	243
+Arthropoda	Insecta	Hemiptera	Blissidae	Blissidae	family	299
+Arthropoda	Insecta	Hemiptera	Nepidae	Nepidae	family	303
+Arthropoda	Insecta	Hemiptera	Nogodinidae	Nogodinidae	family	349
+Arthropoda	Insecta	Hemiptera	Phylloxeridae	Phylloxeridae	family	363
+Arthropoda	Insecta	Hemiptera	Pleidae	Pleidae	family	386
+Arthropoda	Insecta	Hemiptera	Enicocephalidae	Enicocephalidae	family	406
+Arthropoda	Insecta	Hemiptera	Kinnaridae	Kinnaridae	family	425
+Arthropoda	Insecta	Hemiptera	Eriococcidae	Eriococcidae	family	456
+Arthropoda	Insecta	Hemiptera	Geocoridae	Geocoridae	family	473
+Arthropoda	Insecta	Hemiptera	Cimicidae	Cimicidae	family	532
+Arthropoda	Insecta	Hemiptera	Clastopteridae	Clastopteridae	family	580
+Arthropoda	Insecta	Hemiptera	Plataspidae	Plataspidae	family	583
+Arthropoda	Insecta	Hemiptera	Meenoplidae	Meenoplidae	family	611
+Arthropoda	Insecta	Hemiptera	Acanthosomatidae	Acanthosomatidae	family	701
+Arthropoda	Insecta	Hemiptera	Schizopteridae	Schizopteridae	family	713
+Arthropoda	Insecta	Hemiptera	Berytidae	Berytidae	family	736
+Arthropoda	Insecta	Hemiptera	Oxycarenidae	Oxycarenidae	family	739
+Arthropoda	Insecta	Hemiptera	Cydnidae	Cydnidae	family	746
+Arthropoda	Insecta	Hemiptera	Dictyopharidae	Dictyopharidae	family	764
+Arthropoda	Insecta	Hemiptera	Notonectidae	Notonectidae	family	815
+Arthropoda	Insecta	Hemiptera	Saldidae	Saldidae	family	893
+Arthropoda	Insecta	Hemiptera	Pyrrhocoridae	Pyrrhocoridae	family	901
+Arthropoda	Insecta	Hemiptera	Veliidae	Veliidae	family	977
+Arthropoda	Insecta	Hemiptera	Achilidae	Achilidae	family	981
+Arthropoda	Insecta	Hemiptera	Liviidae	Liviidae	family	1035
+Arthropoda	Insecta	Hemiptera	Monophlebidae	Monophlebidae	family	1126
+Arthropoda	Insecta	Hemiptera	Cercopidae	Cercopidae	family	1263
+Arthropoda	Insecta	Hemiptera	Alydidae	Alydidae	family	1274
+Arthropoda	Insecta	Hemiptera	Aphalaridae	Aphalaridae	family	1629
+Arthropoda	Insecta	Hemiptera	Rhopalidae	Rhopalidae	family	1666
+Arthropoda	Insecta	Hemiptera	Derbidae	Derbidae	family	1705
+Arthropoda	Insecta	Hemiptera	Adelgidae	Adelgidae	family	1726
+Arthropoda	Insecta	Hemiptera	Aradidae	Aradidae	family	1729
+Arthropoda	Insecta	Hemiptera	Belostomatidae	Belostomatidae	family	1784
+Arthropoda	Insecta	Hemiptera	Fulgoridae	Fulgoridae	family	1814
+Arthropoda	Insecta	Hemiptera	Scutelleridae	Scutelleridae	family	1846
+Arthropoda	Insecta	Hemiptera	Nabidae	Nabidae	family	2057
+Arthropoda	Insecta	Hemiptera	Ceratocombidae	Ceratocombidae	family	2064
+Arthropoda	Insecta	Hemiptera	Coccidae	Coccidae	family	2381
+Arthropoda	Insecta	Hemiptera	Gerridae	Gerridae	family	2389
+Arthropoda	Insecta	Hemiptera	Triozidae	Triozidae	family	2493
+Arthropoda	Insecta	Hemiptera	Acanaloniidae	Acanaloniidae	family	2740
+Arthropoda	Insecta	Hemiptera	Tingidae	Tingidae	family	2853
+Arthropoda	Insecta	Hemiptera	Diaspididae	Diaspididae	family	2922
+Arthropoda	Insecta	Hemiptera	Coreidae	Coreidae	family	3128
+Arthropoda	Insecta	Hemiptera	Ricaniidae	Ricaniidae	family	3180
+Arthropoda	Insecta	Hemiptera	Corixidae	Corixidae	family	3211
+Arthropoda	Insecta	Hemiptera	Anthocoridae	Anthocoridae	family	3253
+Arthropoda	Insecta	Hemiptera	Membracidae	Membracidae	family	3539
+Arthropoda	Insecta	Hemiptera	Aphrophoridae	Aphrophoridae	family	3633
+Arthropoda	Insecta	Hemiptera	Psyllidae	Psyllidae	family	3638
+Arthropoda	Insecta	Hemiptera	Cixiidae	Cixiidae	family	4259
+Arthropoda	Insecta	Hemiptera	Tropiduchidae	Tropiduchidae	family	4383
+Arthropoda	Insecta	Hemiptera	Pseudococcidae	Pseudococcidae	family	4564
+Arthropoda	Insecta	Hemiptera	Reduviidae	Reduviidae	family	6007
+Arthropoda	Insecta	Hemiptera	Cicadidae	Cicadidae	family	6059
+Arthropoda	Insecta	Hemiptera	Lygaeidae	Lygaeidae	family	6234
+Arthropoda	Insecta	Hemiptera	Flatidae	Flatidae	family	6379
+Arthropoda	Insecta	Hemiptera	Delphacidae	Delphacidae	family	8794
+Arthropoda	Insecta	Hemiptera	Rhyparochromidae	Rhyparochromidae	family	8927
+Arthropoda	Insecta	Hemiptera	Issidae	Issidae	family	9616
+Arthropoda	Insecta	Hemiptera	Pentatomidae	Pentatomidae	family	16359
+Arthropoda	Insecta	Hemiptera	Miridae	Miridae	family	32326
+Arthropoda	Insecta	Hemiptera	Aleyrodidae	Aleyrodidae	family	50715
+Arthropoda	Insecta	Hemiptera	Aphididae	Aphididae	family	63756
+Arthropoda	Insecta	Hemiptera	Cicadellidae	Cicadellidae	family	155839
+Arthropoda	Insecta	Coleoptera	Cavognathidae	Cavognathidae	family	1
+Arthropoda	Insecta	Coleoptera	Cyclaxyridae	Cyclaxyridae	family	1
+Arthropoda	Insecta	Coleoptera	Iberobaeniidae	Iberobaeniidae	family	1
+Arthropoda	Insecta	Coleoptera	Jacobsoniidae	Jacobsoniidae	family	1
+Arthropoda	Insecta	Coleoptera	Lepiceridae	Lepiceridae	family	1
+Arthropoda	Insecta	Coleoptera	Smicripidae	Smicripidae	family	1
+Arthropoda	Insecta	Coleoptera	Brachypsectridae	Brachypsectridae	family	2
+Arthropoda	Insecta	Coleoptera	Caridae	Caridae	family	2
+Arthropoda	Insecta	Coleoptera	Epimetopidae	Epimetopidae	family	2
+Arthropoda	Insecta	Coleoptera	Hobartiidae	Hobartiidae	family	2
+Arthropoda	Insecta	Coleoptera	Myraboliidae	Myraboliidae	family	2
+Arthropoda	Insecta	Coleoptera	Ommatidae	Ommatidae	family	2
+Arthropoda	Insecta	Coleoptera	Rhinorhipidae	Rhinorhipidae	family	2
+Arthropoda	Insecta	Coleoptera	Acanthocnemidae	Acanthocnemidae	family	3
+Arthropoda	Insecta	Coleoptera	Akalyptoischiidae	Akalyptoischiidae	family	3
+Arthropoda	Insecta	Coleoptera	Phloeostichidae	Phloeostichidae	family	3
+Arthropoda	Insecta	Coleoptera	Meruidae	Meruidae	family	4
+Arthropoda	Insecta	Coleoptera	Phloiophilidae	Phloiophilidae	family	4
+Arthropoda	Insecta	Coleoptera	Phycosecidae	Phycosecidae	family	4
+Arthropoda	Insecta	Coleoptera	Schizopodidae	Schizopodidae	family	4
+Arthropoda	Insecta	Coleoptera	Trictenotomidae	Trictenotomidae	family	4
+Arthropoda	Insecta	Coleoptera	Boganiidae	Boganiidae	family	5
+Arthropoda	Insecta	Coleoptera	Chaetosomatidae	Chaetosomatidae	family	5
+Arthropoda	Insecta	Coleoptera	Eupsilobiidae	Eupsilobiidae	family	5
+Arthropoda	Insecta	Coleoptera	Helotidae	Helotidae	family	5
+Arthropoda	Insecta	Coleoptera	Mauroniscidae	Mauroniscidae	family	5
+Arthropoda	Insecta	Coleoptera	Priasilphidae	Priasilphidae	family	5
+Arthropoda	Insecta	Coleoptera	Cneoglossidae	Cneoglossidae	family	6
+Arthropoda	Insecta	Coleoptera	Endecatomidae	Endecatomidae	family	6
+Arthropoda	Insecta	Coleoptera	Murmidiidae	Murmidiidae	family	6
+Arthropoda	Insecta	Coleoptera	Protocucujidae	Protocucujidae	family	7
+Arthropoda	Insecta	Coleoptera	Pleocomidae	Pleocomidae	family	8
+Arthropoda	Insecta	Coleoptera	Aspidytidae	Aspidytidae	family	9
+Arthropoda	Insecta	Coleoptera	Hydroscaphidae	Hydroscaphidae	family	9
+Arthropoda	Insecta	Coleoptera	Jurasaidae	Jurasaidae	family	9
+Arthropoda	Insecta	Coleoptera	Oxypeltidae	Oxypeltidae	family	9
+Arthropoda	Insecta	Coleoptera	Torridincolidae	Torridincolidae	family	9
+Arthropoda	Insecta	Coleoptera	Tenebrionoidea_incertae_sedis	Tenebrionoidea_incertae_sedis	family	10
+Arthropoda	Insecta	Coleoptera	Ischaliidae	Ischaliidae	family	11
+Arthropoda	Insecta	Coleoptera	Lutrochidae	Lutrochidae	family	12
+Arthropoda	Insecta	Coleoptera	Eulichadidae	Eulichadidae	family	13
+Arthropoda	Insecta	Coleoptera	Prostomidae	Prostomidae	family	16
+Arthropoda	Insecta	Coleoptera	Boridae	Boridae	family	19
+Arthropoda	Insecta	Coleoptera	Omethidae	Omethidae	family	20
+Arthropoda	Insecta	Coleoptera	Amphizoidae	Amphizoidae	family	21
+Arthropoda	Insecta	Coleoptera	Euxestidae	Euxestidae	family	22
+Arthropoda	Insecta	Coleoptera	Rhagophthalmidae	Rhagophthalmidae	family	22
+Arthropoda	Insecta	Coleoptera	Rhipiceridae	Rhipiceridae	family	22
+Arthropoda	Insecta	Coleoptera	Mycetaeidae	Mycetaeidae	family	23
+Arthropoda	Insecta	Coleoptera	Sphaeritidae	Sphaeritidae	family	23
+Arthropoda	Insecta	Coleoptera	Belidae	Belidae	family	24
+Arthropoda	Insecta	Coleoptera	Sphaeriusidae	Sphaeriusidae	family	24
+Arthropoda	Insecta	Coleoptera	Synchroidae	Synchroidae	family	24
+Arthropoda	Insecta	Coleoptera	Nemonychidae	Nemonychidae	family	25
+Arthropoda	Insecta	Coleoptera	Promecheilidae	Promecheilidae	family	27
+Arthropoda	Insecta	Coleoptera	Archeocrypticidae	Archeocrypticidae	family	28
+Arthropoda	Insecta	Coleoptera	Discolomatidae	Discolomatidae	family	28
+Arthropoda	Insecta	Coleoptera	Micromalthidae	Micromalthidae	family	28
+Arthropoda	Insecta	Coleoptera	Passandridae	Passandridae	family	30
+Arthropoda	Insecta	Coleoptera	Spercheidae	Spercheidae	family	30
+Arthropoda	Insecta	Coleoptera	Trachypachidae	Trachypachidae	family	31
+Arthropoda	Insecta	Coleoptera	Glaresidae	Glaresidae	family	32
+Arthropoda	Insecta	Coleoptera	Hygrobiidae	Hygrobiidae	family	40
+Arthropoda	Insecta	Coleoptera	Rentoniidae	Rentoniidae	family	42
+Arthropoda	Insecta	Coleoptera	Dascillidae	Dascillidae	family	49
+Arthropoda	Insecta	Coleoptera	Nosodendridae	Nosodendridae	family	49
+Arthropoda	Insecta	Coleoptera	Rhysodidae	Rhysodidae	family	49
+Arthropoda	Insecta	Coleoptera	Cupedidae	Cupedidae	family	50
+Arthropoda	Insecta	Coleoptera	Alexiidae	Alexiidae	family	51
+Arthropoda	Insecta	Coleoptera	Thymalidae	Thymalidae	family	52
+Arthropoda	Insecta	Coleoptera	Peltidae	Peltidae	family	53
+Arthropoda	Insecta	Coleoptera	Agyrtidae	Agyrtidae	family	55
+Arthropoda	Insecta	Coleoptera	Callirhipidae	Callirhipidae	family	55
+Arthropoda	Insecta	Coleoptera	Lophocateridae	Lophocateridae	family	58
+Arthropoda	Insecta	Coleoptera	Georissidae	Georissidae	family	64
+Arthropoda	Insecta	Coleoptera	Glaphyridae	Glaphyridae	family	65
+Arthropoda	Insecta	Coleoptera	Thanerocleridae	Thanerocleridae	family	70
+Arthropoda	Insecta	Coleoptera	Ochodaeidae	Ochodaeidae	family	78
+Arthropoda	Insecta	Coleoptera	Pythidae	Pythidae	family	86
+Arthropoda	Insecta	Coleoptera	Vesperidae	Vesperidae	family	86
+Arthropoda	Insecta	Coleoptera	Chelonariidae	Chelonariidae	family	87
+Arthropoda	Insecta	Coleoptera	Cimberididae	Cimberididae	family	91
+Arthropoda	Insecta	Coleoptera	Cerophytidae	Cerophytidae	family	92
+Arthropoda	Insecta	Coleoptera	Byturidae	Byturidae	family	125
+Arthropoda	Insecta	Coleoptera	Ulodidae	Ulodidae	family	127
+Arthropoda	Insecta	Coleoptera	Orsodacnidae	Orsodacnidae	family	141
+Arthropoda	Insecta	Coleoptera	Rhadalidae	Rhadalidae	family	141
+Arthropoda	Insecta	Coleoptera	Megalopodidae	Megalopodidae	family	143
+Arthropoda	Insecta	Coleoptera	Prionoceridae	Prionoceridae	family	147
+Arthropoda	Insecta	Coleoptera	Disteniidae	Disteniidae	family	150
+Arthropoda	Insecta	Coleoptera	Stenotrachelidae	Stenotrachelidae	family	165
+Arthropoda	Insecta	Coleoptera	Artematopodidae	Artematopodidae	family	171
+Arthropoda	Insecta	Coleoptera	Anamorphidae	Anamorphidae	family	177
+Arthropoda	Insecta	Coleoptera	Ripiphoridae	Ripiphoridae	family	180
+Arthropoda	Insecta	Coleoptera	Telegeusidae	Telegeusidae	family	180
+Arthropoda	Insecta	Coleoptera	Cerylonidae	Cerylonidae	family	208
+Arthropoda	Insecta	Coleoptera	Hydrochidae	Hydrochidae	family	233
+Arthropoda	Insecta	Coleoptera	Sphindidae	Sphindidae	family	238
+Arthropoda	Insecta	Coleoptera	Bothrideridae	Bothrideridae	family	260
+Arthropoda	Insecta	Coleoptera	Clambidae	Clambidae	family	275
+Arthropoda	Insecta	Coleoptera	Tetratomidae	Tetratomidae	family	286
+Arthropoda	Insecta	Coleoptera	Kateretidae	Kateretidae	family	297
+Arthropoda	Insecta	Coleoptera	Trogidae	Trogidae	family	298
+Arthropoda	Insecta	Coleoptera	Biphyllidae	Biphyllidae	family	306
+Arthropoda	Insecta	Coleoptera	Cucujidae	Cucujidae	family	313
+Arthropoda	Insecta	Coleoptera	Lymexylidae	Lymexylidae	family	326
+Arthropoda	Insecta	Coleoptera	Limnichidae	Limnichidae	family	336
+Arthropoda	Insecta	Coleoptera	Dryopidae	Dryopidae	family	350
+Arthropoda	Insecta	Coleoptera	Eucinetidae	Eucinetidae	family	429
+Arthropoda	Insecta	Coleoptera	Trogossitidae	Trogossitidae	family	448
+Arthropoda	Insecta	Coleoptera	Pyrochroidae	Pyrochroidae	family	503
+Arthropoda	Insecta	Coleoptera	Heteroceridae	Heteroceridae	family	524
+Arthropoda	Insecta	Coleoptera	Passalidae	Passalidae	family	535
+Arthropoda	Insecta	Coleoptera	Noteridae	Noteridae	family	554
+Arthropoda	Insecta	Coleoptera	Psephenidae	Psephenidae	family	567
+Arthropoda	Insecta	Coleoptera	Mycteridae	Mycteridae	family	577
+Arthropoda	Insecta	Coleoptera	Byrrhidae	Byrrhidae	family	602
+Arthropoda	Insecta	Coleoptera	Helophoridae	Helophoridae	family	722
+Arthropoda	Insecta	Coleoptera	Salpingidae	Salpingidae	family	842
+Arthropoda	Insecta	Coleoptera	Geotrupidae	Geotrupidae	family	896
+Arthropoda	Insecta	Coleoptera	Monotomidae	Monotomidae	family	929
+Arthropoda	Insecta	Coleoptera	Hybosoridae	Hybosoridae	family	998
+Arthropoda	Insecta	Coleoptera	Laemophloeidae	Laemophloeidae	family	1101
+Arthropoda	Insecta	Coleoptera	Attelabidae	Attelabidae	family	1140
+Arthropoda	Insecta	Coleoptera	Haliplidae	Haliplidae	family	1195
+Arthropoda	Insecta	Coleoptera	Endomychidae	Endomychidae	family	1199
+Arthropoda	Insecta	Coleoptera	Derodontidae	Derodontidae	family	1357
+Arthropoda	Insecta	Coleoptera	Ciidae	Ciidae	family	1407
+Arthropoda	Insecta	Coleoptera	Gyrinidae	Gyrinidae	family	1497
+Arthropoda	Insecta	Coleoptera	Phengodidae	Phengodidae	family	1498
+Arthropoda	Insecta	Coleoptera	Silvanidae	Silvanidae	family	1505
+Arthropoda	Insecta	Coleoptera	Melandryidae	Melandryidae	family	1745
+Arthropoda	Insecta	Coleoptera	Oedemeridae	Oedemeridae	family	1790
+Arthropoda	Insecta	Coleoptera	Silphidae	Silphidae	family	1811
+Arthropoda	Insecta	Coleoptera	Cybocephalidae	Cybocephalidae	family	1970
+Arthropoda	Insecta	Coleoptera	Mycetophagidae	Mycetophagidae	family	2050
+Arthropoda	Insecta	Coleoptera	Ptiliidae	Ptiliidae	family	2293
+Arthropoda	Insecta	Coleoptera	Zopheridae	Zopheridae	family	2318
+Arthropoda	Insecta	Coleoptera	Dermestidae	Dermestidae	family	2384
+Arthropoda	Insecta	Coleoptera	Histeridae	Histeridae	family	2477
+Arthropoda	Insecta	Coleoptera	Hydraenidae	Hydraenidae	family	2647
+Arthropoda	Insecta	Coleoptera	Lucanidae	Lucanidae	family	2687
+Arthropoda	Insecta	Coleoptera	Erotylidae	Erotylidae	family	2699
+Arthropoda	Insecta	Coleoptera	Cryptophagidae	Cryptophagidae	family	2830
+Arthropoda	Insecta	Coleoptera	Meloidae	Meloidae	family	2845
+Arthropoda	Insecta	Coleoptera	Bostrichidae	Bostrichidae	family	3019
+Arthropoda	Insecta	Coleoptera	Anthicidae	Anthicidae	family	3531
+Arthropoda	Insecta	Coleoptera	Eucnemidae	Eucnemidae	family	3640
+Arthropoda	Insecta	Coleoptera	Phalacridae	Phalacridae	family	4144
+Arthropoda	Insecta	Coleoptera	Anthribidae	Anthribidae	family	4157
+Arthropoda	Insecta	Coleoptera	Aderidae	Aderidae	family	4221
+Arthropoda	Insecta	Coleoptera	Melyridae	Melyridae	family	4849
+Arthropoda	Insecta	Coleoptera	Leiodidae	Leiodidae	family	4909
+Arthropoda	Insecta	Coleoptera	Lycidae	Lycidae	family	4990
+Arthropoda	Insecta	Coleoptera	Elmidae	Elmidae	family	5118
+Arthropoda	Insecta	Coleoptera	Ptilodactylidae	Ptilodactylidae	family	6246
+Arthropoda	Insecta	Coleoptera	Lampyridae	Lampyridae	family	6524
+Arthropoda	Insecta	Coleoptera	Ptinidae	Ptinidae	family	6623
+Arthropoda	Insecta	Coleoptera	Corylophidae	Corylophidae	family	6700
+Arthropoda	Insecta	Coleoptera	Scirtidae	Scirtidae	family	6799
+Arthropoda	Insecta	Coleoptera	Hydrophilidae	Hydrophilidae	family	6877
+Arthropoda	Insecta	Coleoptera	Buprestidae	Buprestidae	family	7566
+Arthropoda	Insecta	Coleoptera	Nitidulidae	Nitidulidae	family	8557
+Arthropoda	Insecta	Coleoptera	Scraptiidae	Scraptiidae	family	9005
+Arthropoda	Insecta	Coleoptera	Brentidae	Brentidae	family	9466
+Arthropoda	Insecta	Coleoptera	Latridiidae	Latridiidae	family	10588
+Arthropoda	Insecta	Coleoptera	Cleridae	Cleridae	family	10806
+Arthropoda	Insecta	Coleoptera	Cantharidae	Cantharidae	family	11335
+Arthropoda	Insecta	Coleoptera	Throscidae	Throscidae	family	14599
+Arthropoda	Insecta	Coleoptera	Mordellidae	Mordellidae	family	14815
+Arthropoda	Insecta	Coleoptera	Tenebrionidae	Tenebrionidae	family	15853
+Arthropoda	Insecta	Coleoptera	Dytiscidae	Dytiscidae	family	25352
+Arthropoda	Insecta	Coleoptera	Elateridae	Elateridae	family	25969
+Arthropoda	Insecta	Coleoptera	Coccinellidae	Coccinellidae	family	30415
+Arthropoda	Insecta	Coleoptera	Cerambycidae	Cerambycidae	family	32696
+Arthropoda	Insecta	Coleoptera	Scarabaeidae	Scarabaeidae	family	37578
+Arthropoda	Insecta	Coleoptera	Carabidae	Carabidae	family	56977
+Arthropoda	Insecta	Coleoptera	Staphylinidae	Staphylinidae	family	76764
+Arthropoda	Insecta	Coleoptera	Curculionidae	Curculionidae	family	90235
+Arthropoda	Insecta	Coleoptera	Chrysomelidae	Chrysomelidae	family	93555
+Arthropoda	Insecta	Hymenoptera	Rotoitidae	Rotoitidae	family	1
+Arthropoda	Insecta	Hymenoptera	Trachypetidae	Trachypetidae	family	4
+Arthropoda	Insecta	Hymenoptera	Monomachidae	Monomachidae	family	5
+Arthropoda	Insecta	Hymenoptera	Liopteridae	Liopteridae	family	6
+Arthropoda	Insecta	Hymenoptera	Anaxyelidae	Anaxyelidae	family	7
+Arthropoda	Insecta	Hymenoptera	Chyphotidae	Chyphotidae	family	7
+Arthropoda	Insecta	Hymenoptera	Eutrichosomatidae	Eutrichosomatidae	family	7
+Arthropoda	Insecta	Hymenoptera	Roproniidae	Roproniidae	family	9
+Arthropoda	Insecta	Hymenoptera	Vanhorniidae	Vanhorniidae	family	10
+Arthropoda	Insecta	Hymenoptera	Maamingidae	Maamingidae	family	12
+Arthropoda	Insecta	Hymenoptera	Plumariidae	Plumariidae	family	12
+Arthropoda	Insecta	Hymenoptera	Ibaliidae	Ibaliidae	family	14
+Arthropoda	Insecta	Hymenoptera	Megalyridae	Megalyridae	family	16
+Arthropoda	Insecta	Hymenoptera	Blasticotomidae	Blasticotomidae	family	32
+Arthropoda	Insecta	Hymenoptera	Eriaporidae	Eriaporidae	family	36
+Arthropoda	Insecta	Hymenoptera	Tanaostigmatidae	Tanaostigmatidae	family	40
+Arthropoda	Insecta	Hymenoptera	Chrysolampidae	Chrysolampidae	family	43
+Arthropoda	Insecta	Hymenoptera	Stenotritidae	Stenotritidae	family	51
+Arthropoda	Insecta	Hymenoptera	Ammoplanidae	Ammoplanidae	family	52
+Arthropoda	Insecta	Hymenoptera	Mellinidae	Mellinidae	family	54
+Arthropoda	Insecta	Hymenoptera	Stephanidae	Stephanidae	family	64
+Arthropoda	Insecta	Hymenoptera	Mymarommatidae	Mymarommatidae	family	66
+Arthropoda	Insecta	Hymenoptera	Scolebythidae	Scolebythidae	family	67
+Arthropoda	Insecta	Hymenoptera	Heloridae	Heloridae	family	74
+Arthropoda	Insecta	Hymenoptera	Aulacidae	Aulacidae	family	78
+Arthropoda	Insecta	Hymenoptera	Heptamelidae	Heptamelidae	family	90
+Arthropoda	Insecta	Hymenoptera	Pelecinidae	Pelecinidae	family	93
+Arthropoda	Insecta	Hymenoptera	Sparasionidae	Sparasionidae	family	98
+Arthropoda	Insecta	Hymenoptera	Embolemidae	Embolemidae	family	99
+Arthropoda	Insecta	Hymenoptera	Sierolomorphidae	Sierolomorphidae	family	99
+Arthropoda	Insecta	Hymenoptera	Orussidae	Orussidae	family	101
+Arthropoda	Insecta	Hymenoptera	Leucospidae	Leucospidae	family	134
+Arthropoda	Insecta	Hymenoptera	Megalodontesidae	Megalodontesidae	family	158
+Arthropoda	Insecta	Hymenoptera	Ismaridae	Ismaridae	family	175
+Arthropoda	Insecta	Hymenoptera	Sapygidae	Sapygidae	family	179
+Arthropoda	Insecta	Hymenoptera	Tetracampidae	Tetracampidae	family	179
+Arthropoda	Insecta	Hymenoptera	Xiphydriidae	Xiphydriidae	family	180
+Arthropoda	Insecta	Hymenoptera	Bradynobaenidae	Bradynobaenidae	family	202
+Arthropoda	Insecta	Hymenoptera	Ampulicidae	Ampulicidae	family	204
+Arthropoda	Insecta	Hymenoptera	Azotidae	Azotidae	family	223
+Arthropoda	Insecta	Hymenoptera	Myrmosidae	Myrmosidae	family	254
+Arthropoda	Insecta	Hymenoptera	Thynnidae	Thynnidae	family	386
+Arthropoda	Insecta	Hymenoptera	Rhopalosomatidae	Rhopalosomatidae	family	422
+Arthropoda	Insecta	Hymenoptera	Astatidae	Astatidae	family	439
+Arthropoda	Insecta	Hymenoptera	Trigonalidae	Trigonalidae	family	490
+Arthropoda	Insecta	Hymenoptera	Megastigmidae	Megastigmidae	family	503
+Arthropoda	Insecta	Hymenoptera	Sclerogibbidae	Sclerogibbidae	family	552
+Arthropoda	Insecta	Hymenoptera	Eucharitidae	Eucharitidae	family	560
+Arthropoda	Insecta	Hymenoptera	Ormyridae	Ormyridae	family	587
+Arthropoda	Insecta	Hymenoptera	Pergidae	Pergidae	family	656
+Arthropoda	Insecta	Hymenoptera	Siricidae	Siricidae	family	741
+Arthropoda	Insecta	Hymenoptera	Cephidae	Cephidae	family	780
+Arthropoda	Insecta	Hymenoptera	Melittidae	Melittidae	family	783
+Arthropoda	Insecta	Hymenoptera	Diprionidae	Diprionidae	family	829
+Arthropoda	Insecta	Hymenoptera	Psenidae	Psenidae	family	875
+Arthropoda	Insecta	Hymenoptera	Cimbicidae	Cimbicidae	family	897
+Arthropoda	Insecta	Hymenoptera	Pamphiliidae	Pamphiliidae	family	1223
+Arthropoda	Insecta	Hymenoptera	Scoliidae	Scoliidae	family	1238
+Arthropoda	Insecta	Hymenoptera	Philanthidae	Philanthidae	family	1292
+Arthropoda	Insecta	Hymenoptera	Gasteruptiidae	Gasteruptiidae	family	1343
+Arthropoda	Insecta	Hymenoptera	Signiphoridae	Signiphoridae	family	1597
+Arthropoda	Insecta	Hymenoptera	Perilampidae	Perilampidae	family	1842
+Arthropoda	Insecta	Hymenoptera	Argidae	Argidae	family	1871
+Arthropoda	Insecta	Hymenoptera	Xyelidae	Xyelidae	family	1965
+Arthropoda	Insecta	Hymenoptera	Sphecidae	Sphecidae	family	2228
+Arthropoda	Insecta	Hymenoptera	Tiphiidae	Tiphiidae	family	2505
+Arthropoda	Insecta	Hymenoptera	Pemphredonidae	Pemphredonidae	family	2515
+Arthropoda	Insecta	Hymenoptera	Bembicidae	Bembicidae	family	2651
+Arthropoda	Insecta	Hymenoptera	Proctotrupidae	Proctotrupidae	family	2758
+Arthropoda	Insecta	Hymenoptera	Megaspilidae	Megaspilidae	family	2869
+Arthropoda	Insecta	Hymenoptera	Evaniidae	Evaniidae	family	4102
+Arthropoda	Insecta	Hymenoptera	Eurytomidae	Eurytomidae	family	4497
+Arthropoda	Insecta	Hymenoptera	Mutillidae	Mutillidae	family	4620
+Arthropoda	Insecta	Hymenoptera	Torymidae	Torymidae	family	4640
+Arthropoda	Insecta	Hymenoptera	Chalcididae	Chalcididae	family	4702
+Arthropoda	Insecta	Hymenoptera	Agaonidae	Agaonidae	family	5032
+Arthropoda	Insecta	Hymenoptera	Eupelmidae	Eupelmidae	family	5157
+Arthropoda	Insecta	Hymenoptera	Chrysididae	Chrysididae	family	5302
+Arthropoda	Insecta	Hymenoptera	Cynipidae	Cynipidae	family	5336
+Arthropoda	Insecta	Hymenoptera	Dryinidae	Dryinidae	family	5957
+Arthropoda	Insecta	Hymenoptera	Ceraphronidae	Ceraphronidae	family	9496
+Arthropoda	Insecta	Hymenoptera	Crabronidae	Crabronidae	family	10723
+Arthropoda	Insecta	Hymenoptera	Colletidae	Colletidae	family	11064
+Arthropoda	Insecta	Hymenoptera	Andrenidae	Andrenidae	family	11778
+Arthropoda	Insecta	Hymenoptera	Pompilidae	Pompilidae	family	12922
+Arthropoda	Insecta	Hymenoptera	Vespidae	Vespidae	family	14362
+Arthropoda	Insecta	Hymenoptera	Figitidae	Figitidae	family	14685
+Arthropoda	Insecta	Hymenoptera	Megachilidae	Megachilidae	family	16041
+Arthropoda	Insecta	Hymenoptera	Encyrtidae	Encyrtidae	family	16153
+Arthropoda	Insecta	Hymenoptera	Trichogrammatidae	Trichogrammatidae	family	17679
+Arthropoda	Insecta	Hymenoptera	Aphelinidae	Aphelinidae	family	18308
+Arthropoda	Insecta	Hymenoptera	Bethylidae	Bethylidae	family	25297
+Arthropoda	Insecta	Hymenoptera	Pteromalidae	Pteromalidae	family	27416
+Arthropoda	Insecta	Hymenoptera	Tenthredinidae	Tenthredinidae	family	35148
+Arthropoda	Insecta	Hymenoptera	Halictidae	Halictidae	family	36490
+Arthropoda	Insecta	Hymenoptera	Mymaridae	Mymaridae	family	42678
+Arthropoda	Insecta	Hymenoptera	Eulophidae	Eulophidae	family	46532
+Arthropoda	Insecta	Hymenoptera	Diapriidae	Diapriidae	family	51453
+Arthropoda	Insecta	Hymenoptera	Apidae	Apidae	family	52745
+Arthropoda	Insecta	Hymenoptera	Scelionidae	Scelionidae	family	77698
+Arthropoda	Insecta	Hymenoptera	Platygastridae	Platygastridae	family	91821
+Arthropoda	Insecta	Hymenoptera	Braconidae	Braconidae	family	163464
+Arthropoda	Insecta	Hymenoptera	Ichneumonidae	Ichneumonidae	family	175086
+Arthropoda	Insecta	Hymenoptera	Formicidae	Formicidae	family	291082
+Arthropoda	Insecta	Lepidoptera	Peleopodidae	Peleopodidae	family	2
+Arthropoda	Insecta	Lepidoptera	Ustyurtiidae	Ustyurtiidae	family	2
+Arthropoda	Insecta	Lepidoptera	Thumathoides	Thumathoides	family	2
+Arthropoda	Insecta	Lepidoptera	Ratardidae	Ratardidae	family	3
+Arthropoda	Insecta	Lepidoptera	Epimarptidae	Epimarptidae	family	4
+Arthropoda	Insecta	Lepidoptera	Whalleyanidae	Whalleyanidae	family	4
+Arthropoda	Insecta	Lepidoptera	Pseudobistonidae	Pseudobistonidae	family	6
+Arthropoda	Insecta	Lepidoptera	Simaethistidae	Simaethistidae	family	7
+Arthropoda	Insecta	Lepidoptera	Somabrachyidae	Somabrachyidae	family	7
+Arthropoda	Insecta	Lepidoptera	Prodidactidae	Prodidactidae	family	8
+Arthropoda	Insecta	Lepidoptera	Agathiphagidae	Agathiphagidae	family	11
+Arthropoda	Insecta	Lepidoptera	Phaudidae	Phaudidae	family	11
+Arthropoda	Insecta	Lepidoptera	Tridentaformidae	Tridentaformidae	family	11
+Arthropoda	Insecta	Lepidoptera	Heterobathmiidae	Heterobathmiidae	family	12
+Arthropoda	Insecta	Lepidoptera	Mnesarchaeidae	Mnesarchaeidae	family	14
+Arthropoda	Insecta	Lepidoptera	Tonzidae	Tonzidae	family	14
+Arthropoda	Insecta	Lepidoptera	Cimeliidae	Cimeliidae	family	17
+Arthropoda	Insecta	Lepidoptera	Schistonoeidae	Schistonoeidae	family	17
+Arthropoda	Insecta	Lepidoptera	Andesianidae	Andesianidae	family	18
+Arthropoda	Insecta	Lepidoptera	Lophocoronidae	Lophocoronidae	family	19
+Arthropoda	Insecta	Lepidoptera	Carthaeidae	Carthaeidae	family	20
+Arthropoda	Insecta	Lepidoptera	Millieriidae	Millieriidae	family	20
+Arthropoda	Insecta	Lepidoptera	Acanthopteroctetidae	Acanthopteroctetidae	family	26
+Arthropoda	Insecta	Lepidoptera	Doidae	Doidae	family	33
+Arthropoda	Insecta	Lepidoptera	Scythropiidae	Scythropiidae	family	36
+Arthropoda	Insecta	Lepidoptera	Cyclotornidae	Cyclotornidae	family	38
+Arthropoda	Insecta	Lepidoptera	Callidulidae	Callidulidae	family	49
+Arthropoda	Insecta	Lepidoptera	Neopseustidae	Neopseustidae	family	51
+Arthropoda	Insecta	Lepidoptera	Aididae	Aididae	family	71
+Arthropoda	Insecta	Lepidoptera	Heterogynidae	Heterogynidae	family	72
+Arthropoda	Insecta	Lepidoptera	Tineodidae	Tineodidae	family	83
+Arthropoda	Insecta	Lepidoptera	Epicopeiidae	Epicopeiidae	family	91
+Arthropoda	Insecta	Lepidoptera	Himantopteridae	Himantopteridae	family	99
+Arthropoda	Insecta	Lepidoptera	Meessiidae	Meessiidae	family	114
+Arthropoda	Insecta	Lepidoptera	Dudgeoneidae	Dudgeoneidae	family	115
+Arthropoda	Insecta	Lepidoptera	Cecidosidae	Cecidosidae	family	149
+Arthropoda	Insecta	Lepidoptera	Metarbelidae	Metarbelidae	family	158
+Arthropoda	Insecta	Lepidoptera	Oenosandridae	Oenosandridae	family	161
+Arthropoda	Insecta	Lepidoptera	Galacticidae	Galacticidae	family	162
+Arthropoda	Insecta	Lepidoptera	Pterolonchidae	Pterolonchidae	family	172
+Arthropoda	Insecta	Lepidoptera	Epipyropidae	Epipyropidae	family	191
+Arthropoda	Insecta	Lepidoptera	Douglasiidae	Douglasiidae	family	205
+Arthropoda	Insecta	Lepidoptera	Endromidae	Endromidae	family	206
+Arthropoda	Insecta	Lepidoptera	Schreckensteiniidae	Schreckensteiniidae	family	218
+Arthropoda	Insecta	Lepidoptera	Copromorphidae	Copromorphidae	family	272
+Arthropoda	Insecta	Lepidoptera	Castniidae	Castniidae	family	287
+Arthropoda	Insecta	Lepidoptera	Palaephatidae	Palaephatidae	family	287
+Arthropoda	Insecta	Lepidoptera	Roeslerstammiidae	Roeslerstammiidae	family	307
+Arthropoda	Insecta	Lepidoptera	Heliodinidae	Heliodinidae	family	316
+Arthropoda	Insecta	Lepidoptera	Brachodidae	Brachodidae	family	330
+Arthropoda	Insecta	Lepidoptera	Bedelliidae	Bedelliidae	family	383
+Arthropoda	Insecta	Lepidoptera	Phiditiidae	Phiditiidae	family	384
+Arthropoda	Insecta	Lepidoptera	Lepidoptera_incertae_sedis	Lepidoptera_incertae_sedis	family	385
+Arthropoda	Insecta	Lepidoptera	Eriocottidae	Eriocottidae	family	394
+Arthropoda	Insecta	Lepidoptera	Sematuridae	Sematuridae	family	424
+Arthropoda	Insecta	Lepidoptera	Urodidae	Urodidae	family	432
+Arthropoda	Insecta	Lepidoptera	Lypusidae	Lypusidae	family	464
+Arthropoda	Insecta	Lepidoptera	Alucitidae	Alucitidae	family	497
+Arthropoda	Insecta	Lepidoptera	Hyblaeidae	Hyblaeidae	family	505
+Arthropoda	Insecta	Lepidoptera	Lacturidae	Lacturidae	family	507
+Arthropoda	Insecta	Lepidoptera	Incurvariidae	Incurvariidae	family	538
+Arthropoda	Insecta	Lepidoptera	Praydidae	Praydidae	family	549
+Arthropoda	Insecta	Lepidoptera	Attevidae	Attevidae	family	559
+Arthropoda	Insecta	Lepidoptera	Opostegidae	Opostegidae	family	720
+Arthropoda	Insecta	Lepidoptera	Epermeniidae	Epermeniidae	family	741
+Arthropoda	Insecta	Lepidoptera	Hedylidae	Hedylidae	family	793
+Arthropoda	Insecta	Lepidoptera	Carposinidae	Carposinidae	family	804
+Arthropoda	Insecta	Lepidoptera	Dryadaulidae	Dryadaulidae	family	812
+Arthropoda	Insecta	Lepidoptera	Brahmaeidae	Brahmaeidae	family	1031
+Arthropoda	Insecta	Lepidoptera	Eriocraniidae	Eriocraniidae	family	1059
+Arthropoda	Insecta	Lepidoptera	Batrachedridae	Batrachedridae	family	1060
+Arthropoda	Insecta	Lepidoptera	Anthelidae	Anthelidae	family	1065
+Arthropoda	Insecta	Lepidoptera	Dalceridae	Dalceridae	family	1152
+Arthropoda	Insecta	Lepidoptera	Tischeriidae	Tischeriidae	family	1187
+Arthropoda	Insecta	Lepidoptera	Ypsolophidae	Ypsolophidae	family	1348
+Arthropoda	Insecta	Lepidoptera	Immidae	Immidae	family	1449
+Arthropoda	Insecta	Lepidoptera	Prodoxidae	Prodoxidae	family	1498
+Arthropoda	Insecta	Lepidoptera	Micropterigidae	Micropterigidae	family	1508
+Arthropoda	Insecta	Lepidoptera	Adelidae	Adelidae	family	1576
+Arthropoda	Insecta	Lepidoptera	Heliozelidae	Heliozelidae	family	1673
+Arthropoda	Insecta	Lepidoptera	Lyonetiidae	Lyonetiidae	family	1907
+Arthropoda	Insecta	Lepidoptera	Glyphipterigidae	Glyphipterigidae	family	1968
+Arthropoda	Insecta	Lepidoptera	Stathmopodidae	Stathmopodidae	family	1983
+Arthropoda	Insecta	Lepidoptera	Megalopygidae	Megalopygidae	family	2145
+Arthropoda	Insecta	Lepidoptera	Apatelodidae	Apatelodidae	family	2329
+Arthropoda	Insecta	Lepidoptera	Yponomeutidae	Yponomeutidae	family	2390
+Arthropoda	Insecta	Lepidoptera	Mimallonidae	Mimallonidae	family	2396
+Arthropoda	Insecta	Lepidoptera	Euteliidae	Euteliidae	family	2459
+Arthropoda	Insecta	Lepidoptera	Momphidae	Momphidae	family	2526
+Arthropoda	Insecta	Lepidoptera	Hepialidae	Hepialidae	family	3174
+Arthropoda	Insecta	Lepidoptera	Eupterotidae	Eupterotidae	family	3243
+Arthropoda	Insecta	Lepidoptera	Bombycidae	Bombycidae	family	3313
+Arthropoda	Insecta	Lepidoptera	Cossidae	Cossidae	family	3324
+Arthropoda	Insecta	Lepidoptera	Argyresthiidae	Argyresthiidae	family	3440
+Arthropoda	Insecta	Lepidoptera	Zygaenidae	Zygaenidae	family	3462
+Arthropoda	Insecta	Lepidoptera	Choreutidae	Choreutidae	family	3688
+Arthropoda	Insecta	Lepidoptera	Drepanidae	Drepanidae	family	3846
+Arthropoda	Insecta	Lepidoptera	Uraniidae	Uraniidae	family	3975
+Arthropoda	Insecta	Lepidoptera	Thyrididae	Thyrididae	family	4544
+Arthropoda	Insecta	Lepidoptera	Lecithoceridae	Lecithoceridae	family	4751
+Arthropoda	Insecta	Lepidoptera	Plutellidae	Plutellidae	family	5415
+Arthropoda	Insecta	Lepidoptera	Scythrididae	Scythrididae	family	5828
+Arthropoda	Insecta	Lepidoptera	Sesiidae	Sesiidae	family	5899
+Arthropoda	Insecta	Lepidoptera	Bucculatricidae	Bucculatricidae	family	5911
+Arthropoda	Insecta	Lepidoptera	Pterophoridae	Pterophoridae	family	6615
+Arthropoda	Insecta	Lepidoptera	Psychidae	Psychidae	family	6642
+Arthropoda	Insecta	Lepidoptera	Autostichidae	Autostichidae	family	7548
+Arthropoda	Insecta	Lepidoptera	Xyloryctidae	Xyloryctidae	family	8405
+Arthropoda	Insecta	Lepidoptera	Limacodidae	Limacodidae	family	9074
+Arthropoda	Insecta	Lepidoptera	Papilionidae	Papilionidae	family	10688
+Arthropoda	Insecta	Lepidoptera	Riodinidae	Riodinidae	family	11308
+Arthropoda	Insecta	Lepidoptera	Blastobasidae	Blastobasidae	family	12118
+Arthropoda	Insecta	Lepidoptera	Elachistidae	Elachistidae	family	12977
+Arthropoda	Insecta	Lepidoptera	Nolidae	Nolidae	family	13796
+Arthropoda	Insecta	Lepidoptera	Lasiocampidae	Lasiocampidae	family	14897
+Arthropoda	Insecta	Lepidoptera	Nepticulidae	Nepticulidae	family	15619
+Arthropoda	Insecta	Lepidoptera	Coleophoridae	Coleophoridae	family	20341
+Arthropoda	Insecta	Lepidoptera	Cosmopterigidae	Cosmopterigidae	family	21298
+Arthropoda	Insecta	Lepidoptera	Pieridae	Pieridae	family	21563
+Arthropoda	Insecta	Lepidoptera	Oecophoridae	Oecophoridae	family	22088
+Arthropoda	Insecta	Lepidoptera	Gracillariidae	Gracillariidae	family	36342
+Arthropoda	Insecta	Lepidoptera	Lycaenidae	Lycaenidae	family	42109
+Arthropoda	Insecta	Lepidoptera	Depressariidae	Depressariidae	family	42560
+Arthropoda	Insecta	Lepidoptera	Notodontidae	Notodontidae	family	46155
+Arthropoda	Insecta	Lepidoptera	Tineidae	Tineidae	family	48246
+Arthropoda	Insecta	Lepidoptera	Pyralidae	Pyralidae	family	50239
+Arthropoda	Insecta	Lepidoptera	Hesperiidae	Hesperiidae	family	50293
+Arthropoda	Insecta	Lepidoptera	Tortricidae	Tortricidae	family	80805
+Arthropoda	Insecta	Lepidoptera	Nymphalidae	Nymphalidae	family	84841
+Arthropoda	Insecta	Lepidoptera	Gelechiidae	Gelechiidae	family	97896
+Arthropoda	Insecta	Lepidoptera	Crambidae	Crambidae	family	101186
+Arthropoda	Insecta	Lepidoptera	Saturniidae	Saturniidae	family	102523
+Arthropoda	Insecta	Lepidoptera	Noctuidae	Noctuidae	family	133911
+Arthropoda	Insecta	Lepidoptera	Erebidae	Erebidae	family	182902
+Arthropoda	Insecta	Lepidoptera	Sphingidae	Sphingidae	family	191518
+Arthropoda	Insecta	Lepidoptera	Geometridae	Geometridae	family	225531
+Arthropoda	Insecta	Diptera	Mystacinobiidae	Mystacinobiidae	family	1
+Arthropoda	Insecta	Diptera	Nannodastiidae	Nannodastiidae	family	1
+Arthropoda	Insecta	Diptera	Natalimyzidae	Natalimyzidae	family	1
+Arthropoda	Insecta	Diptera	Xenasteiidae	Xenasteiidae	family	1
+Arthropoda	Insecta	Diptera	Ctenostylidae	Ctenostylidae	family	2
+Arthropoda	Insecta	Diptera	Homalocnemiidae	Homalocnemiidae	family	2
+Arthropoda	Insecta	Diptera	Huttoninidae	Huttoninidae	family	2
+Arthropoda	Insecta	Diptera	Oreoleptidae	Oreoleptidae	family	2
+Arthropoda	Insecta	Diptera	Pantophthalmidae	Pantophthalmidae	family	2
+Arthropoda	Insecta	Diptera	Deuterophlebiidae	Deuterophlebiidae	family	3
+Arthropoda	Insecta	Diptera	Evocoidae	Evocoidae	family	3
+Arthropoda	Insecta	Diptera	Hilarimorphidae	Hilarimorphidae	family	3
+Arthropoda	Insecta	Diptera	Braulidae	Braulidae	family	4
+Arthropoda	Insecta	Diptera	Perissommatidae	Perissommatidae	family	4
+Arthropoda	Insecta	Diptera	Apystomyiidae	Apystomyiidae	family	5
+Arthropoda	Insecta	Diptera	Australimyzidae	Australimyzidae	family	5
+Arthropoda	Insecta	Diptera	Diptera_family_incertae_sedis	Diptera_family_incertae_sedis	family	5
+Arthropoda	Insecta	Diptera	Gobryidae	Gobryidae	family	5
+Arthropoda	Insecta	Diptera	Marginidae	Marginidae	family	5
+Arthropoda	Insecta	Diptera	Neminidae	Neminidae	family	5
+Arthropoda	Insecta	Diptera	Teratomyzidae	Teratomyzidae	family	5
+Arthropoda	Insecta	Diptera	Axymyiidae	Axymyiidae	family	6
+Arthropoda	Insecta	Diptera	Neurochaetidae	Neurochaetidae	family	6
+Arthropoda	Insecta	Diptera	Somatiidae	Somatiidae	family	6
+Arthropoda	Insecta	Diptera	Helcomyzidae	Helcomyzidae	family	8
+Arthropoda	Insecta	Diptera	Apsilocephalidae	Apsilocephalidae	family	9
+Arthropoda	Insecta	Diptera	Cypselosomatidae	Cypselosomatidae	family	9
+Arthropoda	Insecta	Diptera	Ironomyiidae	Ironomyiidae	family	9
+Arthropoda	Insecta	Diptera	Megamerinidae	Megamerinidae	family	10
+Arthropoda	Insecta	Diptera	Pelecorhynchidae	Pelecorhynchidae	family	10
+Arthropoda	Insecta	Diptera	Opetiidae	Opetiidae	family	11
+Arthropoda	Insecta	Diptera	Paraleucopidae	Paraleucopidae	family	12
+Arthropoda	Insecta	Diptera	Tanyderidae	Tanyderidae	family	12
+Arthropoda	Insecta	Diptera	Syringogastridae	Syringogastridae	family	13
+Arthropoda	Insecta	Diptera	Pachyneuridae	Pachyneuridae	family	14
+Arthropoda	Insecta	Diptera	Mormotomyiidae	Mormotomyiidae	family	15
+Arthropoda	Insecta	Diptera	Nothybidae	Nothybidae	family	16
+Arthropoda	Insecta	Diptera	Atelestidae	Atelestidae	family	19
+Arthropoda	Insecta	Diptera	Camillidae	Camillidae	family	19
+Arthropoda	Insecta	Diptera	Helosciomyzidae	Helosciomyzidae	family	19
+Arthropoda	Insecta	Diptera	Sciaroidea_incertae_sedis	Sciaroidea_incertae_sedis	family	20
+Arthropoda	Insecta	Diptera	Inbiomyiidae	Inbiomyiidae	family	23
+Arthropoda	Insecta	Diptera	Nymphomyiidae	Nymphomyiidae	family	29
+Arthropoda	Insecta	Diptera	Austroleptidae	Austroleptidae	family	37
+Arthropoda	Insecta	Diptera	Tanypezidae	Tanypezidae	family	37
+Arthropoda	Insecta	Diptera	Hesperinidae	Hesperinidae	family	38
+Arthropoda	Insecta	Diptera	Ropalomeridae	Ropalomeridae	family	38
+Arthropoda	Insecta	Diptera	Bolbomyiidae	Bolbomyiidae	family	50
+Arthropoda	Insecta	Diptera	Canthyloscelidae	Canthyloscelidae	family	55
+Arthropoda	Insecta	Diptera	Strongylophthalmyiidae	Strongylophthalmyiidae	family	55
+Arthropoda	Insecta	Diptera	Apioceridae	Apioceridae	family	56
+Arthropoda	Insecta	Diptera	Vermileonidae	Vermileonidae	family	76
+Arthropoda	Insecta	Diptera	Celyphidae	Celyphidae	family	80
+Arthropoda	Insecta	Diptera	Pseudopomyzidae	Pseudopomyzidae	family	88
+Arthropoda	Insecta	Diptera	Curtonotidae	Curtonotidae	family	106
+Arthropoda	Insecta	Diptera	Acartophthalmidae	Acartophthalmidae	family	129
+Arthropoda	Insecta	Diptera	Athericidae	Athericidae	family	142
+Arthropoda	Insecta	Diptera	Oreogetonidae	Oreogetonidae	family	149
+Arthropoda	Insecta	Diptera	Coelopidae	Coelopidae	family	152
+Arthropoda	Insecta	Diptera	Acroceridae	Acroceridae	family	189
+Arthropoda	Insecta	Diptera	Pyrgotidae	Pyrgotidae	family	197
+Arthropoda	Insecta	Diptera	Odiniidae	Odiniidae	family	214
+Arthropoda	Insecta	Diptera	Cylindrotomidae	Cylindrotomidae	family	216
+Arthropoda	Insecta	Diptera	Diastatidae	Diastatidae	family	230
+Arthropoda	Insecta	Diptera	Pallopteridae	Pallopteridae	family	256
+Arthropoda	Insecta	Diptera	Canacidae	Canacidae	family	276
+Arthropoda	Insecta	Diptera	Nemestrinidae	Nemestrinidae	family	329
+Arthropoda	Insecta	Diptera	Diadocidiidae	Diadocidiidae	family	350
+Arthropoda	Insecta	Diptera	Brachystomatidae	Brachystomatidae	family	392
+Arthropoda	Insecta	Diptera	Neriidae	Neriidae	family	397
+Arthropoda	Insecta	Diptera	Ptychopteridae	Ptychopteridae	family	402
+Arthropoda	Insecta	Diptera	Dixidae	Dixidae	family	429
+Arthropoda	Insecta	Diptera	Scenopinidae	Scenopinidae	family	455
+Arthropoda	Insecta	Diptera	Fergusoninidae	Fergusoninidae	family	467
+Arthropoda	Insecta	Diptera	Mesembrinellidae	Mesembrinellidae	family	467
+Arthropoda	Insecta	Diptera	Periscelididae	Periscelididae	family	486
+Arthropoda	Insecta	Diptera	Blephariceridae	Blephariceridae	family	490
+Arthropoda	Insecta	Diptera	Diopsidae	Diopsidae	family	509
+Arthropoda	Insecta	Diptera	Thaumaleidae	Thaumaleidae	family	516
+Arthropoda	Insecta	Diptera	Bolitophilidae	Bolitophilidae	family	551
+Arthropoda	Insecta	Diptera	Mydidae	Mydidae	family	562
+Arthropoda	Insecta	Diptera	Chyromyidae	Chyromyidae	family	572
+Arthropoda	Insecta	Diptera	Xylophagidae	Xylophagidae	family	592
+Arthropoda	Insecta	Diptera	Opomyzidae	Opomyzidae	family	684
+Arthropoda	Insecta	Diptera	Platypezidae	Platypezidae	family	770
+Arthropoda	Insecta	Diptera	Lonchopteridae	Lonchopteridae	family	863
+Arthropoda	Insecta	Diptera	Glossinidae	Glossinidae	family	919
+Arthropoda	Insecta	Diptera	Ditomyiidae	Ditomyiidae	family	963
+Arthropoda	Insecta	Diptera	Asteiidae	Asteiidae	family	980
+Arthropoda	Insecta	Diptera	Dryomyzidae	Dryomyzidae	family	1029
+Arthropoda	Insecta	Diptera	Corethrellidae	Corethrellidae	family	1094
+Arthropoda	Insecta	Diptera	Piophilidae	Piophilidae	family	1134
+Arthropoda	Insecta	Diptera	Anthomyzidae	Anthomyzidae	family	1171
+Arthropoda	Insecta	Diptera	Oestridae	Oestridae	family	1257
+Arthropoda	Insecta	Diptera	Aulacigastridae	Aulacigastridae	family	1263
+Arthropoda	Insecta	Diptera	Carnidae	Carnidae	family	1319
+Arthropoda	Insecta	Diptera	Psilidae	Psilidae	family	1505
+Arthropoda	Insecta	Diptera	Xylomyidae	Xylomyidae	family	1518
+Arthropoda	Insecta	Diptera	Richardiidae	Richardiidae	family	1607
+Arthropoda	Insecta	Diptera	Pediciidae	Pediciidae	family	1887
+Arthropoda	Insecta	Diptera	Cryptochetidae	Cryptochetidae	family	1929
+Arthropoda	Insecta	Diptera	Iteaphila-group	Iteaphila-group	family	1967
+Arthropoda	Insecta	Diptera	Hippoboscidae	Hippoboscidae	family	1996
+Arthropoda	Insecta	Diptera	Ulidiidae	Ulidiidae	family	2041
+Arthropoda	Insecta	Diptera	Platystomatidae	Platystomatidae	family	2143
+Arthropoda	Insecta	Diptera	Trichoceridae	Trichoceridae	family	2170
+Arthropoda	Insecta	Diptera	Chaoboridae	Chaoboridae	family	2181
+Arthropoda	Insecta	Diptera	Chamaemyiidae	Chamaemyiidae	family	2225
+Arthropoda	Insecta	Diptera	Lonchaeidae	Lonchaeidae	family	2466
+Arthropoda	Insecta	Diptera	Micropezidae	Micropezidae	family	2552
+Arthropoda	Insecta	Diptera	Therevidae	Therevidae	family	2757
+Arthropoda	Insecta	Diptera	Clusiidae	Clusiidae	family	3085
+Arthropoda	Insecta	Diptera	Rhagionidae	Rhagionidae	family	3453
+Arthropoda	Insecta	Diptera	Conopidae	Conopidae	family	3458
+Arthropoda	Insecta	Diptera	Sciomyzidae	Sciomyzidae	family	4233
+Arthropoda	Insecta	Diptera	Sepsidae	Sepsidae	family	4819
+Arthropoda	Insecta	Diptera	Bombyliidae	Bombyliidae	family	5278
+Arthropoda	Insecta	Diptera	Anisopodidae	Anisopodidae	family	5528
+Arthropoda	Insecta	Diptera	Bibionidae	Bibionidae	family	5870
+Arthropoda	Insecta	Diptera	Polleniidae	Polleniidae	family	6625
+Arthropoda	Insecta	Diptera	Scatopsidae	Scatopsidae	family	7515
+Arthropoda	Insecta	Diptera	Fanniidae	Fanniidae	family	7731
+Arthropoda	Insecta	Diptera	Keroplatidae	Keroplatidae	family	8674
+Arthropoda	Insecta	Diptera	Asilidae	Asilidae	family	9750
+Arthropoda	Insecta	Diptera	Scathophagidae	Scathophagidae	family	10480
+Arthropoda	Insecta	Diptera	Tipulidae	Tipulidae	family	10480
+Arthropoda	Insecta	Diptera	Lauxaniidae	Lauxaniidae	family	10778
+Arthropoda	Insecta	Diptera	Heleomyzidae	Heleomyzidae	family	12101
+Arthropoda	Insecta	Diptera	Stratiomyidae	Stratiomyidae	family	13135
+Arthropoda	Insecta	Diptera	Tabanidae	Tabanidae	family	13713
+Arthropoda	Insecta	Diptera	Ephydridae	Ephydridae	family	14361
+Arthropoda	Insecta	Diptera	Pipunculidae	Pipunculidae	family	18345
+Arthropoda	Insecta	Diptera	Calliphoridae	Calliphoridae	family	20618
+Arthropoda	Insecta	Diptera	Sarcophagidae	Sarcophagidae	family	21671
+Arthropoda	Insecta	Diptera	Milichiidae	Milichiidae	family	22657
+Arthropoda	Insecta	Diptera	Simuliidae	Simuliidae	family	22667
+Arthropoda	Insecta	Diptera	Empididae	Empididae	family	23287
+Arthropoda	Insecta	Diptera	Limoniidae	Limoniidae	family	28130
+Arthropoda	Insecta	Diptera	Agromyzidae	Agromyzidae	family	31742
+Arthropoda	Insecta	Diptera	Tephritidae	Tephritidae	family	38549
+Arthropoda	Insecta	Diptera	Hybotidae	Hybotidae	family	46409
+Arthropoda	Insecta	Diptera	Sphaeroceridae	Sphaeroceridae	family	50903
+Arthropoda	Insecta	Diptera	Drosophilidae	Drosophilidae	family	51601
+Arthropoda	Insecta	Diptera	Chloropidae	Chloropidae	family	52918
+Arthropoda	Insecta	Diptera	Syrphidae	Syrphidae	family	54115
+Arthropoda	Insecta	Diptera	Anthomyiidae	Anthomyiidae	family	59505
+Arthropoda	Insecta	Diptera	Tachinidae	Tachinidae	family	71750
+Arthropoda	Insecta	Diptera	Mycetophilidae	Mycetophilidae	family	76845
+Arthropoda	Insecta	Diptera	Dolichopodidae	Dolichopodidae	family	91628
+Arthropoda	Insecta	Diptera	Muscidae	Muscidae	family	105933
+Arthropoda	Insecta	Diptera	Culicidae	Culicidae	family	113525
+Arthropoda	Insecta	Diptera	Psychodidae	Psychodidae	family	129428
+Arthropoda	Insecta	Diptera	Ceratopogonidae	Ceratopogonidae	family	243657
+Arthropoda	Insecta	Diptera	Phoridae	Phoridae	family	355760
+Arthropoda	Insecta	Diptera	Sciaridae	Sciaridae	family	520475
+Arthropoda	Insecta	Diptera	Chironomidae	Chironomidae	family	704425
+Arthropoda	Insecta	Diptera	Cecidomyiidae	Cecidomyiidae	family	740297
