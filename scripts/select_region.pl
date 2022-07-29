@@ -15,10 +15,10 @@ my %params = (
 'trim_error' => 0.3,
 'min_amplicon_length' => 100,
 'max_amplicon_length' => 2000,
-'min_overlap' => 10,
-'target_region_fas' => '', # if $e_pcr == 0 a fasta file with diverse sequences limited to the target region shoul be given as an input
-'tcov_hsp_perc' => 0.5, # Coverage in vsearch --usearch_global
-'perc_identity' => 0.7, # Min identity in vsearch --usearch_global
+'min_overlap' => 20,
+'bait_fas' => '', # if $e_pcr == 0 a fasta file with diverse sequences limited to the target region shoul be given as an input
+'tcov' => 0.5, # Coverage in vsearch --usearch_global
+'identity' => 0.7, # Min identity in vsearch --usearch_global
 'cutadapt_path' => '',
 'vsearch_path' => ''
 );
@@ -34,9 +34,9 @@ my $trim_error = $params{trim_error};
 my $min_amplicon_length = $params{min_amplicon_length};
 my $max_amplicon_length = $params{max_amplicon_length};
 my $min_overlap = $params{min_overlap};
-my $target_region_fas = $params{target_region_fas}; # if there is a fasta file with diverse sequences limited to the target region, the e-pcr can be avoided
-my $tcov_hsp_perc = $params{tcov_hsp_perc}; # Coverage in vsearch --usearch_global
-my $perc_identity = $params{perc_identity}; # Min identity in vsearch --usearch_global
+my $bait_fas = $params{bait_fas}; # if there is a fasta file with diverse sequences limited to the target region, the e-pcr can be avoided
+my $tcov = $params{tcov}; # Coverage in vsearch --usearch_global
+my $identity = $params{identity}; # Min identity in vsearch --usearch_global
 my $cutadapt_path = $params{cutadapt_path};
 my $vsearch_path = $params{vsearch_path};
 
@@ -93,7 +93,7 @@ if(1)
 ####
 
 
-my $cluster_in = $target_region_fas;
+my $cluster_in = $bait_fas;
 my $usearch_in = $input_fas;
 my $trimmed_cutadapt = $outdir.'cutadapt_trimmed.fas';
 my $untrimmed = $tmpdir.'untrimmed_cutadapt.fas';
@@ -148,9 +148,9 @@ if($e_pcr) # make an e_pcr on the input sequences to get sequences limited to th
 my $centroids = $outdir.'target_centroids.fas';
 if(1)
 {
-	#### Cluster trimmed sequneces or input target_region_fas
-	print "\n####\nCluster trimmed sequneces or input target_region_fas\n";
-	print LOG "\n####\nCluster trimmed sequneces or input target_region_fas\n";
+	#### Cluster trimmed sequneces or input bait_fas
+	print "\n####\nCluster trimmed sequneces or input bait_fas\n";
+	print LOG "\n####\nCluster trimmed sequneces or input bait_fas\n";
 	my $vsearch = $vsearch_path.'vsearch --cluster_fast '.$cluster_in.' --centroids '.$centroids.' --id 0.90';
 	system $vsearch;
 	# get sequences count in $centroids
@@ -170,7 +170,7 @@ if(1)
 {
 	print "\n####\nvsearch --usearch_global sequences against centroids\n";
 	print LOG "\n####\nvsearch --usearch_global sequences against centroids\n";
-	my $cmd = 'vsearch --usearch_global '.$usearch_in.' --db '.$centroids.' --userout '.$usearch_out.' --userfields '.$outfmt.' --id '.$perc_identity.' --strand both --target_cov '.$tcov_hsp_perc;
+	my $cmd = 'vsearch --usearch_global '.$usearch_in.' --db '.$centroids.' --userout '.$usearch_out.' --userfields '.$outfmt.' --id '.$identity.' --strand both --target_cov '.$tcov;
 	system $cmd;
 	print LOG "Runtime: ", time - $t, "s \n";
 	$t = time;
@@ -353,7 +353,7 @@ usage: perl select_region.pl -tsv INPUT_TSV -outdir OUTDIR
    -tsv                    Input tsv file with seqID,taxID,sequence
    -outdir                 Name of the otput directory
  OPTIONS/PARMATERS
-   -target_region_fas      Optional; Can be produced by E-pcr included in the script 
+   -bait_fas               Optional; Can be produced by E-pcr included in the script 
                               Fasta file with sequences already trimmed to the target region
   E-pcr related parameters
    -e_pcr                  [0/1]; If 1, identify the target region of the sequences by e-pcr
@@ -365,15 +365,15 @@ usage: perl select_region.pl -tsv INPUT_TSV -outdir OUTDIR
                               The minimum length of the amplicon after primer trimming
    -max_amplicon_length    Integer; Default: 2000
                               The maximum length of the amplicon after primer trimming
-   -min_overlap            Integer; Default: 10
+   -min_overlap            Integer; Default: 20
                               The minimum overlap between primer and the sequence during e-pcr
    -cutadapt_path          Path to the cutadapt executables; Not necessarry if it is in the PATH
    
   usearch_global related parameters
-   -tcov_hsp_perc          Real [0-1]; Default : 0.5
+   -tcov                   Real [0-1]; Default : 0.5
                               Minimum coverage of the target sequence in usearch_global hits
-   -perc_identity          Real [0-1]; Default : 0.7
-                              Minimum percentage of identity between the sequence and the target in usearch_global hits
+   -identity               Real [0-1]; Default : 0.7
+                              Minimum identity between the sequence and the target in usearch_global hits
    -vsearch_path           Path to the vsearch executables; Not necessarry if it is in the PATH
 
 ', "\n";

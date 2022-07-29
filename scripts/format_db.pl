@@ -142,7 +142,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 	
 	if($out)
 	{
-		$out .= '_';
+#		$out .= '_';
 	}
 
 
@@ -156,7 +156,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 	my $full;
 	if($outfmt eq 'full')
 	{
-		$full = $outdir.$out.'full.tsv';
+		$full = $outdir.$out.'.tsv';
 		open(FAS, '>', $full) or die "Cannot open $full\n";
 		print FAS "seqID	taxon	taxID	taxlevel	superkingdom	superkingdom_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
 	}
@@ -166,12 +166,12 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 		# rdp >seqID cellularOrganisms;Eukaryota_2759;Metazoa_33208;Bryozoa_10205;Gymnolaemata_10206;Cheilostomatida_10207;Adeonidae_558780;Reptadeonella_2576536;Reptadeonella_violacea_-35055
 		#	>seqID cellularOrganisms;Eukaryota_2759;Metazoa_33208;Arthropoda_6656;Malacostraca_6681;Decapoda_6683;Paguridae_6745;Paguridae_6745_genus;Paguridae_6745_genus_species
 		# qiime >seqID
-		$fas = $outdir.$out.'trainseq_'.$outfmt.'.fasta';
+		$fas = $outdir.$out.'_trainseq.fasta';
 		open(FAS, '>', $fas) or die "Cannot open $fas\n";
 		##rdp taxid*name*parent_taxid*taxlevel_index*taxlevel
 		##qiime1  339039	Bacteria;Proteobacteria;Alphaproteobacteria;Rhodospirillales;unclassified_Rhodospirillales
 		##qiime2  229854	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Legionellales; f__Legionellaceae; g__Legionella; s__	
-		$taxids = $outdir.$out.'taxon_'.$outfmt.'.txt'; 
+		$taxids = $outdir.$out.'_taxon.txt'; 
 		open(TID, '>', $taxids) or die "Cannot open $taxids\n";
 	}
 

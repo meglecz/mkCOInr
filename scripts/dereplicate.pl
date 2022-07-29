@@ -115,7 +115,7 @@ $t = time;
 ####
 
 #### delete tmp_dir
-system 'rm -r '.$tmpdir;
+system 'rm -rf '.$tmpdir;
 
 print LOG print_stat(\%stat, $t0);
 close LOG;
