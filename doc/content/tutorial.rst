@@ -289,26 +289,26 @@ The primers used in this example are amplifying a Leray fragment (ca. 313 bp of 
 
 .. code-block:: bash
 
-	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov_hsp_perc 0.8 -perc_identity 0.7
+	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov 0.8 -identity 0.7
 
 
-.. _select_region_target_region_fas_custom_tutorial:
+.. _select_region_bait_fas_custom_tutorial:
 
-Select region using the target_region_fas option
+Select region using the bait_fas option
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using the *e_pcr* option is an easy way to produce some sequences trimmed to the target region, 
 and they can be used as a database to align all other sequences to them. 
 However, if the parameters of the e_pcr are relaxed, it can produce some false positives. 
 An alternative solution is to use a small, taxonomically divers fasta file, with sequences already trimmed to the target region 
-(-*target_region_fas* option). 
+(-*bait_fas* option). 
 An example of such a file is given in the data directory (data/one_seq_per_order_658.fas). 
 It contains one sequence for each taxonomic order among the taxa that have a compete mitochondrial genome available in GenBank. 
 Sequences are trimmed to the approximately 658 bp (depending on the taxon) barcode fragment of the COI gene.
 
 .. code-block:: bash
 
-	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/target_region_fas -e_pcr 0 -target_region_fas data/one_seq_per_order_658.fas -tcov_hsp_perc 0.8 -perc_identity 0.7
+	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/bait_fas -e_pcr 0 -bait_fas data/one_seq_per_order_658.fas -tcov 0.8 -identity 0.7
 
 
 See details in description section: :ref:`select_region.pl <select_region_reference>` script.
@@ -465,7 +465,7 @@ Trim to Leray region
 
 .. code-block:: bash
 
-	perl scripts/select_region.pl -tsv tutorial/chained/4_genus/COInr_noIns_Euk_custom_genus.tsv -outdir tutorial/chained/5_select_region -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov_hsp_perc 0.9 -perc_identity 0.7
+	perl scripts/select_region.pl -tsv tutorial/chained/4_genus/COInr_noIns_Euk_custom_genus.tsv -outdir tutorial/chained/5_select_region -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov 0.9 -identity 0.7
 
 
 

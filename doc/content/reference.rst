@@ -528,7 +528,7 @@ Input files
 
     - :ref:`sequence tsv with taxIDs<sequence_tsv_with_taxid_io>`
     - :ref:`outdir<outdir_io>`
-    - target_region_fas (A small phylogenetically diverse fasta file with sequences already trimmed to the target region; Optional; Can be produced by e-pcr included in the script.)
+    - bait_fas (A small phylogenetically diverse fasta file with sequences already trimmed to the target region; Optional; Can be produced by e-pcr included in the script.)
 
 Parameters/options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -539,15 +539,15 @@ Parameters/options
     - fw (optional; if e_pcr is done, the sequence of the forward primer that amplifies the target region)
     - rv (optional; if e_pcr is done, the sequence of the reverse primer that amplifies the target region)
     - trim_error (real [0-1], the proportion of mismatches allowed between the primer and the sequence during the e_pcr; Default: 0.3)
-    - min_overlap (the minimum overlap between primer and the sequence during e-pcr; Default: 10)
+    - min_overlap (the minimum overlap between primer and the sequence during e-pcr; Default: 20)
     - min_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 100)
     - max_amplicon_length (The minimum length of the amplicon after primer trimming; Default: 2000)
     - cutadapt_path (Optional; Path to cutadapt if it is not in your PATH)
 
 *usearch_global related parameters* for trimming sequences according to the alignments
 
-    - tcov_hsp_perc (minimum coverage of the target sequence in *usearch_global* hits; Default: 0.5)
-    - perc_identity (minimum percentage of identity between the sequence and the target in *usearch_global* hits; Default: 0.7)
+    - tcov (minimum coverage of the target sequence in *usearch_global* hits; Default: 0.5)
+    - identity (minimum identity between the sequence and the target in *usearch_global* hits; Default: 0.7)
     - vsearch_path (Optional; path to the vsearch if it is not in your PATH)
 
 Algorithm
@@ -555,23 +555,23 @@ Algorithm
 
 A fasta file is prepared from the input tsv sequence file. 
 
-Sequences are aligned to a small pool of target sequences already limited to the target region (target_region_fas). 
+Sequences are aligned to a small pool of target sequences already limited to the target region (bait_fas). 
 The alignment is done by the *usearch_global* command of vsearch which makes global alignments (unlike BLAST). 
 
 The best hit is used for each sequence to orient and trim them to the target region. 
-Only hits with a minimum target coverage (tcov_hsp_perc) and percentage of identity (perc_identity) are used.
+Only hits with a minimum target coverage (tcov) and percentage of identity (identity) are used.
 
-The target_region_fas file can be either previously prepared by the users and given as an input, 
+The bait_fas file can be either previously prepared by the users and given as an input, 
 or be produced by e-pcr using the e-pcr related parameters.
 
-To reduce runtime, sequences in the target_region_fas are clustered by -cluster_fast algorithm of vsearch 
+To reduce runtime, sequences in the bait_fas are clustered by -cluster_fast algorithm of vsearch 
 and the centroids are used as a target file for the *usearch_global*
 
 Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - cutadapt_trimmed.fas (if e_pcr; fasta file with sequences recognized and trimmed by E-pcr; equivalent of target_region_fas )
-    - target_centroids.fas (fasta file of centroids of the clustering of target_region_fas or cutadapt_trimmed.fas)
+    - cutadapt_trimmed.fas (if e_pcr; fasta file with sequences recognized and trimmed by E-pcr; equivalent of bait_fas )
+    - target_centroids.fas (fasta file of centroids of the clustering of bait_fas or cutadapt_trimmed.fas)
     - :ref:`trimmed.tsv<sequence_tsv_with_taxid_io>` (sequence tsv files with taxIDs trimmed to the target region) 
     - :ref:`untrimmed.tsv<sequence_tsv_with_taxid_io>` (sequence tsv files with taxIDs where the target region is not found)
 
