@@ -289,7 +289,7 @@ The primers used in this example are amplifying a Leray fragment (ca. 313 bp of 
 
 .. code-block:: bash
 
-	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov 0.8 -identity 0.7
+	perl scripts/select_region.pl -tsv COInr/COInr.tsv -outdir tutorial/select_region/ePCR -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 20 -tcov 0.8 -identity 0.7
 
 
 .. _select_region_bait_fas_custom_tutorial:
@@ -465,7 +465,7 @@ Trim to Leray region
 
 .. code-block:: bash
 
-	perl scripts/select_region.pl -tsv tutorial/chained/4_genus/COInr_noIns_Euk_custom_genus.tsv -outdir tutorial/chained/5_select_region -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 10 -tcov 0.9 -identity 0.7
+	perl scripts/select_region.pl -tsv tutorial/chained/4_genus/COInr_noIns_Euk_custom_genus.tsv -outdir tutorial/chained/5_select_region -e_pcr 1 -fw GGNTGAACNGTNTAYCCNCC -rv TAWACTTCDGGRTGNCCRAARAAYCA -trim_error 0.3 -min_amplicon_length 280 -max_amplicon_length 345 -min_overlap 20 -tcov 0.9 -identity 0.7
 
 
 
