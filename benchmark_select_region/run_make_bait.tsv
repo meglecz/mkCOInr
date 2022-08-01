@@ -1,0 +1,7 @@
+"coi_lin"	"taxrank"	"n_bait"	"n_per_taxon"	"outdir"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"phylum"	10	1	"benchmark_select_region/bait_files/phylum_1"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"phylum"	10	5	"benchmark_select_region/bait_files/phylum_5"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"class"	10	1	"benchmark_select_region/bait_files/class_1"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"class"	10	5	"benchmark_select_region/bait_files/class_5"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"order"	10	1	"benchmark_select_region/bait_files/order_1"
+"benchmark_select_region/test_dataset/positive_mito_epcr_3_20_70/trimmed.tsv"	"order"	10	5	"benchmark_select_region/bait_files/order_5"
