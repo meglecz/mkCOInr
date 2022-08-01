@@ -573,7 +573,7 @@ The :ref:`download_bold.pl <download_bold_reference>` script will download all s
 
 The data/bold_taxon_list_2022-02-24.txt taxon list file is constructed manually from taxa on 
 `NCBI Taxonomy  <https://www.boldsystems.org/index.php/TaxBrowser_Home>`_. 
-This might need to be updated later. Each taxon on the list has less than 500M specimen records on BOLD.
+This might need to be updated later. Each taxon on the list has less than 750.000 specimen records on BOLD.
 
 Alternatively, it is also possible to use a list of large taxa (e.g. Arthropoda) 
 and ask the sript to cut up large taxa to subtaxa if they have more then *max_record_n* specimen records. 

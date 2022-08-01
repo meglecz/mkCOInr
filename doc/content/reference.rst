@@ -120,8 +120,13 @@ Algorithm
 
 The script downloads all sequences and lineages for all taxa on the taxon_list from BOLD. 
 
-The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxon on the list has less than 500M specimen records in BOLD. 
+The taxon_list file was constructed manually from taxa on https://www.boldsystems.org/index.php/TaxBrowser_Home. Each taxon on the list has less than 750.000 specimen records in BOLD. 
 The taxon_list constructed on 2022-02-24 is available on github (data/bold_taxon_list_2022-02-24.txt). It contains all taxa available in BOLD. This file might need to be updated later.
+
+For constructing a taxon specific taxon_list (e.g. include only taxa of Arthropoda), the 
+`bold_taxon_list_2022-02-24_details.tsv <https://github.com/meglecz/mkCOInr/blob/main/data/bold_taxon_list_2022-02-24_details.tsv>`_ 
+file is available in the data directory, where the lineage of each taxon and the number of specimen records on are also included. 
+You can use this file to easily select the taxa of your interest and make a custom taxon_list.
 
 Alternatively, a list of taxa (including large taxa such as Arthropoda) can be given and the input taxa can be cut up automatically to subtaxa of less than *max_record_n* records each.
 This method has the advantage of avoiding the manual construction of the taxon list (as for bold_taxon_list_2022-02-24.txt). 
