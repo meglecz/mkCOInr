@@ -148,6 +148,38 @@ Count trimmed and untrimmed sequences
 perl benchmark_select_region/scripts/count_trimmed.pl  -dir /home/meglecz/mkCOInr/benchmark_select_region/test_dataset -motif _epcr_ -e_pcr 1
 ~~~
 
+## Summary of the results of select_region.pl with e_pcr option
+
+|                                  | **Trim_error** | **Min_overlap** | **Identity** | **%trimmed** | **%untrimmed** |
+| -------------------------------- | -------------- | --------------- | ------------ | ------------ | -------------- |
+| **Positive test dataset** |          |          |      | **% of TP**    | **% of FN**     |              |              |                |
+|                                  | 0.2            | 10              | 0.6          | 98           | 2              |
+|                                  | 0.2            | 10              | 0.7          | 97.4         | 2.6            |
+|                                  | 0.2            | 20              | 0.6          | 98           | 2              |
+|                                  | 0.2            | 20              | 0.7          | 97.4         | 2.6            |
+|                                  | 0.3            | 10              | 0.6          | 99.5         | 0.5            |
+|                                  | 0.3            | 10              | 0.7          | 99.5         | 0.5            |
+|                                  | 0.3            | 20              | 0.6          | 99.5         | 0.5            |
+|                                  | 0.3            | 20              | 0.7          | 99.5         | 0.5            |
+| **Negative-chloro test dataset** |          |         |          | **% FP**       | **% TN**        |              |              |                |
+|                                  | 0.2            | 10              | 0.6          | 0            | 100            |
+|                                  | 0.2            | 10              | 0.7          | 0            | 100            |
+|                                  | 0.2            | 20              | 0.6          | 0            | 100            |
+|                                  | 0.2            | 20              | 0.7          | 0            | 100            |
+|                                  | 0.3            | 10              | 0.6          | 13.4         | 86.6           |
+|                                  | 0.3            | 10              | 0.7          | 13.1         | 86.9           |
+|                                  | 0.3            | 20              | 0.6          | 0            | 100            |
+|                                  | 0.3            | 20              | 0.7          | 0            | 100            |
+| **Negative-mito test dataset**   |          |          |         | **% FP**       | **% TN**        |              |              |                |
+|                                  | 0.2            | 10              | 0.6          | 0            | 100            |
+|                                  | 0.2            | 10              | 0.7          | 0            | 100            |
+|                                  | 0.2            | 20              | 0.6          | 0            | 100            |
+|                                  | 0.2            | 20              | 0.7          | 0            | 100            |
+|                                  | 0.3            | 10              | 0.6          | 19.4         | 80.6           |
+|                                  | 0.3            | 10              | 0.7          | 5.2          | 94.8           |
+|                                  | 0.3            | 20              | 0.6          | 12.4         | 87.6           |
+|                                  | 0.3            | 20              | 0.7          | 0.4          | 99.6           |
+
 
 
 ## Make bait files
@@ -211,7 +243,7 @@ The proportion of trimmed sequences of the positive-mito dataset is the sensitiv
 Rscript benchmark_select_region/scripts/bxplt.R
 ~~~
 
-![Sensitivity](positive_mito_bait_select_region/Sensitivity_per_bait_file.png)
+![Sensitivity](Sensitivity_per_bait_file.png)
 
 
 
