@@ -137,6 +137,25 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 	my %tax; #$tax{$taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
 	my %new_names; # $new_names{name} = taxid # new names are the undef_xxx names for the missing taxlevels
 	read_taxonomy_local($taxonomy, \%tax);
+	#####
+	# temporary patch, since in taxonomy.tsv the taxID 0 is attributed to Acanthogyrus_cheni
+		my $patch_taxid = 0;
+		if(exists $tax{0} and $tax{0}[3] != 0) # taxid 0 is attributed something else then root
+		{
+			my $smallest_taxid = get_smallest_taxid(\%tax);
+			$patch_taxid = $smallest_taxid -1;
+			$tax{$patch_taxid} = $tax{0};
+			delete $tax{0};
+			foreach my $taxid (keys %tax)
+			{
+				if($tax{$taxid}[0] == 0) # replace the eventual taxparent 0 by  the new
+				{
+					$tax{$taxid}[0] = $patch_taxid;
+				}
+			}
+#			print Dumper($tax{$patch_taxid});
+		}
+	####
 	print LOG "Runtime: ", time - $t, "s \n";
 	$t = time;
 	
@@ -190,6 +209,13 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 		$line =~ s/"//g;
 		my @line = split("\t", $line);
 		my $taxid = $line[1];
+		
+		##### patch to correct the fact that in taxonomy, the taxIµD 0 is attributed to non-root
+		if($taxid == 0)
+		{
+			$taxid = $patch_taxid;
+		}
+		####
 
 		unless(exists $taxid_ranked_lin{$taxid}) # taxid is new => get ranked lineage
 		{
@@ -250,6 +276,7 @@ else
 	
 print LOG print_stat(\%stat, $t0);
 close LOG;
+
 
 exit;
 
@@ -343,7 +370,7 @@ sub get_rdp_ranked_lin_from_tax
 	{
 		$ranked_lin = join (';', @ranked_lin_name);
 	}
-	elsif ($outfmt eq 'quiime') # qiime or full #k__Bacteria; p__OP11; c__OP11-1; o__; f__; g__; s__
+	elsif ($outfmt eq 'qiime') # qiime or full #k__Bacteria; p__OP11; c__OP11-1; o__; f__; g__; s__
 	{
 		my %temp_tl = (0 => '_kingdom', 1 => '_phylum', 2 => '_class',3 => '_order',4 => '_family',5 => '_genus',6 => '_species');
 		my %temp_t = (0 => 'k__', 1 => 'p__', 2 => 'c__',3 => 'o__',4 => 'f__',5 => 'g__',6 => 's__');
