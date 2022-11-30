@@ -17,6 +17,8 @@ The following tools should be installed. (Scripts using the program are in paren
     - `vsearch <https://github.com/torognes/vsearch>`_ (:ref:`Rognes et al., 2016<Rognes_2016_reflist>`; :ref:`dereplicate.pl <dereplicate_reference>`, :ref:`pool_and_dereplicate.pl <pool_and_dereplicate_reference>`, :ref:`select_region.pl <select_region_reference>`)
    
     - `cutadapt <https://cutadapt.readthedocs.io>`_ (:ref:`Martin, 2011<Martin_2011_reflist>`; :ref:`select_region.pl <select_region_reference>` for the e_pcr option)
+    
+    - `wget <https://www.gnu.org/software/wget/>`_ (:ref:`download_bold.pl <download_bold_reference>`, :ref:`download_taxonomy.pl <download_taxonomy_reference>`)
    
 
 All third-party programs can be easily installed to a conda environment, but it is not essential to use conda.
@@ -32,6 +34,19 @@ Commands for a quick installation of the conda environment and dependencies:
 	conda install -c bioconda blast -y
 	conda install -c bioconda vsearch -y
 	pip install nsdpy
+
+
+wget is installed by default in Linux systems. It can be installed on MacOS either by conda or brew
+ 
+.. code-block:: bash
+
+	conda install wget
+
+
+.. code-block:: bash
+
+	brew install wget
+
 
 .. _mkCOInr scripts_installation:
 
