@@ -7,7 +7,7 @@ use Data::Dumper;
 
 
 # INPUT
-# lineages (BOLD, custom or pooled) with the following columns. Identical lineages can appear in multiple lines (e.g. if poodd from format_bold and format_custom output)
+# lineages (BOLD, custom or pooled) with the following columns. Identical lineages can appear in multiple lines (e.g. if pooled from format_bold and format_custom output)
 	# phylum_name	class_name	order_name	family_name	subfamily_name	genus_name	species_name	seqIDs
 # sequences tsv file with the following columns (without heading)
 	#sequenceID	sequence

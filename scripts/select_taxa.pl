@@ -76,7 +76,8 @@ print "\n####\nRead taxonomy\n";
 print LOG "\n####\nRead taxonomy\n";
 
 my %tax; #tax{taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
-read_taxonomy_to_tax_hash(\%tax, $taxonomy);
+my %merged; #$merged{merged_taxid} = up tu date taxid
+read_taxonomy_to_tax_hash_include_merged(\%tax, $taxonomy, \%merged);
 
 my %name_taxids; # $name_taxids{name}{$taxid} = '' # All names, including synonyms and homonyms
 my %taxid_names; # $taxid_names{taxid}{names} = '' # All names, including synonyms and homonyms
@@ -84,6 +85,7 @@ my %name_taxids_par; #$name_taxids_par{$name}{taxid} = parent taxid # only scien
 read_taxonomy_names(\%taxid_names, \%name_taxids, \%name_taxids_par, $taxonomy);
 %taxid_names = (); # delete hash. It is produced automatically by the routine, but we do not need it.
 %name_taxids_par = (); # delete hash. It is produced automatically by the routine, but we do not need it.
+my %missing_taxids; # keep list of taxid not in the taxonomy file
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
 
@@ -238,10 +240,24 @@ else # select for taxlevel, but not for taxon list
 		$line =~ s/\s*$//;
 		my @line = split("\t", $line);
 		my $taxid = $line[1];
-		if($tax{$taxid}[3] >= $min_taxlevel_index) ### taxlevel is at least $min_taxlevel
+		
+		if(exists $merged{$taxid}) # old taxid is replaced by up to date one
 		{
-			++$stat{'1.2 Number of sequences in the output tsv: '};
-			print OUT $line, "\n";
+			$taxid = $merged{$taxid};
+		}
+		
+		if(exists $tax{$taxid})
+		{
+			if($tax{$taxid}[3] >= $min_taxlevel_index) ### taxlevel is at least $min_taxlevel
+			{
+				++$stat{'1.2 Number of sequences in the output tsv: '};
+				print OUT $line, "\n";
+			}
+		}
+		else
+		{
+			print "WARNING: $line[1] taxID is not present in taxonomy file\n";
+			$missing_taxids{$line[1]} = '';
 		}
 	}
 	close TSV;
@@ -250,6 +266,7 @@ else # select for taxlevel, but not for taxon list
 
 }
 close OUT;
+print Dumper(\%missing_taxids);
 
 print LOG print_stat(\%stat, $t0);
 close LOG;

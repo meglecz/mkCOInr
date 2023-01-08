@@ -667,6 +667,30 @@ sub read_taxonomy_to_tax_hash
 	close IN;
 }
 
+
+############################################
+sub read_taxonomy_to_tax_hash_include_merged
+{
+	my ($tax, $taxonomy, $merged) = @_;
+	#$tax_{taxid} = (parent_tax_id	rank	name_txt	taxlevel_index)
+	#$ merged{merged_taxid} = up to date taxid
+	
+	#tax_id	parent_tax_id	rank	name_txt	old_tax_id	(taxlevel_index)	Synonyms
+	open(IN, $taxonomy) or die "Cannot open $taxonomy\n";
+	my $title = <IN>;
+	while(my $line = <IN>)
+	{
+		$line =~ s/\s*$//;
+		$line =~ s/"//g;
+		my @line = split("\t", $line);
+		@{$$tax{$line[0]}} = ($line[1], $line[2], $line[3], $line[5]);
+		if($line[4])
+		{
+			$$merged{$line[4]} = $line[0];
+		}
+	}
+	close IN;
+}
 ############################################
 sub read_taxonomy_and_merged
 {

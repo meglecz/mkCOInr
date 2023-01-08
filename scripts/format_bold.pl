@@ -6,7 +6,7 @@ use mkdb;
 use Data::Dumper;
 
 # INPUT
-#	download_dir: Name of the directory wiht tsv files downloaded from bold (output of 0_download_bold). There should not be oter tsv files in the directory
+#	download_dir: Name of the directory wiht tsv files downloaded from bold (output of 0_download_bold). There should not be other tsv files in the directory
 
 
 # AIM
