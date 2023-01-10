@@ -10,8 +10,11 @@ Version 0.2.0 (03 August, 2022)
    - format_db.pl - new option for VTAM format
    - add benchmarking of select_taxa
    
-Version 0.2.1 (0.7 August, 2022)
+Version 0.2.1 (07 August, 2022)
 
     - format_db.pl Correct if there is a taxID 0 in taxonomy file
+    
+Version 0.2.2 (09 January, 2023)
 
+    - select_taxa.pl recognizes merged taxids
 
