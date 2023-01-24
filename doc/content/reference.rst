@@ -382,6 +382,43 @@ FULL option
     - :ref:`tsv file<full_tsv_io>`
 	
 	
+.. _format_rdp_reference:
+
+format_rdp.pl
+-------------------------------------------------
+
+Aim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Format the RDP training dataset to :ref:`sequence tsv file with taxIDs<sequence_tsv_with_taxid_io>` and :ref:`taxonomy.tsv<taxonomy_io>`
+
+Input files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - DRP classifier trainset fasta file 
+    - DRP classifier taxid file 
+    - :ref:`outdir<outdir_io>`
+
+Parameters/options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    NA
+
+Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - Reformat the rdp taxonomy file to :ref:`taxonomy.tsv<taxonomy_io>` format
+    - Make :ref:`sequence tsv file with taxIDs<sequence_tsv_with_taxid_io>` from the fasta file
+   
+
+Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ - :ref:`ncbi_sequences.tsv<sequence_tsv_with_taxid_io>`
+ - :ref:`taxonomy.tsv<taxonomy_io>`
+ 
+
+
 .. _format_ncbi_reference:
 
 format_ncbi.pl
@@ -431,7 +468,6 @@ Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  - :ref:`ncbi_sequences.tsv<sequence_tsv_with_taxid_io>`
- 
  
 
 
