@@ -18,3 +18,7 @@ Version 0.2.2 (09 January, 2023)
 
     - select_taxa.pl recognizes merged taxids
 
+Version 0.2.3 (24 January, 2023)
+
+    - format_rdp.pl added to make sequence.tsv and taxonomy.tsv from RDP training files
+
