@@ -414,7 +414,7 @@ Algorithm
 Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- - :ref:`ncbi_sequences.tsv<sequence_tsv_with_taxid_io>`
+ - :ref:`sequences.tsv<sequence_tsv_with_taxid_io>`
  - :ref:`taxonomy.tsv<taxonomy_io>`
  
 
