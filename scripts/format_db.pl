@@ -111,6 +111,7 @@ if($outfmt eq 'blast' or $outfmt eq 'vtam')
 		open(OUT, '>', $taxonomy_out) or die "Cannot open $taxonomy_out\n";
 		while(my $line = <IN>)
 		{
+			$line =~ s/\s*$//;
 			my @line = split("\t", $line);
 			@line = splice(@line, 0, 6);
 			print OUT join("\t", @line), "\n";
