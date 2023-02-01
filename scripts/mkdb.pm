@@ -414,26 +414,39 @@ sub modify_params_from_tags
 		print_version();
 		exit;
 	}
-	
-	if($help)
-	{
-		print_help();
-		exit;
-	}
+
 	if(scalar @bad_tags > 0)
 	{
-		print "The following tags are not accepted: @bad_tags\n";
-		print_help();
+		print_help($param);
+		print "The following tags are not accepted: \n", join(' ', @bad_tags), "\n";
 		exit;
 	}
+	if($help)
+	{
+		print_help($param);
+		exit;
+	}
+
 }
 
 #######################################################
 
 sub print_version
 {
-	print "####################\nmkCOInr-0.1.0\n";
-	print "2022-05-15\n####################\n";
+	print "####################\nmkCOInr-0.2.3\n";
+	print "January 24, 2023\n####################\n";
+}
+
+#######################################################
+
+sub print_help
+{
+	my ($param) = @_;
+	
+	print "The following parameters are accepted:\n";
+	my @param = keys %$param;
+	print "\t-", join("\n\t-", @param), "\n";
+	print "For more details see https://mkcoinr.readthedocs.io/\n";
 }
 #######################################################
 sub print_params_hash_to_log

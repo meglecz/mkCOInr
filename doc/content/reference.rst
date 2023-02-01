@@ -395,8 +395,8 @@ Format the RDP training dataset to :ref:`sequence tsv file with taxIDs<sequence_
 Input files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - DRP classifier trainset fasta file 
-    - DRP classifier taxid file 
+    - :ref:`RDP classifier trainset fasta file<rdp_classifier_trainset_fasta_io>`
+    - :ref:`RDP classifier taxid file<rdp_classifier_taxid_file_io>`
     - :ref:`outdir<outdir_io>`
 
 Parameters/options

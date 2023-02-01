@@ -46,6 +46,31 @@ tsv file with the following columns:
 	-35035	-35034	species	Fractonotus caelatus		8	
 	-35036	-35030	family	Ramazzottidae		6	
 
+
+.. _rdp_classifier_taxid_file_io:
+
+RDP classifier taxid file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Taxonomy file in RDP Classifier format. Can be downloaded from https://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/
+Text file with the following columns separated by stars: 
+
+    - tax_id
+    - taxon_name
+    - parent_tax_id: taxiID of the closest parent of tax_id
+    - rank_index: place in the lineage (starting by 0)
+    - rank: taxonomic rank (e.g. species, genus)
+
+
+.. code-block:: bash
+
+	0*Root*-1*0*rootrank
+	1*Bacteria*0*1*domain
+	2*Actinobacteria*1*2*phylum
+	3*Actinobacteria*2*3*class
+	4*Acidimicrobiia*2*3*class
+
+
 .. _taxon_list_io:
 
 taxon_list
@@ -205,7 +230,7 @@ tsv file with the following columns:
 
 
 
-Sequence tsv files
+Sequence files
 -------------------------------------------------
 
 .. _sequence_tsv_without_taxid_io:
@@ -260,6 +285,23 @@ tsv file with the following columns:
 	seqID	taxon_name	sequence
 	xxx_10236 Porifera	GGGATAATATATATTTTGCTTGCATTGTGGAGGG...
 	xxx_10907577	Margaretta	TAAGATTTTGAATATTACCTCCATCAATTACATT...
+
+
+.. _rdp_classifier_trainset_fasta_io:
+
+RDP classifier trainset fasta
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fasta file in RDP Classifier trainseq format
+Can be downloaded from  https://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/
+
+.. code-block:: bash
+
+	>AJ000684	Mycobacterium heidelbergense str. 2554/91 Type	domain__Bacteria; phylum__Actinobacteria; class__Actinobacteria; order__Mycobacteriales; family__Mycobacteriaceae; genus__Mycobacterium
+	gaacgctggcggcgtgcttaacacatgcaagtcgaacggaaaggtctctt
+	>EF599163	Vibrio atlanticus str. LMG 24300 Type	domain__Bacteria; phylum__Proteobacteria; class__Gammaproteobacteria; order__Vibrionales; family__Vibrionaceae; genus__Vibrio
+	gtttgatcctggctcagattgaacgctggcggcaggcctaacacatgcaa
+
 
 
 Database formats
