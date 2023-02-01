@@ -292,7 +292,7 @@ tsv file with the following columns:
 RDP classifier trainset fasta
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Fasta file in RDP Classifier trainseq format
+Fasta file in RDP Classifier trainseq format. 
 Can be downloaded from  https://sourceforge.net/projects/rdp-classifier/files/RDP_Classifier_TrainingData/
 
 .. code-block:: bash
