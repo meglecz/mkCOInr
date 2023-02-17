@@ -203,3 +203,20 @@ foreach my $acc (sort keys %taxids)
 close OUT;
 
 exit;
+
+
+#############################################
+sub print_help
+{
+
+print '
+usage: perl format_rdp.pl [-options] -rdp_tax INPUT_FILE -fasta INPUT_FASTA -outdir OUTDIR
+
+ ARGUMENTS
+   -rdp_tax                  Taxon file in RDP taxonomy format
+   -fasta                    Fasta file in RDP fasta format
+   -outdir                   Name of the otput directory
+',  "\n";
+
+  exit;
+}

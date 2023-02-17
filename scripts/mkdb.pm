@@ -417,13 +417,13 @@ sub modify_params_from_tags
 
 	if(scalar @bad_tags > 0)
 	{
-		print_help($param);
+		print_help();
 		print "The following tags are not accepted: \n", join(' ', @bad_tags), "\n";
 		exit;
 	}
 	if($help)
 	{
-		print_help($param);
+		print_help();
 		exit;
 	}
 
@@ -439,7 +439,7 @@ sub print_version
 
 #######################################################
 
-sub print_help
+sub print_help_general
 {
 	my ($param) = @_;
 	
