@@ -76,7 +76,7 @@ print "\n####\nRead taxonomy\n";
 print LOG "\n####\nRead taxonomy\n";
 
 my %tax; #tax{taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
-my %merged; #$merged{merged_taxid} = up tu date taxid
+my %merged; #$merged{merged_taxid} = up to date taxid
 read_taxonomy_to_tax_hash_include_merged(\%tax, $taxonomy, \%merged);
 
 my %name_taxids; # $name_taxids{name}{$taxid} = '' # All names, including synonyms and homonyms
@@ -168,6 +168,10 @@ if($taxon_list) # if select for taxon list
 		$line =~ s/"//g;
 		my @line = split("\t", $line);
 		my $taxid = $line[1];
+		if(exists $merged{$taxid}) # update taxid if a merged taxid is used instead of an up to date
+		{
+			$taxid = $merged{$taxid};
+		}
 		if($tax{$taxid}[3] >= $min_taxlevel_index) ### taxlevel is at least $min_taxlevel
 		{
 			# if taxid is a child of an existing taxid, add to %taxids, add to %anti_taxids otherwise
