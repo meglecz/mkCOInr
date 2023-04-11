@@ -270,7 +270,7 @@ else # select for taxlevel, but not for taxon list
 
 }
 close OUT;
-print Dumper(\%missing_taxids);
+#print Dumper(\%missing_taxids);
 
 print LOG print_stat(\%stat, $t0);
 close LOG;
