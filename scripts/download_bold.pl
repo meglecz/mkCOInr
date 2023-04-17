@@ -37,7 +37,7 @@ my %params = (
 	'taxon_list' => '',
 	'outdir' => '',
 	'try_download' => 3, # if pb download retry retry_download times
-	'max_record_n' => 0, # if more than max_record_n records in json, cut up the taxon to subtaxa; 0 means Donot cut up taxa
+	'max_record_n' => 0, # if more than max_record_n records in json, cut up the taxon to subtaxa; 0 means Do not cut up taxa
 	'taxonomy' => '' # necessary only if max_record_n != 0
 );
 modify_params_from_tags(\%params, \@ARGV);
@@ -253,6 +253,10 @@ sub download_json
 		### get filenames
 		$taxon =~ s/\s*$//;
 		$taxon =~ s/"//g;
+		if($taxon eq 'taxon_name')
+		{
+			next;
+		}
 		my $tsv = get_file_name($taxon, $download_dir); # name of the download file
 		my $json = $tsv;
 		$json =~ s/\.tsv/.json/;
@@ -261,7 +265,7 @@ sub download_json
 		for(my $i = 0; $i < $try_download; ++$i)
 		{
 			### download stat file
-			download_bold_stat($taxon, $json); # Download all sequences and metainfo for taxon
+			download_bold_stat($taxon, $json); # Download all sequences counts and metainfo for taxon
 			$expected_count = get_count_json($json);
 			if($expected_count eq 'NA') # pb with download
 			{
@@ -333,12 +337,17 @@ sub download_and_check
 		### get filenames
 		$taxon =~ s/\s*$//;
 		$taxon =~ s/"//g;
+		if($taxon eq 'taxon_name')# avoid if heading in taxon list file
+		{
+			next;
+		}
+		
 		my $tsv = get_file_name($taxon, $download_dir); # name of the download file
 		my $json = $tsv;
 		$json =~ s/\.tsv/.json/;
 		
 		### download stat file
-		download_bold_stat($taxon, $json); # Download all sequences and metainfo for taxon
+		download_bold_stat($taxon, $json); # Download all sequence counts and metainfo for taxon
 		my $expected_count = get_count_json($json);
 		
 		if($expected_count eq 'NA') # pb in downloading stat file , try in the next round
