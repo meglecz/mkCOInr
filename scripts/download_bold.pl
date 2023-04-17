@@ -253,6 +253,10 @@ sub download_json
 		### get filenames
 		$taxon =~ s/\s*$//;
 		$taxon =~ s/"//g;
+		if($taxon eq 'taxon_name')
+		{
+			next;
+		}
 		my $tsv = get_file_name($taxon, $download_dir); # name of the download file
 		my $json = $tsv;
 		$json =~ s/\.tsv/.json/;
