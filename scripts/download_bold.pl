@@ -161,8 +161,8 @@ if(scalar keys %fail)
 }
 else
 {
-	print LOG "\n#####\nSequneces have been downloaded sucessfully for all taxa\n";
-	print "\n#####\nSequneces has been downloaded sucessfully for all taxa\n";
+	print LOG "\n#####\nSequences have been downloaded sucessfully for all taxa\n";
+	print "\n#####\nSequences have been downloaded sucessfully for all taxa\n";
 }
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
