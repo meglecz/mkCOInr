@@ -433,8 +433,8 @@ sub modify_params_from_tags
 
 sub print_version
 {
-	print "####################\nmkCOInr-0.2.3\n";
-	print "January 24, 2023\n####################\n";
+	print "####################\nmkCOInr-0.2.4\n";
+	print "April 17, 2023\n####################\n";
 }
 
 #######################################################
