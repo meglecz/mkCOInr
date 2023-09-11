@@ -9,6 +9,10 @@ Altschul, S. F., Madden, T. L., Schaffer, A. A., Zhang, J. H., Zhang, Z., Miller
 
 González, A., Dubut, V., Corse, E., Mekdad, R., Dechatre, T., & Meglécz, E. (2020). VTAM: A robust pipeline for validating metabarcoding data using internal controls. (p. 2020.11.06.371187) BioRxiv, https://www.biorxiv.org/content/10.1101/2020.11.06.371187v3
 
+.. _Gonzalez_2023_reflist:
+
+González, A., Dubut, V., Corse, E., Mekdad, R., Dechatre, T., Castet, U., Hebert, R., & Meglécz, E. (2023). VTAM: A robust pipeline for validating metabarcoding data using controls. Computational and Structural Biotechnology Journal, 21, 1151–1156. https://www.csbj.org/article/S2001-0370(23)00034-X/fulltext
+
 .. _Hebert_2022_reflist:
 
 Hebert, R., & Meglécz, E. (2022). NSDPY: A python package to download DNA sequences from NCBI. SoftwareX, 18, 101038. https://doi.org/10.1016/j.softx.2022.101038
@@ -16,6 +20,10 @@ Hebert, R., & Meglécz, E. (2022). NSDPY: A python package to download DNA seque
 .. _Martin_2011_reflist:
 
 Martin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.Journal, 17(1), 10–12. https://doi.org/10.14806/ej.17.1.200
+
+.. _Meglecz_mer_2023_reflist:
+
+Meglécz, E. (2023). COInr and mkCOInr: Building and customizing a non-redundant barcoding reference database from BOLD and NCBI using a semi-automated pipeline. Molecular Ecology Resources, 21, 933-945. https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.13756
 
 .. _Meglecz_biorxiv_2022_reflist:
 

@@ -96,8 +96,8 @@ $t = time;
 
 #### Get exepected record count for each taxa (by downloading summary in json format)
 # if expected record count in above $max_record_n => cut up taxon to subtaxa of the next major taxonomic level
-print "\n####\nDownload summary files to get the expected number of reconrs\n";
-print LOG "\n####\nDownload summary files to get the expected number of reconrs\n";
+print "\n####\nDownload summary files to get the expected number of records\n";
+print LOG "\n####\nDownload summary files to get the expected number of records\n";
 my %updated_taxa; # %updated_taxa{taxon_name} = number of records based on json files # list of taxa is updated if with too many records, taxon have been cut up to sub-taxa
 my %no_records; # $no_records{taxa} = ''; ŧaxa with no public record
 my %fail_json; # $fail_json{taxa} = ''; error json download
@@ -161,8 +161,8 @@ if(scalar keys %fail)
 }
 else
 {
-	print LOG "\n#####\nSequneces have been downloaded sucessfully for all taxa\n";
-	print "\n#####\nSequneces has been downloaded sucessfully for all taxa\n";
+	print LOG "\n#####\nSequences have been downloaded sucessfully for all taxa\n";
+	print "\n#####\nSequences have been downloaded sucessfully for all taxa\n";
 }
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;

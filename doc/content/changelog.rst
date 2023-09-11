@@ -26,3 +26,6 @@ Version 0.2.4 (17 April, 2023)
 
     - download_bold.pl works if taxon_list has a heading (taxon_name) and also if it has not
 
+Version 0.2.4 (17 April, 2023)
+
+    - download_bold.pl works if taxon_list has a heading (taxon_name) and also if it has not
