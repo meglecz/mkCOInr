@@ -56,4 +56,12 @@ COInr or the custom databases derived from it can be **formated to different dat
  - At the scale of the complete database I did not find a satisfactory method to blacklist sequences that are probably incorrectly assigned. However, if a small custom database is produced, the use of a phylogenetic method like SATIVA (https://github.com/amkozlov/sativa) becomes feasible and recommended to eliminate sequences of dubious origin.
 
 
+## Citation
 
+**Paper describing COInr and mkCOInr:**
+Meglécz, E. (2023). COInr and mkCOInr: Building and customizing a non-redundant barcoding reference database from BOLD and NCBI using a semi-automated pipeline. [Molecular Ecology Resources, 21, 933-945](https://onlinelibrary.wiley.com/doi/10.1111/1755-0998.13756)
+
+**COInr database:**
+Meglécz, E. (2022). COInr a comprehensive, non-redundant COI database from NCBI-nt and BOLD [Data set]. [Zenodo](https://zenodo.org/records/6555985)
+
+**mkCOInr:**  [github.com/meglecz/mkCOInr](https://github.com/meglecz/mkCOInr/tree/main)
