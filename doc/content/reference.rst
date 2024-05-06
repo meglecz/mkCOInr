@@ -17,7 +17,7 @@ For each lineage
 Input files
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    - lineages (:ref:`lineage tsv without taxID<lineage_tsv_without_taxid_io>`; output of :ref:`format_custom.pl<format_custom_reference>` or :ref:`format_bold.pl<format_bold_reference>`)
+    - lineages (:ref:`lineage tsv without taxID<lineage_tsv_without_taxid_io>`; output of :ref:`format_custom.pl<format_custom_reference>` or :ref:`format_bold_package.pl<format_bold_package_reference>`)
     - sequences (:ref:`sequence tsv without taxID<sequence_tsv_without_taxid_io>`)
     - :ref:`outdir<outdir_io>`
     - :ref:`taxonomy.tsv<taxonomy_io>`
@@ -245,6 +245,70 @@ Output
     - bold_partial_lines.tsv (lines in the input tsv files that did not have sequences)
     - bold_ambiguous_orientation.fas (sequences that could not be oriented in check_orientation option)
 
+
+.. _format_bold_package_reference:
+
+format_bold_package.pl
+-------------------------------------------------
+
+Aim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Prepare a single sequence file and a lineage file from a BOLD data package file downloaded from `BOLD <https://www.boldsystems.org/index.php/datapackages>_`
+Clean and orient sequences.
+
+Input files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - :ref:`bold_data<bold_data_package>` (name of the data package downloaded from BOLD; tsv format)
+    - :ref:`outdir<outdir_io>`
+
+Parameters/options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - marker_list (List of markers to be selected; Default:  'COI-5P COI-3P')
+    - check_name (0/1; If 1 keeps only taxa with valid Latin name format: Default: 1)
+    - max_n (positive integer; eliminates sequences with max_n or more consecutive Ns; Default:5)
+    - min_length (positive integer; minimum length of the cleaned sequence; Default:100)
+    - max_length (positive integer; maximum length of the cleaned sequence; Default:2000)
+    - check_orientation (0/1; if 1, checks the orientation of the sequences; Default: 0)
+    - blast_path (Optional; Path to the BLAST executables if they is not in your PATH)
+
+Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Select and clean sequences and pool information to lineage and sequence files
+
+    - Eliminate partial lines (mostly errors in the database)
+    - Select sequences for a given marker list
+    - Clean sequences
+        - Correct sequence IDs
+        - Gaps deleted
+        - Non-TCGA changed to N
+        - External Ns deleted
+        - Sequences with more than max_n consecutive Ns are deleted
+        - Keep sequences with length in a min_length and max_length range 
+    - Clean lineages
+         - If check_name, keep only names matching a correct Latin name format (only letters, spaces and -, correct capitalization)
+         - Pool identical lineages into one line with the list of valid sequence IDs in the last field
+         - Eliminate lines with environmental and metagenomic samples
+    - Orient sequence (optional)
+        - Count the TAA, TAG STOP codons in each reading frame
+        - Choose the orientation where there is no STOP codon
+        - If there is a STOP codon in all frames OR there are frames without STOP codon both in stand + and -, class it as ambiguous
+        - Make a small "reference" db form randomly sampled oriented sequences
+        - Blast ambiguous sequences to check orientation
+        - Write sequences without hit to the bold_ambiguous_orientation.fas
+
+Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - :ref:`bold_sequences.tsv<sequence_tsv_without_taxid_io>`
+    - :ref:`bold_lineages.tsv<lineage_tsv_without_taxid_io>`
+    - bold_partial_lines.tsv (lines in the input tsv files that did not have sequences)
+    - bold_ambiguous_orientation.fas (sequences that could not be oriented in check_orientation option)
+    
+    
 .. _format_custom_reference:
 
 format_custom.pl
@@ -550,6 +614,34 @@ Output
 - :ref:`sequence tsv with taxIDs<sequence_tsv_with_taxid_io>`
 
 
+
+reduce_metadata.pl
+.. _reduce_metadata_reference:
+
+reduce_metadata.pl
+-------------------------------------------------
+
+Aim
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Select metadata of BOLD sequences that appear in the final file of COInr.tsv; The output is used to be able to trace back BOLD sequences to their autors and get their metadata. 
+
+Input files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    - :ref:`input_metadata<bold_data_package_io>`
+    - :ref:`coinr<bold_data_package_io>`
+    - out (name of the output tsv file)
+
+Algorithm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Select lines from the BOLD data package, that reamin in the COInr database.
+
+Output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- :ref:`sequence tsv with BOLD metadata<bold_data_package_io>`
 
 
 .. _select_region_reference:

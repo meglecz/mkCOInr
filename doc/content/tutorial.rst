@@ -569,45 +569,31 @@ BOLD sequences
 Download BOLD sequences
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`download_bold.pl <download_bold_reference>` script will download all sequences and lineages from BOLD for all taxa on the taxon_list.
+The :ref:`download_bold.pl <download_bold_reference>` script is deprecated. The BOLD API used in download_bold.pl do not allow anymore to download large data files.
 
-The data/bold_taxon_list_2022-02-24.txt taxon list file is constructed manually from taxa on 
-`NCBI Taxonomy  <https://www.boldsystems.org/index.php/TaxBrowser_Home>`_. 
-This might need to be updated later. Each taxon on the list has less than 750.000 specimen records on BOLD.
+It is possible, however, to download all public sequences as a data package from 
+`https://www.boldsystems.org/index.php/datapackages <https://www.boldsystems.org/index.php/datapackages>`_. 
+You need to have a BOLD account for downloading the data package in (tar.gz compressed) format, 
+that contains a TSV file with sequences, taxonomic lineages and other metadata. This uncompressed file will be the input of format_bold_package.pl.
 
-Alternatively, it is also possible to use a list of large taxa (e.g. Arthropoda) 
-and ask the sript to cut up large taxa to subtaxa if they have more then *max_record_n* specimen records. 
-However, this solution has some pitfalls (see :ref:`description of download_bold.pl <download_bold_reference>`).
-
-.. code-block:: bash
-
-	perl scripts/download_bold.pl -taxon_list data/bold_taxon_list_2022-02-24.txt -outdir COInr_new/bold/download -try_download 3
-
-There will be a tsv file for each taxon, where the download was successful. 
-The tsv file contains the taxonomic lineage, marker code, sequences and many other information.
-
-NOTE: The download of a long list of taxa takes several days since it is not parallelized. 
-You can cut up the input list and run each of them on separate computers and move the output files to the same folder afterwards.
-
-See details in description section: :ref:`download_bold.pl <download_bold_reference>` script.
 
 Format BOLD sequences 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`format_bold.pl <format_bold_reference>` script will
+The :ref:`format_bold_package.pl <format_bold_package_reference>` script will
     - Select COI sequences and clean them
     - Eliminate identical sequences of the same lineage
     - Clean lineages and make a list with corresponding sequenceIDs
 
 .. code-block:: bash
 
-	perl scripts/format_bold.pl -download_dir COInr_new/bold/download/files -outdir COInr_new/bold/format
+	perl scripts/format_bold_package.pl -bold_data COInr_new/bold/download/BOLD_Public.26-Apr-2024.tsv -outdir COInr_new/bold/format
 
 The major output is the following:
     - :ref:`bold_sequences.tsv <sequence_tsv_without_taxid_io>`
     - :ref:`bold_lineages.tsv <lineage_tsv_without_taxid_io>` (all identical lineages are pooled into a same line)
 
-See details in description section: :ref:`format_bold.pl <format_bold_reference>` script.
+See details in description section: :ref:`format_bold_package.pl <format_bold_package_reference>` script.
 
 
 Add taxIDs to BOLD sequences

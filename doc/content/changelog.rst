@@ -26,3 +26,8 @@ Version 0.2.4 (17 April, 2023)
 
     - download_bold.pl works if taxon_list has a heading (taxon_name) and also if it has not
 
+Version 0.3.0 (06 May, 2024)
+
+    - format_bold_package.pl replaces download_bold.pl sinc it is quicker and BOLD API do not work any more for large data download
+    - reduce_metadata.pl to create a tsv file with BOLD metadata of the BOLD sequences kept in COInr
+    - for better traceability of the BOLD sequences, ids are in the following format: BOLD_markercode_processid

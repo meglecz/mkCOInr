@@ -91,6 +91,83 @@ Any other columns can follow, they will not be taken into account.
 Lineage files
 -------------------------------------------------
 
+.. _bold_data_package_io:
+
+BOLD data package TSV
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+tsv file with the following columns:
+
+    -processid
+    -sampleid
+    -specimenid
+    -museumid
+    -fieldid
+    -inst
+    -bin_uri
+    -identification
+    -funding_src
+    -kingdom
+    -phylum
+    -class
+    -order
+    -family
+    -subfamily
+    -genus
+    -species
+    -subspecies
+    -identified_by
+    -voucher_type
+    -collectors
+    -collection_date
+    -collection_date_accuracy
+    -life_stage
+    -sex
+    -reproduction
+    -extrainfo
+    -notes
+    -coord
+    -coord_source
+    -coord_accuracy
+    -elev
+    -depth
+    -elev_accuracy
+    -depth_accuracy
+    -country
+    -province
+    -country_iso
+    -region
+    -sector
+    -site
+    -collection_time
+    -habitat
+    -collection_note
+    -associated_taxas
+    -associated_specimen
+    -species_reference
+    -identification_method
+    -recordset_code_arr
+    -gb_acs
+    -marker_code
+    -nucraw
+    -sequence_run_site
+    -processid_minted_date
+    -sequence_upload_date
+    -identification_rank
+
+The reduced metadata file do not contain the sequence, and statrs with the sequence ID used in COInd (BOLD_marker_processid format)
+
+.. code-block:: bash
+
+	processid	sampleid	specimenid	museumid	fieldid	inst	bin_uri	identification	funding_src	kingdom	phylum	class	order	family	subfamily	genus	species	subspecies	identified_by	voucher_type	collectors	collection_date	collection_date_accuracy	life_stage	sex	reproduction	extrainfo	notes	coord	coord_source	coord_accuracy	elev	depth	elev_accuracy	depth_accuracy	country	province	country_iso	region	sector	site	collection_time	habitat	collection_noteassociated_taxa	associated_specimen	species_reference	identification_method	recordset_code_arr	gb_acs	marker_code	nucraw	sequence_run_site	processid_minted_date	sequence_upload_date	identification_rank
+	AAASF001-17	CBGSFMX-0101	7804897	None	CBGSFMX-0101	Universidad Autonoma de Nuevo Leon	BOLD:ADP3520	Lutzomyia cruciata	None	AnimaliaArthropoda	Insecta	Diptera	Psychodidae	Phlebotominae	Lutzomyia	Lutzomyia cruciata	None	Jorge J. Rodriguez Rojas	None	Wilbert P	2016-10-28	None	Adult	M	S	None	Slide mounted with Euparal	(19.3786,-88.1892)	None	None	None	None	None	None	Mexico	Quintana Roo	None	Candelaria	None	None	None	None	None	None	None	None	Morphological	['AAASF', 'DS-17IBMWP', 'DS-UNIQUE17']	MK851247	COI-5P	AACATTATATTTTATTTTTGGAGCCTGAGCAGGAATAGTGGGAACATCTTTAAGAATTTTAATTCGAGCAGAATTAGGTCACCCCGGTGCTTTAATTGGTGATGATCAAATTTATAATGTTATTGTTACAGCTCATGCATTTGTAATAATTTTTTTTATAGTTATACCTATTATAATTGGAGGATTTGGTAACTGATTAGTTCCTTTAATATTAGGAGCCCCTGATATAGCATTCCCTCGAATAAATAATATAAGATTTTGACTTTTACCCCCCTCTCTTACTCTCCTTCTTACAAGAAGTATAGTTGAAACTGGGGCAGGAACAGGATGAACTGTTTATCCACCTCTTTCAAGAAATATTGCCCATAGAGGAGCTTCTGTTGATTTAGCAATTTTTTCCCTACATTTAGCCGGGATTTCATCTATTCTTGGAGCAGTAAATTTTATTACTACAGTTATTAATATACGATCTGCTGGAATTACATTAGATCGAATACCTTTATTTGTTTGATCTGTAATAATTACTGCGGTACTTCTATTATTATCATTACCTGTTTTAGCAGGTGCAATTACAATACTTCTAACTGATCGTAATCTAAATACTTCTTTTTTTGACCCTGCGGGAGGTGGGGATCCAATTTTATATCAACATTTATTT	Instituto Politecnico Nacional, Centro de Biotecnologia Genomica	30-May-2017	12-Jun-2017	species
+
+
+
+
+
+
+
 .. _lineage_tsv_without_taxid_io:
 
 lineage tsv without taxID 
