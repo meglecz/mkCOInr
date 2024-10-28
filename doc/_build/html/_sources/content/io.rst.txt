@@ -492,7 +492,7 @@ Fasta file with the definition as follows
 	>seqID cellularOrganisms;superkingdom_taxID;kingdom_taxID;phylum_taxID;class_taxID;order_taxID;family_taxID;genus_taxID;species_taxID
 
 
-Negative taxIDs are allowed (e.g. Orbinia_johnsoni_-91).
+Negative taxIDs are allowed
 Empty taxlevels are filled out using the name of higher-level taxa (e.g. Polychaeta_6341_order).
 
 .. code-block:: bash
@@ -548,7 +548,7 @@ Fasta file with the definition line as follows
 	>seqID;tax=k:kingdom_taxID,p:phylum_taxID,c:class_taxID,o:order_taxID,f:family_taxID,g:genus_taxID,s:species_taxID
 
 
-Negative taxIDs are allowed (e.g. Chrysopilus_alaskaensis_-9996).
+Negative taxIDs are allowed
 Empty taxlevels are filled out using the name of higher-level taxa (e.g. Monostilifera_6227_family).
 
 .. code-block:: bash
