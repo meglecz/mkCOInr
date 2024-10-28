@@ -28,7 +28,7 @@ use Data::Dumper;
 my %params = (
 'tsv' => '', # seqID	taxID	sequence
 'taxonomy' => '', # tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel
-'outfmt' => '', # blast, rdp, qiime, full, vtam
+'outfmt' => '', # blast, rdp, qiime, full, vtam, sintax
 'outdir' => '',
 'out' => '',
 'blast_path' => ''
@@ -55,6 +55,11 @@ my $date = get_date();
 my $tmpdir = $outdir.'temp/';
 my $log = $outdir.'format_db.log';
 my %stat;
+
+if($out eq '')# if the name of the output database is not defined
+{
+	$out = 'db';
+}
 
 unless(-e $outdir)
 {
@@ -130,7 +135,7 @@ if($outfmt eq 'blast' or $outfmt eq 'vtam')
 		system 'rm -rf '.$tmpdir;
 	}
 }
-elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
+elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 'sintax')
 {
 	### Read taxonomy
 	print "\n####\nRead taxonomy\n";
@@ -160,11 +165,6 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 	print LOG "Runtime: ", time - $t, "s \n";
 	$t = time;
 	
-	if($out)
-	{
-#		$out .= '_';
-	}
-
 
 	#### Make $outfmt files
 	print "\n####\nMake $outfmt files\n";
@@ -179,6 +179,14 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 		$full = $outdir.$out.'.tsv';
 		open(FAS, '>', $full) or die "Cannot open $full\n";
 		print FAS "seqID	taxon	taxID	taxlevel	superkingdom	superkingdom_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
+	}
+	elsif($outfmt eq 'sintax')
+	{
+		#### get filenames and open files
+		# sintax
+		# >X80725_S000004313;tax=d:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteriales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli,t:str._K-12_substr._MG1655
+		$fas = $outdir.$out.'.fasta';
+		open(FAS, '>', $fas) or die "Cannot open $fas\n";
 	}
 	else
 	{
@@ -211,7 +219,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 		my @line = split("\t", $line);
 		my $taxid = $line[1];
 		
-		##### patch to correct the fact that in taxonomy, the taxIµD 0 is attributed to non-root
+		##### patch to correct the fact that in taxonomy, the taxID 0 is attributed to non-root
 		if($taxid == 0)
 		{
 			$taxid = $patch_taxid;
@@ -232,6 +240,11 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full')
 		{
 			#>seqID cellularOrganisms;Eukaryota_2759;Metazoa_33208;Bryozoa_10205;Gymnolaemata_10206;Cheilostomatida_10207;Adeonidae_558780;Reptadeonella_2576536;Reptadeonella_violacea_-35055
 			print FAS ">$line[0] $taxid_ranked_lin{$taxid}\n$line[2]\n"; 
+		}
+		if($outfmt eq 'sintax') # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		{
+			# >X80725_S000004313;tax=k:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteriales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli
+			print FAS ">$line[0]",";tax=", "$taxid_ranked_lin{$taxid}\n$line[2]\n"; 
 		}
 		elsif($outfmt eq 'qiime')
 		{
@@ -371,10 +384,19 @@ sub get_rdp_ranked_lin_from_tax
 	{
 		$ranked_lin = join (';', @ranked_lin_name);
 	}
-	elsif ($outfmt eq 'qiime') # qiime or full #k__Bacteria; p__OP11; c__OP11-1; o__; f__; g__; s__
+	elsif ($outfmt eq 'qiime' or $outfmt eq 'sintax') # qiime or full #k__Bacteria; p__OP11; c__OP11-1; o__; f__; g__; s__
 	{
 		my %temp_tl = (0 => '_kingdom', 1 => '_phylum', 2 => '_class',3 => '_order',4 => '_family',5 => '_genus',6 => '_species');
-		my %temp_t = (0 => 'k__', 1 => 'p__', 2 => 'c__',3 => 'o__',4 => 'f__',5 => 'g__',6 => 's__');
+		my %temp_t;
+		if($outfmt eq 'qiime')
+		{
+			%temp_t = (0 => 'k__', 1 => 'p__', 2 => 'c__',3 => 'o__',4 => 'f__',5 => 'g__',6 => 's__');
+		}
+		elsif($outfmt eq 'sintax')
+		{
+#			>X80725_S000004313;tax=d:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteri-ales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli,t:str._K-12_substr._MG1655
+			%temp_t = (0 => 'k:', 1 => 'p:', 2 => 'c:',3 => 'o:',4 => 'f:',5 => 'g:',6 => 's:');
+		}
 		
 		splice(@ranked_lin_name, 0, 2); # Delete the firts 2 levels above kingdom
 		
@@ -396,7 +418,16 @@ sub get_rdp_ranked_lin_from_tax
 			}
 		}
 		
-		$ranked_lin = join ('; ', @ranked_lin_name);
+		if($outfmt eq 'qiime')
+		{
+			$ranked_lin = join ('; ', @ranked_lin_name);
+		}
+		elsif($outfmt eq 'sintax')
+		{
+#			>X80725_S000004313;tax=d:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteri-ales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli,t:str._K-12_substr._MG1655
+			$ranked_lin = join (',', @ranked_lin_name);
+			$ranked_lin =~ s/(,[a-z]\:)+$//;
+		}
 	}
 	else # full
 	{
@@ -471,7 +502,7 @@ usage: perl format_db.pl [-options] -tsv INPUT_FILE -taxonomy TAXONOMY_TSV -outd
    -taxonomy               Input tsv with all taxids: tax_id,parent_tax_id,rank,name_txt,old_tax_id,taxlevel,synonyms
    -outdir                 Name of the otput directory
    -out                    String to name the output files
-   -outfmt                 [rdp/blast/qiime/full/vtam]; choose the format of the database
+   -outfmt                 [rdp/blast/qiime/full/vtam/sintax]; choose the format of the database
  OPTIONS
    -blast_path             Path to the blast executables; Not necessarry if it is in the PATH
 ',  "\n";

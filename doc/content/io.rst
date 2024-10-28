@@ -531,6 +531,36 @@ Empty taxlevels are filled out using the name of higher-level taxa.
 	-35075*Polychaeta_6341_order*6341*5*order
 
 
+.. _sintax_io:
+
+SINTAX 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _sintax_fasta_io:
+
+SINTAX fasta
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Fasta file with the definition line as follows
+
+.. code-block:: bash
+
+	>seqID;tax=k:kingdom_taxID,p:phylum_taxID,c:class_taxID,o:order_taxID,f:family_taxID,g:genus_taxID,s:species_taxID
+
+
+Negative taxIDs are allowed (e.g. Chrysopilus_alaskaensis_-9996).
+Empty taxlevels are filled out using the name of higher-level taxa (e.g. Monostilifera_6227_family).
+
+.. code-block:: bash
+
+	>KF935544_1;tax=k:Metazoa_33208,p:Nemertea_6217,c:Enopla_6225,o:Monostilifera_6227,f:Monostilifera_6227_family,g:Vieitezia_1068817,s:Vieitezia_luzmurubeae_1068818
+	ATTTTAGATAAATGATTAGGTTCTGTTTATCATTACAATATTGCTTCTTTATATTTTTTTTTTTCTATTTCTTTAGGGTTTTGTGCCTTTTTTTATTCTTTTATTATAAGATTGTCTTTAGTTTG
+	>PP587771_1;tax=k:Metazoa_33208,p:Chordata_7711,c:Mammalia_40674,o:Rodentia_9989,f:Sciuridae_55153,g:Sciurus_10001
+	CCTCCTCTAGCAGGAAATCTAGCCCATGCAGGAGCCTCAATAGATCTAACTATTTTCTCACTCCACCTGGCAGGTGTTTCCTCCATCTTAGGGGCAATTAATTTTATTACTACTATTATCAATAT
+	>BOLD_COI-5P_YBIVV3784-23;tax=k:Metazoa_33208,p:Arthropoda_6656,c:Insecta_50557,o:Diptera_7147,f:Rhagionidae_92609,g:Chrysopilus_124301,s:Chrysopilus_alaskaensis_-9996
+	TTTATATTTTATCTTTGGAGCTTGAGCGGGTATAGTAGGAACATCTCTTAGTATATTAATTCGAGCAGAATTAGGCCATCCTGGAGCATTAATTGGTGACGATCAAATTTATAATGTGATTGTAA
+
+
 .. _vtam_database_files_io:
 
 VTAM database files

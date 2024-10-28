@@ -326,6 +326,7 @@ Format the database to one of the following formats
     - full
     - blast
     - vtam
+    - sintax
 
 **qiime**
 
@@ -350,6 +351,13 @@ The full option, gives a :ref:`tsv file <full_tsv_io>` with seqIDs, ranked linea
 .. code-block:: bash
 
 	perl scripts/format_db.pl -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv -outfmt full -outdir COInr/full -out COInr_full
+
+**sintax**
+
+.. code-block:: bash
+
+	perl scripts/format_db.pl -tsv COInr/COInr.tsv -taxonomy COInr/taxonomy.tsv -outfmt sintax -outdir COInr/sintax -out COInr_sintax
+
 
 **blast**
 

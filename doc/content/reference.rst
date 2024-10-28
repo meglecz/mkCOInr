@@ -384,12 +384,12 @@ Aim
 
 Make a database in blast, rdp, qiime or full tsv format from the :ref:`sequence tsv<sequence_tsv_with_taxid_io>` and :ref:`taxonomy.tsv<taxonomy_io>` files
 
-Input files
+Input
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     - :ref:`sequence tsv<sequence_tsv_with_taxid_io>`
     - :ref:`taxonomy.tsv<taxonomy_io>`
-    - outfmt (rdp/blast/qiime/full/vtam; choose the format of the database)
+    - outfmt (rdp/blast/qiime/full/vtam/sintax; choose the format of the database)
     - :ref:`outdir<outdir_io>`
     - out (string for naming the output files)
 
@@ -407,41 +407,48 @@ BLAST db, VTAM
     - Run the *makeblastdb* command of blast to make indexed files ready to be used as a blast database
     - for VTAM format, prepare taxonomy file as well as the BLAST database. They can be used directly in VTAM.
 
-RDP, QIIME and FULL
+RDP, QIIME, sintax and FULL
 
     - Prepare a ranked lineage for each taxID
     - Taxon names are concatenated with taxID to avoid homonymy
     - Missing taxonomic levels are completed by using the name of a higher-level taxon concatenated with the taxonomic ranks
     - Prepare a trainseq fasta and a taxon file for :ref:`rdp<rdp_io>` and :ref:`qiime<qiime_io>`
     - Prepare a single tsv file for :ref:`full<full_tsv_io>`
+    - Prepare a single fasta file with lineages incuded in the definition lines for :ref:`sintax<sintax_io>`
 
 The trainseq fasta and the taxon files can be used by the *train* command of rdp_classifier or *feature-classifier* of QIIME to train the dataset before classification.
+
+The sintax fasta file is ready to be used as a database for SINTAX.
 
 The full tsv format is an easy to parse tsv file with :ref:`ranked lineage<ranked_lineage_glossary>` and :ref:`taxID<taxid_glossary>` for each sequence.
 
 Output
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-BLAST option
+blast option
 
     - :ref:`Indexed files<blast_database_files_io>` ready to be used as a BLAST database 
     
-VTAM option
+vtam option
 
     - :ref:`Indexed files<blast_database_files_io>` ready to be used as a BLAST database 
     - :ref:`taxonomy.tsv<taxonomy_io>` adapted to VTAM
 
-RDP option 
+rdp option 
 
     - :ref:`RDP trainseq fasta<rdp_trainseq_fasta_io>` 
     - :ref:`RDP taxon file<rdp_taxon_file_io>`
 
-QIIME option
+quiime option
 
     - :ref:`QIIME trainseq fasta<qiime_trainseq_fasta_io>`
     - :ref:`QIIME taxon file<qiime_taxon_file_io>`
 
-FULL option
+sintax option
+
+    - :ref:`SINTAX fasta<sintax_fasta_io>`
+
+full option
 
     - :ref:`tsv file<full_tsv_io>`
 	

@@ -6,7 +6,7 @@ Glossary
 ranked lineage
 ------------------------------------------------
 
-Taxonomic lineage of a taxon, containing the major taxonomic ranks: superkingdom, kingdom, phylum, class, oprer, family, genus, species
+Taxonomic lineage of a taxon, containing the major taxonomic ranks: superkingdom, kingdom, phylum, class, order, family, genus, species
 
 .. _seqid_glossary:
 
