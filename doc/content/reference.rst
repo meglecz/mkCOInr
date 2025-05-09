@@ -267,6 +267,10 @@ Parameters/options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     - marker_list (List of markers to be selected; Default:  'COI-5P COI-3P')
+    - delete_noBIN (0/1/2; Default 1;
+        - If 0, do not delete sequneces without BIN_URI
+        - If 1, delete sequences without BIN_URI, if there are other sequences with BIN_URI for the taxon
+        - If 2, delete all sequences without BIN_URI, even if there are no other sequences with BIN_URI for the taxon)
     - check_name (0/1; If 1 keeps only taxa with valid Latin name format: Default: 1)
     - max_n (positive integer; eliminates sequences with max_n or more consecutive Ns; Default:5)
     - min_length (positive integer; minimum length of the cleaned sequence; Default:100)
@@ -281,6 +285,7 @@ Select and clean sequences and pool information to lineage and sequence files
 
     - Eliminate partial lines (mostly errors in the database)
     - Select sequences for a given marker list
+    - Delete sequences without BIN according to the delete_noBIN parameter
     - Clean sequences
         - Correct sequence IDs
         - Gaps deleted
