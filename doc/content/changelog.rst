@@ -39,14 +39,17 @@ Version 0.3.1 (28 Oct, 2024)
     
 Version 0.4.0 (09 May, 2025)
 
-    - format_bold_package.pl 
+    - format_bold_package.pl
+
         - Read input TSV line by line, to reduce memory need
         - Can delete sequneces without BOLD BIN; New argument delete_noBIN [0/1/2] 
         - Sequence IDs are in the following format: BOLD_MARKER_PROCESSID_BIN (BOLD_COI-5P_JRPAA9741-15_BIN:ADQ9721 or BOLD_COI-5P_GBBAC2495-15_BIN:NA)
 
     - add_taxids.pl
+
         - avoid using 0 as a taxid
         - if more than one taxid for name
+
             - takes the one with highest proportion of taxa matching the upwards lineage (as before)
             - then smallest difference in taxlevel
             - then prefer a valid scientific name if choice between synonyms and scientific names
