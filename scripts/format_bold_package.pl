@@ -5,24 +5,30 @@ use lib "$RealBin";
 use mkdb;
 use Data::Dumper;
 
-# Adapted from format_bold.pl to one single large file downloaded as a data package (https://www.boldsystems.org/index.php/datapackages)
+
+# Adapted from format_bold.pl to one single large file downloaded as a data package (https://boldsystems.org/data/data-packages/)
 
 # INPUT
-#	bold_data: TSV file downloaded from BOLD  (https://www.boldsystems.org/index.php/datapackages);
+#	bold_data: TSV file downloaded from BOLD  (https://boldsystems.org/data/data-packages/);
 
 
 # AIM
 
 # Select and clean sequences and pool information to lineage and sequence files
-#		Eliminate partial lines (mostly errors in the database)
-#		Select sequences with a given marker list
+#		Delete partial lines (mostly errors in the database)
+#		Select sequences for a given marker list
+#		Delete sequneces with no BOLD BIN 
+#			delete_noBIN == 0 => Do not delete sequences without BOLD BIN
+#			delete_noBIN == 1 => Delete sequences without BOLD BIN, if there are sequneces with BIN of the same taxon
+#			delete_noBIN == 2 => Delete all sequences without BOLD BIN
 #		Clean sequences: correct sequence Ids, gaps deleted, non-TCGA changed to N, external Ns deleted, sequences with more than $max_n consecutive Ns are deleted
 #		Clean lineages: Keep only names matching a correct latin name format (^[A-Z][a-z-]+\s[a-z-]+$/ # species level, /^[A-Z][a-z-]+$/ All other levels)
 #		Pool identical lineages into one line with the list  of valid sequence Ids in the last field
 #		Eliminate lines with environmental and metagenomic samples
 #		Keep sequences with length in a $min_length and max_length range 
 
-# Orient sequence
+# Orient sequence => Experimental! 
+# Can class some correctly oriented sequences as ambiguous. Sequences in BOLD are generally correctly orineted, so this step is not really necessary. 
 #	Count codon STOPs (TAA, TAG) in each reading frame
 #		0 if codon stop in all frames OR stand + and - among the frames WO codon stop => AMBIGUOUS
 		# +1 or -1 otherwise
@@ -33,13 +39,11 @@ use Data::Dumper;
 
 
 #OUTPUT
-# BOLD_sequences: tsv file with all valid sequences downloaded from BOLD 
-#	seqid	sequence
+# BOLD_sequences: tsv file with all validated sequences downloaded from BOLD 
+#	Columns: seqid	sequence; Format of seqid: 'BOLD_MARKER_processid_bin (e.g. BOLD_COI-5P_JRPAA9741-15_BIN:ADQ9721)
 # BOLD_lineages: all identical lineages are pooled into a same line
-#	phylum	class	order	family	subfamily	genus	species	seqIDs
+#	Columns: phylum	class	order	family	subfamily	genus	species	seqIDs
 # BOLD_partial_lines => partial lines 
-# BOLD_metadata: tsv file with all valid sequences downloaded from BOLD and reatined by the script, and their metadata for authorship tracability 
-
 
 
 ###############################
@@ -49,6 +53,7 @@ my %params = (
 	'bold_data' => '',
 	'outdir' => '',
 	'marker_list' => 'COI-5P COI-3P',
+	'delete_noBIN' => 1,
 	'check_name' => 1,
 	'max_n' => 5, # while clean_seq, eliminate sequences with $max_n or more consecutive Ns
 	'min_length' => 100, # minimum length of the cleaned sequence; 
@@ -61,6 +66,7 @@ modify_params_from_tags(\%params, \@ARGV);
 my $bold_data = $params{'bold_data'};
 my $outdir = $params{'outdir'};
 my $marker_list = $params{'marker_list'};
+my $delete_noBIN = $params{'delete_noBIN'};
 my $check_name = $params{'check_name'};
 my $max_n = $params{'max_n'};
 my $min_length = $params{'min_length'};
@@ -98,7 +104,8 @@ my @taxlevels = qw(phylum class order family subfamily genus species);
 my @fields = @taxlevels;
 push(@fields, 'processid');
 push(@fields, 'marker_code');
-push(@fields, 'nucraw');
+push(@fields, 'nuc');
+push(@fields, 'bin_uri');
 ####
 
 
@@ -109,36 +116,65 @@ open(SH, '>', $partial_lines) or die "Cannot open $partial_lines\n";
 my %lineage; # $lineage{join(';', @lineage)} = (seqids)
 my %sids; # $sids{seqid} = ''; # to make sure that the the seq id is unique 
 my %lineage_seq; # $lineage_seq{lineage}{seq} = seqid # eliminate identical sequences 
+my %lineage_bin_seq; # $lineage_bin{lineage}{bin} = liste de seqids
 my %full_marker_list; #%full_marker_list{marker} = count
-my %metadata; # $metadata{BOLD_seqid} = line;# keep metadata of seqences caried forward
 
+#### Get column indexes
+open(DATA, $bold_data) or die "Cannot open $bold_data\n";
+my $title = <DATA>;
+my %fields_hash = get_field_indices(\@fields, $title);
+my @ind = sort {$a <=> $b} values %fields_hash;
+my $max_ind = $ind[-1]; # get the highest column index needed for the analyses
 
-	my @data = read_data($bold_data);
-	# $fields_hash{col name} = col ind
-	my %fields_hash = get_field_indices(\@fields, \@data);
+#print Dumper(\%fields_hash);
+
+my $count_noseq = 0; # number of line without seq (None in nuc column)
+my $count_partial_lines = 0; # number of line without enough columns
+while(my $line = <DATA>) # for each line in tsv
+{
+	++$stat{'01a. Total number of lines in input tsv: '};
 	# occasionally some lines are too short; error in input data => print these lines to BOLD_partial lines.txt
-	delete_partial_lines(\@data, "\t", $bold_data); 
-	#### clean lines, and pool data
-	foreach my $line (@data)
+	# eliminate lines WO sequences
+	my @line = delete_partial_lines($line, "\t", \$count_noseq, \$count_partial_lines, $max_ind, $fields_hash{nuc}); 
+	unless(scalar @line) # go to next line if not enough columns
 	{
-		$line =~ s/"//g;
-		my @line = split("\t", $line);
-		my $marker = $line[$fields_hash{marker_code}];
-		++$full_marker_list{$marker};
+		next;
+	}
+	
+	my $marker = $line[$fields_hash{marker_code}];
+	++$full_marker_list{$marker};
+	my $bin = $line[$fields_hash{bin_uri}];
+	if($bin eq 'None')
+	{
+		$bin = 'BIN:NA';
+	}else
+	{
+		$bin =~ s/BOLD/BIN/;
+	}
+	
 		if(exists $markers{$marker}) # marker is OK
 		{
-			++$stat{'01. Number of lines with correct marker: '};
+			++$stat{'02.  Number of lines with correct marker: '};
 			my $processid = $line[$fields_hash{processid}];
-			my $seqid = 'BOLD_'.$marker.'_'.$processid;
-
-
+			my $seqid = 'BOLD_'.$marker.'_'.$processid.'_'.$bin;
+			
 				if(exists $sids{$seqid}) # if more than one line with the same SeqID (probably error in downloading) takes only the first line
 				{
 					next;
 				}
+			
+				#### Eliminate all sequences sequences wihtout BIN, even if no sequence left for the lienage
+				if($delete_noBIN == 2)
+				{
+					if($bin eq 'BIN:NA')
+					{
+						next;
+					}
+					++$stat{'03.  Number of lines after elimination sequences without BIN_URI (delete_noBIN==2): '};
+				}
 
 				### clean and check sequence
-				my $seq = clean_seq($line[$fields_hash{nucraw}], $max_n);
+				my $seq = clean_seq($line[$fields_hash{nuc}], $max_n);
 				if(length $seq <= $min_length or length $seq >= $max_length)
 				{
 					$seq = '';
@@ -147,7 +183,7 @@ my %metadata; # $metadata{BOLD_seqid} = line;# keep metadata of seqences caried 
 				{
 					next;
 				}
-				++$stat{'02. Number of lines with correct sequence: '};
+				++$stat{'04.  Number of lines with correct sequence: '};
 				### order and clean lineage
 				my @new_lineage; # (phylum_name class_name order_name family_name subfamily_name genus_name species_name)
 				foreach my $taxon_level (@taxlevels)
@@ -166,7 +202,7 @@ my %metadata; # $metadata{BOLD_seqid} = line;# keep metadata of seqences caried 
 				}
 				if(scalar @new_lineage) # Not an environmental sample
 				{
-					++$stat{'03. Number of lines without environmental or metagenomic sequences: '};
+					++$stat{'05.  Number of lines without environmental or metagenomic sequences: '};
 					if($check_name)
 					{
 						clean_tax_names(\@new_lineage); # keep only taxon names with format of valid names
@@ -175,19 +211,25 @@ my %metadata; # $metadata{BOLD_seqid} = line;# keep metadata of seqences caried 
 					my $lin = join("\t", @new_lineage);
 					if($lin =~ /[^\t]/)# at least one valid taxon name in lineage
 					{
-						++$stat{'04. Number of lines with at least one correct taxon name: '};
+						++$stat{'06.  Number of lines with at least one correct taxon name: '};
 						$sids{$seqid} = ''; # keep seqids in a hash
 						# keep sequence in hash
-						$lineage_seq{$lin}{$seq} = $seqid; # if identical sequneces for the same linegae, keep just one
-						$metadata{$seqid} = $line;
+						$lineage_bin_seq{$lin}{$bin}{$seq} = $seqid; # if identical sequneces for the same linegae, keep just one
+#						push(@{$lineage_bin{$lin}{$bin}}, $seqid); # collect info on the number of bins in each lineage
 					}
 				}
 		}# marker
-	}# foreach line
+}# foreach line
 
+$stat{'01b. Number of partial lines in input tsv: '} = $count_partial_lines;
+$stat{'01c. Number of lines without sequence in input tsv: '} = $count_noseq;
+	
+#print Dumper(\%full_marker_list);
+close IN;
 close SH;
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
+
 
 # print full marker list in bold files
 if(0)
@@ -201,16 +243,63 @@ if(0)
 #### Count sequences after eliminating exact matches
 print "\n####\nCount sequences after eliminating exact matches\n";
 print LOG "\n####\nCount sequences after eliminating exact matches\n";
-foreach my $lin (sort keys %lineage_seq)
+foreach my $lin (sort keys %lineage_bin_seq)
 {
-	foreach my $seq (sort keys %{$lineage_seq{$lin}})
+	foreach my $bin (sort keys %{$lineage_bin_seq{$lin}})
 	{
-		++$stat{'05. Number of sequences after eliminating exact matches within taxa : '};
+		foreach my $seq (sort keys %{$lineage_bin_seq{$lin}{$bin}})
+		{
+			++$stat{'07a. Number of sequences after eliminating exact matches within taxa: '};
+		}
 	}
 }
+$stat{'07b. Number of different lineages: '} = scalar keys %lineage_bin_seq;
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
 
+
+#### Delete sequences without BIN if there are other sequences with BIN for the lineage
+if($delete_noBIN == 1)
+{
+	
+	print "\n####\nDelete sequences without BIN_URI if there are other sequneces witn BIN in the same lineage\n";
+	print LOG "\n####\nDelete sequences without BIN_URI if there are other sequneces witn BIN in the same lineage\n";
+
+	foreach my $lin (sort keys %lineage_bin_seq)
+	{
+		# # none of the sequneces of the lineage have BIN. Keep them, to avoind loosing the lineage
+		if(scalar keys %{$lineage_bin_seq{$lin}} == 1 and exists $lineage_bin_seq{$lin}{'BIN:NA'}) 
+		{
+			$stat{'08a. Number of sequences after eliminating sequences without BIN_URI (delete_noBIN==1): '} += scalar keys %{$lineage_bin_seq{$lin}{'BIN:NA'}};
+		}
+		else
+		{
+			delete $lineage_bin_seq{$lin}{'BIN:NA'}; # delete all seq WO BIN, if there are at least one BIN in the lineage
+			foreach my $bin (sort keys %{$lineage_bin_seq{$lin}})
+			{
+				$stat{'08a. Number of sequences after eliminating sequences without BIN_URI (delete_noBIN==1): '} += scalar keys %{$lineage_bin_seq{$lin}{$bin}};
+			}
+		}
+	}
+	$stat{'08b. Number of different lineages after eliminating sequences without BIN_URI (delete_noBIN==1): '} = scalar keys %lineage_bin_seq;
+	print LOG "Runtime: ", time - $t, "s \n";
+	$t = time;
+}
+
+
+######
+# Transfer lineage_bin_seq ($lineage_bin_seq{$lin}{$bin}{$seq} = seqid) to lineage_seq ($lineage_seq{$lin}{$seq} = seqid)
+foreach my $lin (sort keys %lineage_bin_seq)
+{
+	foreach my $bin (sort keys %{$lineage_bin_seq{$lin}})
+	{
+		foreach my $seq (sort keys %{$lineage_bin_seq{$lin}{$bin}})
+		{
+			$lineage_seq{$lin}{$seq} = $lineage_bin_seq{$lin}{$bin}{$seq};
+		}
+	}
+	delete($lineage_bin_seq{$lin});
+}
 
 #### Orient sequences
 if($check_orientation)
@@ -266,7 +355,7 @@ foreach my $lin (sort keys %lineage_seq)
 	{
 		my $seqid = $lineage_seq{$lin}{$seq};
 		print SEQ $seqid, "\t", $seq, "\n";
-		++$stat{'13. Number of sequences in output: '};
+		++$stat{'11a. Number of sequences in output: '};
 	}
 }
 close SEQ;
@@ -290,7 +379,7 @@ foreach my $lin (sort keys %lineage_seq)
 	}
 	print OUT $lin, "\t", join(';', @sids), "\n";
 }
-$stat{'14. Number of unique lineages in output: '} = scalar (keys %lineage_seq);
+$stat{'11b. Number of unique lineages in output: '} = scalar (keys %lineage_seq);
 close OUT;
 
 print LOG "Runtime: ", time - $t, "s \n";
@@ -362,17 +451,17 @@ sub orient_with_codon_stop
 				$$lineage_seq{$lin}{$rc_seq} = $$lineage_seq{$lin}{$seq};
 				$$revcomp{$lin}{$rc_seq} = $$lineage_seq{$lin}{$rc_seq};
 				delete $$lineage_seq{$lin}{$seq};
-				++$$stat{'08. Number of sequences in reverse orientation according to codon stop search: '};
+				++$$stat{'09b. Number of sequences in reverse orientation according to codon stop search: '};
 			}
 			elsif($strand == 0) # make  fasta file with ambiguos sequences and delete from %lineage_seq
 			{
 				$amb{$lin}{$seq} = $$lineage_seq{$lin}{$seq};
 				delete $$lineage_seq{$lin}{$seq};
-				++$$stat{'09. Number of sequences with ambiguous orientation according to codon stop search: '};
+				++$$stat{'09c. Number of sequences with ambiguous orientation according to codon stop search: '};
 			}
 			else
 			{
-				++$$stat{'07. Number of sequences correctly oriented according to codon stop search: '};
+				++$$stat{'09a. Number of sequences correctly oriented according to codon stop search: '};
 			}
 		}
 		unless(scalar keys %{$$lineage_seq{$lin}}) # no sequences left in lineage
@@ -424,11 +513,11 @@ sub orient_with_blast
 			{
 				$seq = reverse_complement($seq);
 				$$revcomp{$lin}{$seq} = $line[0];
-				++$$stat{'11. Number of sequences in reverse orientation according to BLAST: '};
+				++$$stat{'10b. Number of sequences in reverse orientation according to BLAST: '};
 			}
 			else
 			{
-				++$$stat{'10. Number of sequences in correct orientation according to BLAST: '};
+				++$$stat{'10a. Number of sequences in correct orientation according to BLAST: '};
 			}
 			$$lineage_seq{$lin}{$seq} = $line[0];
 			delete $$amb{$lin}{$seq};
@@ -444,7 +533,7 @@ sub orient_with_blast
 		foreach my $seq (keys %{$$amb{$lin}})
 		{
 			print OUT ">$$amb{$lin}{$seq} $lin\n$seq\n";
-			++$$stat{'12. Number of sequences with ambiguous orientation according to BLAST: '};
+			++$$stat{'10c. Number of sequences with ambiguous orientation according to BLAST: '};
 		}
 		unless(exists $$lineage_seq{$lin}) # lineage is present in ambiguous, but not in oriented lineages
 		{
@@ -453,11 +542,11 @@ sub orient_with_blast
 	}
 	close OUT;
 	print LOG "Lineages without oriented sequences:\n";
-	$$stat{'13. Number of lineages lost in orientation: '} = 0;
+	$$stat{'10d. Number of lineages lost in orientation: '} = 0;
 	foreach my $lin (keys %missing_lineage)
 	{
 		print LOG "$lin\n";
-		++$$stat{'13. Number of lineages lost in orientation: '};
+		++$$stat{'10d. Number of lineages lost in orientation: '};
 	}
 }
 
@@ -619,32 +708,25 @@ sub clean_tax_names
 
 
 sub delete_partial_lines
-{	my ($data, $sep, $filename) = @_;
-
-	my @tmp;
-	my @partial;
-
-	for(my $i = 0; $i<scalar @$data; ++$i)
-	{
-		my $e = $$data[$i];
-		$e =~ s/"//g;
-		my @l = split($sep, $e);
-		if (scalar @l < 52) # there are lines with less than 52 columns;
-		{
-				push(@partial, $e);
-		}
-		else
-		{
-			push(@tmp, $e);
-		}
-	}
+{
+	my ($line, $sep, $count_noseq, $count_partial_lines, $max_ind, $seq_ind) = @_;
 	
-	if(scalar @partial)
+	$line =~ s/"//g;
+	$line =~ s/\s*$//;
+	my @l = split($sep, $line);
+	if (scalar @l <= $max_ind) # lines with not enough columns
 	{
-		print SH "\n$filename\n";
-		print SH join("", @partial);
+		print SH $line;
+		++$$count_partial_lines;
+		@l = ();
 	}
-	@$data = @tmp;
+	elsif($l[$seq_ind] eq 'None') # No sequence for the record
+	{
+		++$$count_noseq;
+#		print $$count_noseq, "\n";
+		@l = ();
+	}
+	return @l;
 }
 
 
@@ -666,7 +748,7 @@ sub read_data
 
 sub get_field_indices
 {
-	my ($name_list, $data) = @_;
+	my ($name_list, $title) = @_;
 
 	my %name_hash;
 	foreach my $name (@$name_list)
@@ -675,10 +757,9 @@ sub get_field_indices
 	}
 	
 	my %fields_hash;
-	my $line = $$data[0];
-	$line =~ s/\s*$//;
-	$line =~ s/"//g;
-	my @line = split("\t", $line);
+	$title =~ s/\s*$//;
+	$title =~ s/"//g;
+	my @line = split("\t", $title);
 	for(my $i = 0; $i < scalar @line; ++$i)
 	{
 		if(exists $name_hash{$line[$i]})
@@ -702,6 +783,10 @@ usage: perl format_bold_package.pl [-options] -download_dir DOWNLOAD_DIR -outdir
    -outdir                 Name of the otput directory
  OPTIONS
    -marker_list            Default:  "COI-5P COI-3P"; List of markers to be selected
+   -delete_noBIN           [0/1/2]; Default 1
+                               If 0, do not delete sequneces without BIN_URI
+                               If 1, delete sequences without BIN_URI, if there are other sequences with BIN_URI for the taxon
+                               If 2, delete all sequences without BIN_URI, even if there are no other sequences with BIN_URI for the taxon
    -check_name             [0/1]; Default 1
                                If one keeps only taxa with valid Latin name format
    -max_n                  Positive integer; Default:5)

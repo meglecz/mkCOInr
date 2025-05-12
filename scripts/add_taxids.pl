@@ -28,7 +28,10 @@ use Data::Dumper;
 #		- existing synonyms
 #		- if more than one taxid for name
 #				- takes the one with highest proportion of taxa matching the upwards lineage
-#				- then the same tax level
+#				- then smallest difference in taxlevel
+#				- then prefer a valid scientific name if choice between synonyms and scientific names
+#				- taxon name in BOLD mathcing a scientific name of the taxid (for homotypic synomyms it is possible to have different scientific names)
+
 
 # For each lineages that do not have yet taxid, assign arbitrary negative taxIDs to taxa and link it as a child to an existing taxID 
 
@@ -138,12 +141,19 @@ read_taxonomy_to_tax_hash(\%tax, $taxonomy);
 
 my @taxids = sort {$a <=> $b} keys %tax;
 my $smallest_taxid_hash = $taxids[0]; # used for finding new taxids
+if($smallest_taxid_hash > 0) # use negative values for new taxID to avoid confusion with NCBI taxIDs
+{
+	$smallest_taxid_hash = 0;
+}
 my $smallest_taxid_input = $smallest_taxid_hash;
 
-my %name_taxids; # $name_taxids{name}{$taxid} = '' # All names, including synonyms and homonyms
-my %taxid_names; # $taxid_names{taxid}{names} = '' # All names, including synonyms and homonyms
-my %name_taxids_par; #$name_taxids_par{$name}{taxid} = parent taxid # only scientifi names
+my %name_taxids; # $name_taxids{name}{$taxid} = 1 if scientific name, 0 if synonym # All names, including synonyms and homonyms
+my %taxid_names; # $taxid_names{taxid}{names} = 1 if scientific name, 0 if synonym  # All names, including synonyms and homonyms
+my %name_taxids_par; #$name_taxids_par{$name}{taxid} = parent taxid # only scientific names
 read_taxonomy_names(\%taxid_names, \%name_taxids, \%name_taxids_par, $taxonomy);
+
+#print Dumper($name_taxids{Diplura});
+
 
 my %taxid_full_lineage_id; # $taxid_full_lineage_id{taxid} = (list of taxids starting from the most distant)
 foreach my $taxid (keys %tax)
@@ -162,13 +172,15 @@ foreach my $taxid (keys %tax)
 	@{$tax_ranked_lineage{$taxid}} = @lin;
 }
 
+#print Dumper($tax_ranked_lineage{29997});
+#print Dumper($tax_ranked_lineage{371957});
+#print Dumper($tax_ranked_lineage{371965});
 $stat{'1.0 Number of taxids in taxonomy file: '} = scalar keys %tax;
 $stat{'1.1 Number of scientific names in taxonomy file: '} = scalar keys %name_taxids_par;
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
 ####
 ####
-
 
 
 
@@ -193,6 +205,8 @@ open(DOUBTSEQ, '>', $out_seq_bp) or die "Cannot open $out_seq_bp\n";
 print DOUBTSEQ "seqID	sequence\n";
 ####
 
+#  Index in lineage_bold ($i) corresponds to taxlevel index in tax
+my %bold_ncbi_taxlevel_match = (0 => 8, 1 => 7, 2 => 6.5, 3 => 6, 4 => 5, 5 => 4, 6 => 3);
 ##### Match to existing taxid
 	#### Searching for ncbi taxIDs
 	print "\n####\nSearching for ncbi taxIDs\n\n";
@@ -213,11 +227,12 @@ print DOUBTSEQ "seqID	sequence\n";
 		# at this step assign a ncbi taxid (or an already existing negative taxid) to each sequence at the smallest level possible, ignore lower(higher resuolution) levels
 		for(my $i = 0; $i < scalar @lineage_bold; ++$i)# get ncbi taxid for the smallest taxon present in ncbi tax
 		{
+			$taxid = 0;
+			$match = 0;
 			# 0 if no ncbi taxid at all
 			# if more than one taxid => choose the one with highest portion of the BOLD lineage (above $i) that matches ncbi lineage => then the one that has a the same rank
 			# $match: the proportion of taxnames matching between ncbi lineage and @lineage_bold (above $i)
-			($taxid, $match) = get_taxid_new($i, \@lineage_bold, \%name_taxids, \%taxid_full_lineage_id, \@bold_ranks, \%tax, \%taxid_names);
-			
+			($taxid, $match) = get_taxid_new($i, \@lineage_bold, \%name_taxids, \%taxid_full_lineage_id, \@bold_ranks, \%tax, \%taxid_names, \%tax_ranked_lineage, \%bold_ncbi_taxlevel_match);
 			if($taxid) # valid taxid
 			{
 				if($match >= 0.6 or ($i == (scalar @lineage_bold-1) and $tax{$taxid}[1] eq $bold_ranks[$i])) # good match or highest taxlevel with matching rank => print and quit the loop
@@ -483,21 +498,35 @@ sub get_new_taxid_simple
 
 sub get_taxid_new
 {
-	my ($i, $lin, $name_taxids, $taxid_full_lineage_id, $bold_ranks, $tax, $taxid_names) = @_;
+	my ($i_bold_line, $lin, $name_taxids, $taxid_full_lineage_id, $bold_ranks, $tax, $taxid_names, $tax_ranked_lineage, $bold_ncbi_taxlevel_match) = @_;
 #($i, \@lineage_bold, \%name_taxids, \%taxid_full_lineage_id, \@bold_ranks, \%tax, \%taxid_names);
+# my %tax_ranked_lineage; # $tax_ranked_lineage{taxid} = (scientific name, species, genus, family, order, class, phylum, kingdom);
 
-	if(exists $$name_taxids{$$lin[$i]}) # ncbi taxid exists
+# $name_taxids{name}{$taxid} = 1 if scientific name, 0 if synonym # All names, including synonyms and homonyms
+
+	my $taxon_name_bold = $$lin[$i_bold_line];
+
+	if(exists $$name_taxids{$taxon_name_bold}) # ncbi taxid exists
 	{
-		my %taxid_temp; # $taxid_temp{$taxid} = ($match, $nb_tax)
-		foreach my $taxid ( keys %{$$name_taxids{$$lin[$i]}}) # get taxid with the highest proportion of matches in the bold lineages above $i, or if it is <0.5, the taxon where ncbi and bold ranks are matching with at least 1,2 matching taxon name in the lineage
+		my %taxid_temp; # $taxid_temp{$taxid} = ($match, $nb_tax,  1 if scientific name, 2 if synonym)
+		foreach my $taxid ( keys %{$$name_taxids{$taxon_name_bold}}) # get taxid with the highest proportion of matches in the bold lineages above $i, or if it is <0.5, the taxon where ncbi and bold ranks are matching with at least 1,2 matching taxon name in the lineage
 		{
+#			print "taxid: $taxid\n";
 			# return 
 				# $match: the proportion of taxname matching between ncbi linegae and @lin (bold above $i) ($match_p)
 				# $nb_tax: number of taxa in bold lineage above $i (ignore empty)
 			# Include in ncbi lineage all synonymes
-			@{$taxid_temp{$taxid}} = compare_lineages_new($i, $lin, $$taxid_full_lineage_id{$taxid}, $taxid_names);
+			my ($p, $nb_tax) = compare_lineages_new($i_bold_line, $lin, $$taxid_full_lineage_id{$taxid}, $taxid_names);
+#			print "p : $p  nb_tax: $nb_tax\n";
+			my $match_name = 0;
+			if($taxon_name_bold eq $$tax_ranked_lineage{$taxid}[0]) # check if scientific name of the taxid matches the taxon name; it can be different if synonym; some of the synonymes can be also valid scientific names
+			{
+				$match_name = 1;
+			}
+			my $sientific_name = $$name_taxids{$taxon_name_bold}{$taxid}; # 1 if scientific name, 0 if synonym # All names, including synonyms and homonyms =>  if $p, $nb_tax are equal choose scientific name
+			@{$taxid_temp{$taxid}} = ($p, $nb_tax, $sientific_name, $match_name)
 		}
-		my ($taxid, $match) = get_best_match_new(\%taxid_temp, $$bold_ranks[$i], $tax); # take the taxid with the highest $match_p > same taxlevel
+		my ($taxid, $match) = get_best_match_2025(\%taxid_temp, $i_bold_line, $tax,  $bold_ncbi_taxlevel_match, $lin); # take the taxid with the highest $match_p > same taxlevel and choose scientifc name if possible
 		return ($taxid, $match);
 	}
 	else # no ncbi taxid
@@ -512,16 +541,19 @@ sub get_taxid_new
 sub get_best_match_new
 {
 	my ($taxids, $bold_rank, $tax) = @_; # take the taxid with the highest $match_p => same taxlevel
- # $taxids{$taxid} = ($match_p, $nb_tax)
+ # $taxids{$taxid} = ($match_p, $nb_tax, 1 if scientific name, 0 if synonym)
  #tax{taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
  
 	my $best_taxid = 0;
 	my $best_match = -1;
 	my $best_nb_tax = -1;
-	foreach my $taxid (keys %$taxids)
+	my $scientific_name = 0;
+	foreach my $taxid (sort {$a <=> $b} keys %$taxids) # use the same order of taxid to avoid choosing different taxid if best match_p and $nb_tax are identical
 	{
 		my $match = $$taxids{$taxid}[0];
 		my $nb_tax = $$taxids{$taxid}[1];
+		my $scientific_name = $$taxids{$taxid}[2];
+		my $taxon_matches_scientific_name = $$taxids{$taxid}[3];
 		if($match > $best_match)
 		{
 			$best_taxid = $taxid;
@@ -532,14 +564,65 @@ sub get_best_match_new
 		{
 			if($$tax{$taxid}[1] eq $bold_rank)
 			{
-				$best_taxid = $taxid;
-				$best_nb_tax = $nb_tax;
-				$best_match = $match;
+				if($taxon_matches_scientific_name)
+				{
+					if($scientific_name)
+					{
+						$best_taxid = $taxid;
+						$best_nb_tax = $nb_tax;
+						$best_match = $match;
+					}
+				}
 			}
 		}
 	}
  
 	return ($best_taxid, $best_match);
+
+}
+
+####################################################
+
+sub get_best_match_2025
+{
+	my ($taxids, $bold_rank_index, $tax,  $bold_ncbi_taxlevel_match, $lin) = @_; # take the taxid with the highest $match_p => same taxlevel
+
+ # tax{taxid} = (parent_tax_id	rank	name_txt	tax_rank_index)
+ # my %bold_ncbi_taxlevel_match = (0 => 8, 1 => 7, 2 => 6.5, 3 => 6, 4 => 5, 5 => 4, 6 => 3); Index in bold_lineage corresponds to taxlevel_index in %tax
+ # @{$taxids{$taxid}} = ($p, $nb_tax, $sientific_name, $match_name)
+ # $$lin[$i_bold_line] => bold lineage
+ 
+	my %tmp; # $tmp{$match_p}{$rank_diff}{$scientific_name}{$taxon_matches_scientific_name} = (taxids)
+
+		# adjust bold index to ncbi rank index
+		$bold_rank_index = $$bold_ncbi_taxlevel_match{$bold_rank_index};
+		
+	foreach my $taxid (keys %$taxids)
+	{
+		my $match_p = $$taxids{$taxid}[0];
+		my $scientific_name = $$taxids{$taxid}[2];
+		my $taxon_matches_scientific_name = $$taxids{$taxid}[3];
+		my $ncbi_rank_index = $$tax{$taxid}[3];
+		my $rank_diff = abs($bold_rank_index - $ncbi_rank_index);
+
+		push(@{$tmp{$match_p}{$rank_diff}{$scientific_name}{$taxon_matches_scientific_name}}, $taxid);
+	}
+	
+	my @match_p = reverse sort {$a <=> $b} keys  %tmp;
+	my @rank_diff = sort {$a <=> $b} keys %{$tmp{$match_p[0]}};
+	my @scientific_name = reverse sort {$a <=> $b} keys  %{$tmp{$match_p[0]}{$rank_diff[0]}};
+	my @taxon_matches_scientific_name = reverse sort {$a <=> $b} keys  %{$tmp{$match_p[0]}{$rank_diff[0]}{$scientific_name[0]}};
+	
+	my @taxids_ordered = sort {$a <=> $b} @{$tmp{$match_p[0]}{$rank_diff[0]}{$scientific_name[0]}{$taxon_matches_scientific_name[0]}};
+	if(0 and scalar @taxids_ordered > 1)
+	{
+		print "More then one equaly probable taxID\n";
+		print join(';',@$lin), "\n";
+		print Dumper(\%tmp);
+		print "\n";
+	}
+ 
+	return ($taxids_ordered[0], $match_p[0]);
 
 }
 

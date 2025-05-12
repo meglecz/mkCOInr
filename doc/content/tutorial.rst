@@ -590,12 +590,13 @@ Format BOLD sequences
 
 The :ref:`format_bold_package.pl <format_bold_package_reference>` script will
     - Select COI sequences and clean them
+    - Select sequences with out without BIN_URI according to the delete_noBIN argument
     - Eliminate identical sequences of the same lineage
     - Clean lineages and make a list with corresponding sequenceIDs
 
 .. code-block:: bash
 
-	perl scripts/format_bold_package.pl -bold_data COInr_new/bold/download/BOLD_Public.26-Apr-2024.tsv -outdir COInr_new/bold/format
+	perl scripts/format_bold_package.pl -bold_data COInr_new/bold/download/BOLD_Public.26-Apr-2024.tsv -outdir COInr_new/bold/format -delete_noBIN 1
 
 The major output is the following:
     - :ref:`bold_sequences.tsv <sequence_tsv_without_taxid_io>`

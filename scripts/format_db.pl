@@ -178,7 +178,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 	{
 		$full = $outdir.$out.'.tsv';
 		open(FAS, '>', $full) or die "Cannot open $full\n";
-		print FAS "seqID	taxon	taxID	taxlevel	superkingdom	superkingdom_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
+		print FAS "seqID	taxon	taxID	taxlevel	superkingdom	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
 	}
 	elsif($outfmt eq 'sintax')
 	{
@@ -210,7 +210,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 	my %tax_short; # $tax_short{taxid} = (name	parent_taxid	taxlevel_index	taxlevel) # taxids are the ones that appear in the ranked lineages in the selected sequences
 	@{$tax_short{0}} = ('cellularOrganisms',0,0,'cellularOrganisms'); # initialize with root
 
-	my $smallest_taxid = get_smallest_taxid(\%tax); # help to get arbitrary taxids for undef taxa in the ranked lineges; these taxids are not integrated to the %tax
+	my $smallest_taxid = get_smallest_taxid(\%tax); # help to get arbitrary taxids for undef taxa in the ranked lineages; these taxids are not integrated to the %tax
 
 	while(my $line = <IN>)
 	{

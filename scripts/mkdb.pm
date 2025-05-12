@@ -251,7 +251,7 @@ sub make_taxonomy_with_rank_levels_synonyms
 	my %merged; # $merged{taxid} = (list of old taxids)
 
 	# $tax_names{taxid}{all names} = '';
-	read_new_names_dmp_to_hash_simple($names_dump, \%tax_names);
+	read_new_names_dmp_to_hash_simple($names_dump, \%tax_names); # takes only scientific names
 	# $tax_ranked_lineage{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
 	# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
 	# $tax_ranked_lineage{taxid}[0] scientific name of the taxon
@@ -260,6 +260,8 @@ sub make_taxonomy_with_rank_levels_synonyms
 	# $tax_rank{taxid} = rank
 	read_new_nodes_dmp_to_hash($ncbi_tax_nodes, \%tax_par, \%tax_rank);
 
+	# merged dmp : merged taxid 	| valid taxid
+	# $merged{valid taxid} = (list of old taxids)
 	read_new_merged_dmp_to_hash($merged_dump, \%merged);
 
 	my $taxonomy = $outdir.'taxonomy.tsv';
@@ -433,8 +435,8 @@ sub modify_params_from_tags
 
 sub print_version
 {
-	print "####################\nmkCOInr-0.3.1\n";
-	print "Oct 28, 2024\n####################\n";
+	print "####################\nmkCOInr-0.4.0\n";
+	print "May 09, 2025\n####################\n";
 }
 
 #######################################################
@@ -752,21 +754,21 @@ sub read_taxonomy_names
 		$line =~ s/\s*$//;
 		my @line = split("\t", $line);
 
-		$$name_taxids{$line[3]}{$line[0]} = ''; #add taxid and scientific name
-		$$taxid_names{$line[0]}{$line[3]} = '';
+		$$name_taxids{$line[3]}{$line[0]} = 1; #add taxid and scientific name
+		$$taxid_names{$line[0]}{$line[3]} = 1;
 		$$name_taxids_par{$line[3]}{$line[0]} = $line[1]; # only scientific names
 		if(scalar @line > 6) # there are synonyms
 		{
 			my @syns = split(';', $line[6]);
 			foreach my $synonym (@syns)
 			{
-				$$name_taxids{$synonym}{$line[0]} = '';
-				$$taxid_names{$line[0]}{$synonym} = '';
+				$$name_taxids{$synonym}{$line[0]} = 0;
+				$$taxid_names{$line[0]}{$synonym} = 0;
 			}
 		}
 	}
 	
-	delete $$name_taxids{''}; # due to error in ncbi dmp, sometimes thara is not scientific name
+	delete $$name_taxids{''}; # due to error in ncbi dmp, sometimes there is no scientific name
 	close IN;
 
 }
