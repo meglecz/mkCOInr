@@ -59,7 +59,7 @@ my %stat;
 my $taxonomy = $outdir.'rdp_taxonomy.tsv'; # taxonomy file: tax_id  parent_tax_id   rank    name_txt        old_tax_id      taxlevel        synonyms
 my $sequence_tsv = $outdir.'rdp_sequences.tsv'; 
 
-my %taxlevel_ind = ('rootrank', 0, 'superkingdom', 1, 'phylum', 3, 'class', 4, 'subclass', 4.5, 'order', 5, 'suborder', 5.5, 'family', 6, 'genus', 7);
+my %taxlevel_ind = ('rootrank', 0, 'domain', 1, 'phylum', 3, 'class', 4, 'subclass', 4.5, 'order', 5, 'suborder', 5.5, 'family', 6, 'genus', 7);
 
 #####
 #####
@@ -86,10 +86,6 @@ while(my $line = <IN>)
 		my $taxid_par = $line[2] +1;
 #		my $taxid = $line[0]; 
 #		my $taxid_par = $line[2];
-		if($line[4] eq 'domain') # rename domain to superkingdom
-		{
-			$line[4] = 'superkingdom';
-		}
 		@{$tax{$taxid}} = ($taxid_par, $line[4], $line[1], '', $taxlevel_ind{$line[4]}); 
 	}
 }

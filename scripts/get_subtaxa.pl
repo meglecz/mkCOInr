@@ -50,7 +50,7 @@ unless(-e $outdir)
 }
 my $log = $outdir.'get_subtaxa.log';
 my %stat;
-my %taxlevel = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'superkingdom',1, '', 0, 'root', 0);
+my %taxlevel = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'domain',1, '', 0, 'root', 0);
 
 open(LOG, '>', $log) or die "Cannot open $log\n";
 my @parameters = print_params_hash_to_log(\%params, $date);

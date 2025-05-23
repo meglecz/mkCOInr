@@ -22,6 +22,25 @@ use Data::Dumper;
 #	qiime
 #	vtam
 #	full
+#	sintax
+
+# OUTPUT
+#	blast 
+#		Indexed files ready to be used as a BLAST database
+#	vtam
+#		Indexed files ready to be used as a BLAST database
+#		taxonomy.tsv adapted to VTAM (tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel)
+#	full
+#		TSV file: seqID	taxon	taxID	taxlevel	domain	domain_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence
+#	sintax
+#		# >X80725_S000004313;tax=d:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteriales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli,t:str._K-12_substr._MG1655
+#	rdp
+#		fasta file: >seqID cellularOrganisms;Eukaryota_2759;Metazoa_33208;Arthropoda_6656;Malacostraca_6681;Decapoda_6683;Paguridae_6745;Paguridae_6745_genus;Paguridae_6745_genus_species
+#		taxonomy file: taxid*name*parent_taxid*taxlevel_index*taxlevel
+#	qiime
+#		fasta file: >seqID
+#		taxonomy file: 229854	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Legionellales; f__Legionellaceae; g__Legionella; s__	
+
 
 ###############################
 ###############################
@@ -144,22 +163,11 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 	my %new_names; # $new_names{name} = taxid # new names are the undef_xxx names for the missing taxlevels
 	read_taxonomy_local($taxonomy, \%tax);
 	#####
-	# temporary patch, since in taxonomy.tsv the taxID 0 is attributed to Acanthogyrus_cheni
-		my $patch_taxid = 0;
+	# temporary patch, since in taxonomy.tsv the taxID 0 is attributed to Acanthogyrus_cheni => Corrected, it is not needed anymore
 		if(exists $tax{0} and $tax{0}[3] != 0) # taxid 0 is attributed something else then root
 		{
-			my $smallest_taxid = get_smallest_taxid(\%tax);
-			$patch_taxid = $smallest_taxid -1;
-			$tax{$patch_taxid} = $tax{0};
-			delete $tax{0};
-			foreach my $taxid (keys %tax)
-			{
-				if($tax{$taxid}[0] == 0) # replace the eventual taxparent 0 by  the new
-				{
-					$tax{$taxid}[0] = $patch_taxid;
-				}
-			}
-#			print Dumper($tax{$patch_taxid});
+			print "TaxID 0 is attributed to non-root taxon; Regenerate the taxonomy.tsv file with up to date scripts of mkCOInr\n";
+			exit;
 		}
 	####
 	print LOG "Runtime: ", time - $t, "s \n";
@@ -178,7 +186,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 	{
 		$full = $outdir.$out.'.tsv';
 		open(FAS, '>', $full) or die "Cannot open $full\n";
-		print FAS "seqID	taxon	taxID	taxlevel	superkingdom	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
+		print FAS "seqID	taxon	taxID	taxlevel	domain	domain_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence\n";
 	}
 	elsif($outfmt eq 'sintax')
 	{
@@ -204,7 +212,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 	}
 
 
-	open(IN, $tsv) or die "Cannot open $tsv\n";
+	open(IN, $tsv) or die "Cannot open $tsv\n"; # seqId	yaxID	sequence
 	my $title = <IN>;
 	my %taxid_ranked_lin; # taxid_ranked_lin{taxid} = ranked lineage # list of taxids of the selected sequences
 	my %tax_short; # $tax_short{taxid} = (name	parent_taxid	taxlevel_index	taxlevel) # taxids are the ones that appear in the ranked lineages in the selected sequences
@@ -219,16 +227,17 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 		my @line = split("\t", $line);
 		my $taxid = $line[1];
 		
-		##### patch to correct the fact that in taxonomy, the taxID 0 is attributed to non-root
-		if($taxid == 0)
-		{
-			$taxid = $patch_taxid;
-		}
-		####
 
 		unless(exists $taxid_ranked_lin{$taxid}) # taxid is new => get ranked lineage
 		{
 			my @lin = get_lineage_list($taxid, \%tax, 0); # list of taxids in the lineage
+			
+			#### Eliminate taxa that are not Eukariota, Bacteria or Archaea
+			my $bool = ckeck_if_cellular_organism(\@lin);
+			unless($bool)
+			{
+				next;
+			}
 			my $ranked_lin = '';
 			# identify major taxlevel in lineages, fill empty taxlevels with undef_higher_level_taxon, get taxid for them
 			# make a hash with taxids used in the ranked lienages
@@ -241,7 +250,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 			#>seqID cellularOrganisms;Eukaryota_2759;Metazoa_33208;Bryozoa_10205;Gymnolaemata_10206;Cheilostomatida_10207;Adeonidae_558780;Reptadeonella_2576536;Reptadeonella_violacea_-35055
 			print FAS ">$line[0] $taxid_ranked_lin{$taxid}\n$line[2]\n"; 
 		}
-		if($outfmt eq 'sintax') # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		if($outfmt eq 'sintax') # 
 		{
 			# >X80725_S000004313;tax=k:Bacteria,p:Proteobacteria,c:Gammaproteobacteria,o:Enterobacteriales,f:Enterobacteriaceae,g:Escherichia/Shigella,s:Escherichia_coli
 			print FAS ">$line[0]",";tax=", "$taxid_ranked_lin{$taxid}\n$line[2]\n"; 
@@ -281,7 +290,7 @@ elsif($outfmt eq 'rdp' or $outfmt eq 'qiime' or $outfmt eq 'full' or $outfmt eq 
 }
 else
 {
-	print "Un expected value for outmft. Select one of the followinf options: blast, rdp, qiime, full\n";
+	print "Unexpected value for outmft. Select one of the followinf options: blast, rdp, qiime, full, sintax\n";
 	exit;
 }
 ####
@@ -294,6 +303,21 @@ close LOG;
 
 exit;
 
+#############################################
+
+sub ckeck_if_cellular_organism
+{
+	my ($lineage_taxids) = @_;
+	# @$lineage_taxids list of taxids in the lineage, ending in celloar organism (131567)
+	#### Eliminate taxa that are not Eukariota, Bacteria or Archaea
+	
+	my $domain_taxid = $$lineage_taxids[-2];
+	if($domain_taxid != 2 and $domain_taxid != 2157 and $domain_taxid != 2759)
+	{
+		return 0;
+	}
+	return 1;
+}
 
 #############################################
 sub get_rdp_ranked_lin_from_tax
@@ -305,7 +329,12 @@ sub get_rdp_ranked_lin_from_tax
 	# $tax_short{taxid} = (name	parent_taxid	taxlevel_index	taxlevel) # taxids are the one that apprear in the rankes lineages in the selected sequences
 
 	
-	my %ranks = (0, 'root',1, 'superkingdom',2, 'kingdom',3, 'phylum',4, 'class',5, 'order',6, 'family',7, 'genus',8, 'species');
+	my %ranks = (0, 'root',1, 'domain',2, 'kingdom',3, 'phylum',4, 'class',5, 'order',6, 'family',7, 'genus',8, 'species');
+	my $sep = '_'; # serapator between taxon name and taxid
+	if($outfmt eq 'full')
+	{
+		$sep = ';';
+	}
 
 
 	my @ranked_lin_taxid = (0, '', '', '', '', '', '', '', '');
@@ -318,65 +347,43 @@ sub get_rdp_ranked_lin_from_tax
 		$lin{$$tax{$taxid}[3]} = $taxid;
 	}
 	
-	# select the taxid of the major taxlevel
-	if(0)
-	{
-		foreach my $taxid (@$lin)
-		{
-			my $taxlevel = $$tax{$taxid}[3];
-			if($taxlevel == int($taxlevel) and $taxlevel >= 1) # taxlevel index is an integer
-			{
-				$ranked_lin_taxid[$taxlevel] = $taxid;
-				$ranked_lin_name[$taxlevel] = $$tax{$taxid}[2].'_'.$taxid;
-				$ranked_lin_name[$taxlevel] =~ s/ *\(.*//;
-				$ranked_lin_name[$taxlevel] =~ s/ /_/g;
-				@{$$tax_short{$taxid}} = ($ranked_lin_name[$taxlevel], $ranked_lin_taxid[$taxlevel-1], $taxlevel, $ranks{$taxlevel}); # complete hash for the rdp taxonomy file
-			}
-		}
-	}
-	
-	
+
 	# complete the taxelevels WO names and add new names to %tax and %new_names
 	for(my $i = 1; $i < scalar @ranked_lin_taxid; ++$i)
 	{
-		if(exists $lin{$i}) # there is a taxid in the @lin with the correct taxlevel
+		if(exists $lin{$i}) # there is a taxid in the @lin with the correct major taxlevel
 		{
 			my $taxid = $lin{$i};
+			# define taxid for a tax level
 			$ranked_lin_taxid[$i] = $taxid;
-			if($outfmt eq 'full')
-			{
-				$ranked_lin_name[$i] = $$tax{$taxid}[2].';'.$taxid;
-			}
-			else
-			{
-				$ranked_lin_name[$i] = $$tax{$taxid}[2].'_'.$taxid;
-			}
-			$ranked_lin_name[$i] =~ s/ *\(.*//;
+			# name is a concat of name and taxid
+			$ranked_lin_name[$i] = $$tax{$taxid}[2].$sep.$taxid;
 			$ranked_lin_name[$i] =~ s/ /_/g;
 			@{$$tax_short{$taxid}} = ($ranked_lin_name[$i], $ranked_lin_taxid[$i-1], $i, $ranks{$i}); # complete hash for the rdp taxonomy file
 		} 
 		else
 		{
-			my $name = $ranked_lin_name[$i-1].'_'.$ranks{$i}; # add to previous_taxname the taxlevel
-			$name =~ s/ /_/g;
-			my $tid = 0;
-			if(exists $$new_names{$name})
-			{
-				$tid = $$new_names{$name};
-			}
-			else
-			{
-				--$smallest_taxid;
-				$tid = $smallest_taxid;
-				$$new_names{$name} = $tid;
-			}
+				my $name = $ranked_lin_name[$i-1].'_'.$ranks{$i}; # add to previous_taxname_taxid the taxlevel
+				$name =~ s/ /_/g;
+				my $tid = 0;
+				# get taxid
+				if(exists $$new_names{$name}) # those are artifical names created from previous name with current taxlevel
+				{
+					$tid = $$new_names{$name};
+				}
+				else
+				{
+					--$smallest_taxid;
+					$tid = $smallest_taxid;
+					$$new_names{$name} = $tid;
+				}
 
-			$ranked_lin_taxid[$i] = $tid;
-			$ranked_lin_name[$i] = $name;
-			@{$$tax_short{$tid}} = ($name, $ranked_lin_taxid[$i-1], $i, $ranks{$i}); # complete hash for the rdp taxonomy file
+				$ranked_lin_name[$i] = $name;
+				$ranked_lin_taxid[$i] = $tid;
+				@{$$tax_short{$tid}} = ($name, $ranked_lin_taxid[$i-1], $i, $ranks{$i}); # complete hash for the rdp taxonomy file
 		}
 	}
-	
+
 	my $ranked_lin;
 	
 	### make $ranked_lin if the appropiate format
@@ -403,6 +410,11 @@ sub get_rdp_ranked_lin_from_tax
 		# add letters reffereing to the taxlevel
 		for(my $i = 0; $i< scalar @ranked_lin_name; ++$i)
 		{
+			if($outfmt eq 'sintax') # sitnax cannot accept names with parentheses, or non_alphanumeric characteres
+			{
+				$ranked_lin_name[$i] =~ s/\(.*\)//;
+				$ranked_lin_name[$i] =~ s/[^0-9a-zA-Z_]//g;
+			}
 			$ranked_lin_name[$i] = $temp_t{$i}.$ranked_lin_name[$i];
 		}
 		# delete last unvalid taxa
@@ -431,23 +443,31 @@ sub get_rdp_ranked_lin_from_tax
 	}
 	else # full
 	{
-		my %temp_tl = (0 => 'superkingdom', 1 => 'kingdom', 2 => 'phylum', 3 => 'class',4 => 'order',5 => 'family',6 => 'genus',7 => 'species');
-		
+		my %temp_tl = (0 => 'domain', 1 => 'kingdom', 2 => 'phylum', 3 => 'class',4 => 'order',5 => 'family',6 => 'genus',7 => 'species');
 		splice(@ranked_lin_name, 0, 1); # Delete the highest level (cellular organism)
-		for(my $i = 7; $i >0; --$i)
+		for(my $i = 7; $i >0; --$i) # delete unknown low level taxa
 		{
-			if($ranked_lin_name[$i] =~ /$temp_tl{$i}$/) # last taxlevel is made from the name of a higher level taxa (e.g. Parnassius_species)
+			if($ranked_lin_name[$i] =~ /$temp_tl{$i}$/) # last taxlevel is made from the name of a higher level taxa (e.g. Parnassius;52884_species)
 			{
-				$ranked_lin_name[$i] = ';';
+				$ranked_lin_name[$i] = 'NA;NA';
 			}
 			else # stop if a valid name has been found
 			{
 				last;
 			}
 		}
+		for(my $i = 7; $i >0; --$i) # simplify name # intermediate taxlevel is made from the name of a higher level taxa (e.g. Parnassius;52884_species)
+		{
+			if($ranked_lin_name[$i] =~ /$temp_tl{$i}$/) # delete taxid and taxlevel 
+			{
+				$ranked_lin_name[$i] =~ s/[-0-9]+.+//;
+				$ranked_lin_name[$i] =~ s/;/_$temp_tl{$i};NA/ # add taxlevel and NA instead of taxid
+			}
+		}
 		$ranked_lin = join ("\t", @ranked_lin_name);
 		$ranked_lin =~ s/;/\t/g; # separate taxids and taxon names
 	}
+
 	return ($ranked_lin,  $smallest_taxid);
 }
 
@@ -457,8 +477,14 @@ sub get_smallest_taxid
 {
 	my ($tax) = @_;
 	
+
 	my @l = sort {$a <=> $b} keys %$tax;
-	return $l[0];
+	my $t =  $l[0];
+	if($l[0] == 1) # Do not use 0 as a taxid, if it has not been defined# in COInr there is no 0 as taxid
+	{
+		$t = 0
+	}
+	return $t;
 }
 
 #############################################

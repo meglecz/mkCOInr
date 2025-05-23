@@ -14,7 +14,7 @@ use Data::Dumper;
 # - rank
 # - name_txt
 # - old_tax_id (taxIDs merged to another taxID, so not valid anymore, but occasionally still present in ncbi flatfiles)
-# - taxlevel (8:species, 7:genus, 6:family, 5:order, 4:class, 3:phylum, 2:kingdom, 1:superkingdom; x.5 for levels between major taxonomic levels e.g. 5.5 for infra-orger or superfamily)
+# - taxlevel (8:species, 7:genus, 6:family, 5:order, 4:class, 3:phylum, 2:kingdom, 1:domain; x.5 for levels between major taxonomic levels e.g. 5.5 for infra-orger or superfamily)
 # - list of synonymes separated by ;
 
 

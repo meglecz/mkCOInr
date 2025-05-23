@@ -32,7 +32,7 @@ my %params = (
 'outdir' =>  '',
 'out' => '',
 'negative_list' => 0, # if 1 keep all taxa except the ones on the taxon list 
-'min_taxlevel' => 'root', #species/genus/family/order/class/phylum/kingdom/superkingdom/root
+'min_taxlevel' => 'root', #species/genus/family/order/class/phylum/kingdom/domain/root
 );
 
 modify_params_from_tags(\%params, \@ARGV);
@@ -63,7 +63,7 @@ my $log = $outdir.'select_taxa.log';
 my %stat;
 $out = $outdir.$out; 
 my $out_lin = $outdir.'taxa_with_lineages.tsv';
-my %taxlevel = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'superkingdom',1, '', 0, 'root', 0);
+my %taxlevel = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'domain',1, '', 0, 'root', 0);
 my $min_taxlevel_index = $taxlevel{$min_taxlevel};
 
 open(LOG, '>', $log) or die "Cannot open $log\n";
@@ -108,7 +108,7 @@ if($taxon_list) # if select for taxon list
 	open(IN, $taxon_list) or die "Cannot open $taxon_list\n";
 	my $title = <IN>;
 	open(LIN, '>', $out_lin) or die "Cannot open $out_lin\n";
-	print LIN "taxon	taxID	homonymy	number of sequences	superkingdom	kingdom	phylum	class	order	family	genus	species\n";
+	print LIN "taxon	taxID	homonymy	number of sequences	domain	kingdom	phylum	class	order	family	genus	species\n";
 	
 	### get all taxids that correspond to the taxon names in the input file
 	while(my $line = <IN>) 

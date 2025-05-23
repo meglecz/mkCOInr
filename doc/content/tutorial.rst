@@ -240,7 +240,7 @@ Select sequences from existing database
 Select sequences for a list of taxa with a minimum taxonomic rank
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sequences can be selected for a list of taxa and/or for a minimum taxonomic level (species/genus/family/order/class/phylum/kingdom/superkingdom/root)
+Sequences can be selected for a list of taxa and/or for a minimum taxonomic level (species/genus/family/order/class/phylum/kingdom/domain/root)
 
 The input file (:ref:`-taxon_list <taxon_list_io>`) contains a list of taxa and eventually their taxIDs (see example data/example/taxon_list.tsv). 
 

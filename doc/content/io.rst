@@ -39,7 +39,7 @@ tsv file with the following columns:
 
 	tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel	synonyms
 	1	1	no rank	root		0	
-	2	131567	superkingdom	Bacteria		1	Prokaryotae;Prokaryota;Procaryotae
+	2	131567	domain	Bacteria		1	Prokaryotae;Prokaryota;Procaryotae
 	6	335928	genus	Azorhizobium		7	
 	7	6	species	Azorhizobium caulinodans	395	8	Azotirhizobium caulinodans
 	-34968	2778801	subfamily	Callithamnioideae		6.5	
@@ -204,7 +204,7 @@ tsv file with the following columns:
     - taxID
     - homonymy
     - number of sequences
-    - superkingdom
+    - domain
     - kingdom
     - phylum
     - class
@@ -216,7 +216,7 @@ tsv file with the following columns:
 
 .. code-block:: bash
 
-	taxon	taxID	homonymy	number of sequences	superkingdom	kingdom	phylum	class	order	family	genus	species
+	taxon	taxID	homonymy	number of sequences	domain	kingdom	phylum	class	order	family	genus	species
 	Abylidae	316207	0	33	Eukaryota	Metazoa	Cnidaria	Hydrozoa	Siphonophorae	Abylidae		
 
 
@@ -288,7 +288,7 @@ tsv file with the following columns:
     - subfamily
     - genus
     - species
-    - ncbi_superkingdom
+    - ncbi_domain
     - ncbi_kingdom
     - ncbi_phylum
     - ncbi_class
@@ -301,7 +301,7 @@ tsv file with the following columns:
 
 .. code-block:: bash
 
-	match_lineage_proportion	ncbi_taxname	ncbi_taxlevel	ncbi_TaxID	phylum	class	order	family	subfamily	genus	species	ncbi_superkingdom	ncbi_kingdom	ncbi_phylum	ncbi_class	ncbi_order	ncbi_family	ncbi_genus	ncbi_species	ncbi_taxname	seqIDs
+	match_lineage_proportion	ncbi_taxname	ncbi_taxlevel	ncbi_TaxID	phylum	class	order	family	subfamily	genus	species	ncbi_domain	ncbi_kingdom	ncbi_phylum	ncbi_class	ncbi_order	ncbi_family	ncbi_genus	ncbi_species	ncbi_taxname	seqIDs
 	0.4	Bolbophorus	genus	186184	Platyhelminthes	Trematoda	Diplostomida	Diplostomidae	Bolbophorinae	Bolbophorus		Eukaryota	Metazoa	Platyhelminthes	Trematoda	Strigeidida	Bolbophoridae	Bolbophorus		Bolbophorus	12416284;9942141;15268484;12416286;12416287;12416283;12417832;3490428;12417833;5993483;12416282;12416285;12416280;12416281
 	0.33	Sylon hippolytes	species	399056	Arthropoda	Hexanauplia		Clistosaccidae		Sylon	Sylon hippolytes	Eukaryota	Metazoa	Arthropoda	Thecostraca		Sylonidae	Sylon	Sylon hippolytes	Sylon hippolytes	2631808;2631807;2631809;2631789;2631806;2631805
 
@@ -410,8 +410,8 @@ The sequence tsv and the taxonomy files can be formatted by :ref:`format_db.pl<f
     - taxon
     - taxID
     - taxlevel
-    - superkingdom
-    - superkingdom_taxID
+    - domain
+    - domain_taxID
     - kingdom
     - kingdom_taxID
     - phylum
@@ -429,7 +429,7 @@ The sequence tsv and the taxonomy files can be formatted by :ref:`format_db.pl<f
 
 .. code-block:: bash
 
-	seqID	taxon	taxID	taxlevel	superkingdom	superkingdom_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence
+	seqID	taxon	taxID	taxlevel	domain	domain_taxID	kingdom	kingdom_taxID	phylum	phylum_taxID	class	class_taxID	order	order_taxID	family	family_taxID	genus	genus_taxID	species	species_taxID	sequence
 	5423724	Aspidoscopulia australia	1001026	8	Eukaryota	2759	Metazoa	33208	Porifera	6040	Hexactinellida	60882	Hexactinosida	98040	Farreidae	98041	Aspidoscopulia	999811	Aspidoscopulia_australia1001026	GGATCTCTATTAGAAGACGACCACACCTATAACGTTGTAGTTACAGCTCACGC...
 
 
@@ -489,7 +489,7 @@ Fasta file with the definition as follows
 
 .. code-block:: bash
 
-	>seqID cellularOrganisms;superkingdom_taxID;kingdom_taxID;phylum_taxID;class_taxID;order_taxID;family_taxID;genus_taxID;species_taxID
+	>seqID cellularOrganisms;domain_taxID;kingdom_taxID;phylum_taxID;class_taxID;order_taxID;family_taxID;genus_taxID;species_taxID
 
 
 Negative taxIDs are allowed
@@ -513,7 +513,7 @@ file with the following columns separated by stars:
     - taxID
     - taxon_name_taxID
     - parent taxID
-    - taxonomic rank index ('root',1, 'superkingdom',2, 'kingdom',3, 'phylum',4, 'class',5, 'order',6, 'family',7, 'genus',8, 'species')
+    - taxonomic rank index ('root',1, 'domain',2, 'kingdom',3, 'phylum',4, 'class',5, 'order',6, 'family',7, 'genus',8, 'species')
     - taxonomic rank 
 
 Negative taxIDs are allowed.
@@ -588,7 +588,7 @@ Taxonomy file with the following columns:
 
 	tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel
 	1	1	no rank	root		0
-	2	131567	superkingdom	Bacteria		1
+	2	131567	domain	Bacteria		1
 	6	335928	genus	Azorhizobium		7
 	7	6	species	Azorhizobium caulinodans	395	8
 	9	32199	species	Buchnera aphidicola	28241	8

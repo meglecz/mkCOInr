@@ -55,3 +55,8 @@ Version 0.4.0 (09 May, 2025)
             - then prefer a valid scientific name if choice between synonyms and scientific names
             - taxon name in BOLD mathcing a scientific name of the taxid (for homotypic synomyms it is possible to have different scientific names)
 
+Version 0.5.0 (23 May, 2025)
+
+    - download_taxonomy.pl, format_db.pl, add_taxids.pl
+    
+        adapt script to use domain with tax_rank_index 1, instead of superkingdom

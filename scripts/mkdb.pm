@@ -181,34 +181,6 @@ sub get_lowest_correct_latin_name
 	return $taxid;
 }
 
-##############################################
-
-sub get_taxlevel
-{
-	my ($taxid, $tax_ranked_lineage, $tax_rank) = @_;
-	#my %tax_ranked_lineage =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-	my $taxlevel = 0;
-	
-	my %hash = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'superkingdom',1); # numerical score for each majot tax level
-	my %hash2 = (0=>9, 1=>8, 2 => 7,  3=> 6, 4=> 5, 5=> 4,  6=>3 , 7=> 2, => 8, => 1,  9=> 0); # transform position in @{$ranked_lin{taxid}} => to numerical score
-
-	if(exists $hash{$$tax_rank{$taxid}}) # get numerical score for major taxlevels
-	{
-		$taxlevel =  $hash{$$tax_rank{$taxid}};
-	}
-	else # taxlevel between major taxlevels => get an itermediate score (e.g. 7.5 for taxa between genus and species, 8.5 for bellow species)
-	{
-		for(my $i = 1; $i < 9; ++$i)
-		{
-			if($$tax_ranked_lineage{$taxid}[$i])
-			{
-				$taxlevel = $hash2{$i} + 0.5;
-				last;
-			}
-		}
-	}
-	return $taxlevel;
-}
 
 ##############################################
 sub make_ranked_lineage
@@ -238,30 +210,24 @@ sub make_taxonomy_with_rank_levels_synonyms
 	# tax_id	parent_tax_id	rank	name_txt	old_tax_id(taxIDs merged to another)	taxlevel	list of all names corresponding to the taxid
 	# one extra line per merged taxids (old_tax_id)
 	
-	my $ncbi_tax_rankedlin = $ncbitax_dir.'rankedlineage.dmp';
+#	my $ncbi_tax_rankedlin = $ncbitax_dir.'rankedlineage.dmp';
+	my $ncbi_tax_taxidlineage = $ncbitax_dir.'taxidlineage.dmp';
 	my $ncbi_tax_nodes = $ncbitax_dir.'nodes.dmp';
 	my $merged_dump = $ncbitax_dir.'merged.dmp';
 	my $names_dump = $ncbitax_dir.'names.dmp';
-	
-	my %tax_names; # $tax_names{taxid}{all names} = '';
+	# from names.dmp
+	my %taxid_names; # $taxid_names{taxid}{all names} = '';
+	my $scientific_names; # $scientific_names{taxid} = scientific_name
+	read_new_names_dmp_to_hash_all_and_sci($names_dump, \%taxid_names, \%scientific_names);
+	# from nodes.dmp
 	my %tax_par; # $tax_par{taxid} = taxid parent
 	my %tax_rank; # $tax_rank{taxid} = rank
-	my %tax_ranked_lineage; # $ranked_lineage{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-							# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
-	my %merged; # $merged{taxid} = (list of old taxids)
-
-	# $tax_names{taxid}{all names} = '';
-	read_new_names_dmp_to_hash_simple($names_dump, \%tax_names); # takes only scientific names
-	# $tax_ranked_lineage{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-	# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
-	# $tax_ranked_lineage{taxid}[0] scientific name of the taxon
-	read_ncbitax_rankedlin($ncbi_tax_rankedlin, \%tax_ranked_lineage);
-	# $tax_par{taxid} = taxid parent
-	# $tax_rank{taxid} = rank
 	read_new_nodes_dmp_to_hash($ncbi_tax_nodes, \%tax_par, \%tax_rank);
+	# from taxidlineage.dmp
+	my %taxid_full_lineage_id; # $taxid_full_lineage_id{taxid} = (list of taxids starting from the most distant)
+	read_new_taxidlineage_dmp_to_hash($ncbi_tax_taxidlineage, \%taxid_full_lineage_id);
 
-	# merged dmp : merged taxid 	| valid taxid
-	# $merged{valid taxid} = (list of old taxids)
+	my %merged; # $merged{taxid} = (list of old taxids)
 	read_new_merged_dmp_to_hash($merged_dump, \%merged);
 
 	my $taxonomy = $outdir.'taxonomy.tsv';
@@ -275,21 +241,21 @@ sub make_taxonomy_with_rank_levels_synonyms
 	
 	foreach my $taxid (sort {$a <=> $b} keys %tax_rank)
 	{
-		my $taxlevel = get_taxlevel($taxid, \%tax_ranked_lineage, \%tax_rank);
-		my $sci_name = $tax_ranked_lineage{$taxid}[0];
+		my $taxlevel = get_taxlevel_from_full_lineage_ids($taxid, \%taxid_full_lineage_id, \%tax_rank);
+		my $sci_name = $scientific_names{$taxid};
 		
-		delete $tax_names{$taxid}{$sci_name};  # eliminate the scientific name from the synonyms
+		delete $taxid_names{$taxid}{$sci_name};  # eliminate the scientific name from the synonyms
 
 		if(exists $merged{$taxid})
 		{
 			foreach my $old_taxid (@{$merged{$taxid}})
 			{
-				print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$sci_name	$old_taxid	$taxlevel	",join(';', keys %{$tax_names{$taxid}}),"\n";
+				print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$sci_name	$old_taxid	$taxlevel	",join(';', keys %{$taxid_names{$taxid}}),"\n";
 			}
 		}
 		else
 		{
-			print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$sci_name		$taxlevel	",join(';', keys %{$tax_names{$taxid}}),"\n";
+			print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$sci_name		$taxlevel	",join(';', keys %{$taxid_names{$taxid}}),"\n";
 		}
 	}
 
@@ -297,62 +263,52 @@ sub make_taxonomy_with_rank_levels_synonyms
 	
 	return $taxonomy
 }
+
 ##############################################
 
-sub make_taxonomy_with_rank_levels
+sub get_taxlevel_from_full_lineage_ids
 {
-	my ($ncbitax_dir, $outdir, $motif) = @_;
+	my ($taxid, $taxid_full_lineage_id, $tax_rank) = @_;
+	# $taxid_full_lineage_id{taxid} = (list of taxids starting from the most distant)
+	# tax_rank{taxid} = tax_rank
 	
-	# output is a taxonomy file with the following columns:
-	# tax_id	parent_tax_id	rank	name_txt	old_tax_id(taxIDs merged to another)	taxlevel
-	# one extra line per merged taxids (old_tax_id)
+
 	
-	my $ncbi_tax_rankedlin = $ncbitax_dir.'rankedlineage.dmp';
-	my $ncbi_tax_nodes = $ncbitax_dir.'nodes.dmp';
-	my $merged_dump = $ncbitax_dir.'merged.dmp';
-	
-	my %tax_par; # $tax_par{taxid} = taxid parent
-	my %tax_rank; # $tax_rank{taxid} = rank
-	my %tax_ranked_lineage; # $ranked_lineage{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-							# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
-	my %merged; # $merged{taxid} = (list of old taxids)
+	my %hash = ('species',8,'genus',7,'family',6,'order',5,'class',4,'phylum',3,'kingdom',2,'domain',1); # numerical score for each majot tax level
 
-	# $tax_ranked_lineage{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-	# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
-	# $tax_ranked_lineage{taxid}[0] scientific name of the taxon
-	read_ncbitax_rankedlin($ncbi_tax_rankedlin, \%tax_ranked_lineage);
-	# $tax_par{taxid} = taxid parent
-	# $tax_rank{taxid} = rank
-	read_new_nodes_dmp_to_hash($ncbi_tax_nodes, \%tax_par, \%tax_rank);
-
-	read_new_merged_dmp_to_hash($merged_dump, \%merged);
-
-	my $taxonomy = $outdir.'taxonomy.tsv';
-	if($motif)# add motif to filename
+	my $taxlevel;
+	my $rank = $$tax_rank{$taxid};
+	if(exists $hash{$rank}) # Taxid is at a major taxlevel
 	{
-		$taxonomy =~ s/\.tsv/$motif.tsv/;
+		$taxlevel =  $hash{$rank};
+		return $taxlevel;
 	}
-
-	open(OUT, '>', $taxonomy) or die "Cannot open $taxonomy\n";
-	print OUT "tax_id	parent_tax_id	rank	name_txt	old_tax_id	taxlevel\n";
-	foreach my $taxid (sort {$a <=> $b} keys %tax_rank)
+	
+	# taxid is intermediate level
+	my @lin_ids = reverse @{$$taxid_full_lineage_id{$taxid}}; # full lineage by taxid, starting with the lowes (closest) rank
+	for(my $i = 0; $i< scalar @lin_ids; ++$i)
 	{
-		my $taxlevel = get_taxlevel($taxid, \%tax_ranked_lineage, \%tax_rank);
-		if(exists $merged{$taxid})
+		$rank = $$tax_rank{$lin_ids[$i]};
+		if(exists $hash{$rank})
 		{
-			foreach my $old_taxid (@{$merged{$taxid}})
-			{
-				print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$tax_ranked_lineage{$taxid}[0]	$old_taxid	$taxlevel\n";
-			}
-		}
-		else
-		{
-			print OUT "$taxid	$tax_par{$taxid}	$tax_rank{$taxid}	$tax_ranked_lineage{$taxid}[0]		$taxlevel\n";
+			$taxlevel =  $hash{$rank} + 0.5;
+			return $taxlevel;
 		}
 	}
-	close OUT;
-	return $taxonomy
+
+# No taxlevel has been defined => it is euther root, or taxa out of the 3 domains (virus, synthetic sequnece etc.)
+	if($taxid == 1)# root
+	{
+		$taxlevel = 0;
+	}
+	else
+	{
+		$taxlevel = 0.5;
+	}
+	return $taxlevel;
 }
+
+
 #######################################################
 sub modify_params_from_tags_orig
 {
@@ -435,8 +391,8 @@ sub modify_params_from_tags
 
 sub print_version
 {
-	print "####################\nmkCOInr-0.4.0\n";
-	print "May 09, 2025\n####################\n";
+	print "####################\nmkCOInr-0.5.0\n";
+	print "May 23, 2025\n####################\n";
 }
 
 #######################################################
@@ -509,29 +465,6 @@ sub read_fasta_to_hash
 	return %hash;
 }
 
-#########################################################
-sub read_ncbitax_rankedlin
-{
-my ($file, $ranked_lin) = @_;
-# $ranked_lin{taxid} =  (tax_name,species,genus,family,order,class,phylum,kingdom,superkingdom)
-# taxname is a scietific name of the taxid, there is allways one but only one scientific name for the taxon
-
-	unless(open(IN, $file))
-	{
-		print "Cannot open $file\n";
-	}
-
-	while(my $line = <IN>)
-	{
-		chomp $line;
-		$line =~ s/\s$//;
-		$line =~  s/\t\|//g;
-		my @line = split("\t", $line);
-		my $taxid = shift@line;
-		@{$$ranked_lin{$taxid}} = @line;
-	}
-	close IN;
-}
 
 #############################################
 sub read_new_merged_dmp_to_hash
@@ -607,6 +540,41 @@ close IN;
 }
 
 #############################################
+sub read_new_names_dmp_to_hash_all_and_sci
+{
+my ($file, $taxid_names, $scientific_names) = @_;
+
+	# $taxid_names{taxid}{all names} = ''
+	# $scientific_names{taxid} = scientific_name
+
+unless(open(IN, $file))
+{
+	print "Cannot open $file\n";
+}
+
+while(my $line = <IN>)
+{
+	chomp $line;
+	$line =~ s/\s$//;
+	$line =~  s/\t\|//g;
+	my @line = split("\t", $line);
+
+	my $taxid = $line[0];
+	$$taxid_names{$taxid}{$line[1]} = '';
+	if($line[3] eq 'scientific name')
+	{
+		if(exists $$scientific_names{$taxid})
+		{
+			print "$taxid has more thn one scientific name\n";
+		}
+		$$scientific_names{$taxid} = $line[1];
+	}
+}
+
+close IN;
+}
+
+#############################################
 sub read_new_nodes_dmp_to_hash
 {
 my ($file, $par, $rank) = @_;
@@ -636,6 +604,7 @@ close IN;
 	
 sub read_new_taxidlineage_dmp_to_hash
 {
+
 	my ($file, $taxid_full_lineage_id) = @_;
 # $taxid_full_lineage_id{taxid} = (list of taxids starting from the most distant)
 

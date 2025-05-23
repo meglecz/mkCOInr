@@ -206,7 +206,7 @@ foreach my $taxid (keys %tax)
 	unshift(@lin, $tax{$taxid}[2]);
 	@{$tax_ranked_lineage{$taxid}} = @lin;
 }
-%taxid_full_lineage_id = ();  # delete hash.We dod not need it anymore.
+%taxid_full_lineage_id = ();  # delete hash.We do not need it anymore.
 
 print LOG "Runtime: ", time - $t, "s \n";
 $t = time;
@@ -276,7 +276,7 @@ foreach my $taxon (sort keys %taxa)
 			foreach my $taxid (keys %{$name_taxids{$taxon}})
 			{
 				my $lineage = get_linenage(\%tax_ranked_lineage, \%tax, \@ranks, $taxid);
-				$lineage =~ s/\t[^\t]*$/\t$taxon_orig/; # replace the shortenned name to the original taxon name
+				$lineage =~ s/\t[^\t]*$/\t$taxon_orig/; # replace the shortened name to the original taxon name
 				$lineage .= "\t".$homonym;
 				push(@{$lin{$taxon_orig}}, $lineage); # If homonymy there can be more than one lineages
 			}

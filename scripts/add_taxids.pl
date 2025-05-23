@@ -99,8 +99,8 @@ open(LOG, '>', $log) or die "Cannot open $log\n";
 my @parameters = print_params_hash_to_log(\%params, $date);
 print LOG join("\n", @parameters), "\n";
 
-my %ncbi_ranked_tax_index = ('ncbi_taxname' => 0, 'species' => 1,'genus' => 2,'family' => 3,'order' => 4,'class' => 5,'phylum' => 6,'kingdom' => 7,'superkingdom' => 8);
-my @ncbi_ranked_tax = ('ncbi_taxname', 'ncbi_species','ncbi_genus','ncbi_family','ncbi_order','ncbi_class','ncbi_phylum','ncbi_kingdom','ncbi_superkingdom');
+my %ncbi_ranked_tax_index = ('ncbi_taxname' => 0, 'species' => 1,'genus' => 2,'family' => 3,'order' => 4,'class' => 5,'phylum' => 6,'kingdom' => 7,'domain' => 8);
+my @ncbi_ranked_tax = ('ncbi_taxname', 'ncbi_species','ncbi_genus','ncbi_family','ncbi_order','ncbi_class','ncbi_phylum','ncbi_kingdom','ncbi_domain');
 my %stat;
 ####
 

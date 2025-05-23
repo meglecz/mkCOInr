@@ -6,7 +6,7 @@ Glossary
 ranked lineage
 ------------------------------------------------
 
-Taxonomic lineage of a taxon, containing the major taxonomic ranks: superkingdom, kingdom, phylum, class, order, family, genus, species
+Taxonomic lineage of a taxon, containing the major taxonomic ranks: domain, kingdom, phylum, class, order, family, genus, species
 
 .. _seqid_glossary:
 
@@ -39,7 +39,7 @@ taxlevel index
 
 Integer associated to a major taxonomic rank.
 
-0 => root, 1=> superkingdom, 2=> kingdom, 3=> phylum, 4=> class, 5=> order, 6=> family, 7=> genus, 8=> species
+0 => root, 1=> domain, 2=> kingdom, 3=> phylum, 4=> class, 5=> order, 6=> family, 7=> genus, 8=> species
 
 Levels in between have 0.5 added to the next highest level (e.g. 5.5 for infraorder and for superfamily).
 
